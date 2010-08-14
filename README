@@ -1,0 +1,45 @@
+ALIVE
+Abstract Layer for Immersive Virtual Environments
+
+INTRODUCTION
+
+ALIVE is both an abstract library and a collection of backends,
+to be used in immersive virtual environments. It is currently
+being developed as part of my M.Sc. in Computer Graphics from
+Universitat Politecnica de Catalunya.
+
+Foremost, it is meant as an abstraction from some of the core
+technologies involved in creating clustered graphics applications.
+It allows the user to write only rendering specific code, and
+wraps itself around such code.
+
+REQUIREMENTS
+
+ALIVE is provided as a collection of header files. However,
+in order to make use of it, a backend must be configured to do
+the actual rendering.
+
+At the present time, the only available backend works against
+the VR Juggler Framework. You should be able to install the
+latest version (3.0 beta, or svn preferably).
+
+LICENSE
+
+This library is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this library.  If not, see <http://www.gnu.org/licenses/>.
+
+CONTACT
+
+Feel free to contact me (Javier Tibau) with comments, questions,
+suggestions, etc at
+	jatb86@gmail.com
