@@ -45,6 +45,7 @@ namespace alive{
 		public:
 			virtual void init() {
 				vrj::opengl::App::init();
+				mInput->init();
 				mApp->init(mInput);
 			}
 			virtual void contextInit() { mApp->contextInit(); }

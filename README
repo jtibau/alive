@@ -23,6 +23,9 @@ At the present time, the only available backend works against
 the VR Juggler Framework. You should be able to install the
 latest version (3.0 beta, or svn preferably).
 
+If you want to compile and run the polygon renderer that implements
+ALIVE, you also need the latest version of OpenSceneGraph.
+
 LICENSE
 
 This library is free software: you can redistribute it and/or modify
