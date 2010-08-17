@@ -58,6 +58,7 @@ namespace alive {
 					std::stringstream buttonName;
 					buttonName << "VJButton" << i;
 					mButtonInterface[i].init(buttonName.str());
+					mButtonState[i] = false;
 				}
 			}
 
@@ -87,6 +88,14 @@ namespace alive {
 				gmtl::Matrix44f headMatrix = mHead->getData();
 				gmtl::xform(mHeadDirection, headMatrix, Zdir);
 				mHeadPosition = gmtl::makeTrans<gmtl::Point3f>(headMatrix);
+
+				// update button data only if the digital interface reports a toggle
+				for(int i=0; i<MAX_BUTTONS; i++){
+					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_ON )
+						mButtonState[i] = true;
+					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_OFF )
+						mButtonState[i] = false;
+				}
 			}
 
 			unsigned int getCurrentContext() {
@@ -98,7 +107,7 @@ namespace alive {
 
 			virtual bool getButtonState(unsigned int buttonNumber) {
 				if(buttonNumber < MAX_BUTTONS)
-					return mButtonInterface[buttonNumber]->getData() == gadget::Digital::ON;
+					return mButtonState[buttonNumber];
 				else return false;
 			}
 
@@ -187,6 +196,8 @@ namespace alive {
 			gmtl::Vec3f mPreviousHeadPosition, mPreviousHeadDirection;
 			gmtl::Vec3f mWandPosition, mWandDirection;
 			gmtl::Vec3f mPreviousWandPosition, mPreviousWandDirection;
+
+			bool mButtonState[MAX_BUTTONS];
 
 			gmtl::Matrix44f mNavigationMatrix;
 		};
