@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?org-vrjuggler-jccl-settings configuration.version="3.0"?>
+<configuration xmlns="http://www.vrjuggler.org/jccl/xsd/3.0/configuration" name="/home/moving/Workspace/prueba.jconf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.vrjuggler.org/jccl/xsd/3.0/configuration http://www.vrjuggler.org/jccl/xsd/3.0/configuration.xsd">
+   <elements>
+      <input_manager name="VRPN_Manager" version="2">
+         <driver_path>${VJ_BASE_DIR}//lib/gadgeteer-2.1.8/drivers</driver_path>
+         <driver>VRPN_drv</driver>
+      </input_manager>
+      <cluster_manager name="ClusterManagerConfiguration" version="3">
+         <plugin_path>${VJ_BASE_DIR}//lib/gadgeteer-2.1.8/plugins</plugin_path>
+         <plugin>RIMPlugin</plugin>
+         <cluster_node />
+         <use_software_swap_lock>true</use_software_swap_lock>
+      </cluster_manager>
+      <cluster_node name="master" version="1">
+         <display_system>
+            <display_system name="master" version="3">
+               <number_of_pipes>1</number_of_pipes>
+               <pipes>:0.0</pipes>
+               <use_swap_group>false</use_swap_group>
+            </display_system>
+         </display_system>
+         <display_windows>
+            <display_window name="test" version="6">
+               <origin>0</origin>
+               <origin>0</origin>
+               <size>800</size>
+               <size>600</size>
+               <pipe>0</pipe>
+               <frame_buffer_config>
+                  <opengl_frame_buffer_config name="frame_buffer_config 0" version="4">
+                     <visual_id>-1</visual_id>
+                     <red_size>1</red_size>
+                     <green_size>1</green_size>
+                     <blue_size>1</blue_size>
+                     <alpha_size>1</alpha_size>
+                     <auxiliary_buffer_count>0</auxiliary_buffer_count>
+                     <depth_buffer_size>1</depth_buffer_size>
+                     <stencil_buffer_size>1</stencil_buffer_size>
+                     <accum_red_size>1</accum_red_size>
+                     <accum_green_size>1</accum_green_size>
+                     <accum_blue_size>1</accum_blue_size>
+                     <accum_alpha_size>1</accum_alpha_size>
+                     <num_sample_buffers>1</num_sample_buffers>
+                     <num_samples>2</num_samples>
+                     <use_create_context_attribs>false</use_create_context_attribs>
+                     <gl_context_major_version>3</gl_context_major_version>
+                     <gl_context_minor_version>0</gl_context_minor_version>
+                     <gl_context_flags>0</gl_context_flags>
+                  </opengl_frame_buffer_config>
+               </frame_buffer_config>
+               <stereo>false</stereo>
+               <border>true</border>
+               <hide_mouse>false</hide_mouse>
+               <full_screen>false</full_screen>
+               <always_on_top>false</always_on_top>
+               <active>true</active>
+               <surface_viewports>
+                  <surface_viewport name="test" version="3">
+                     <origin>0.0</origin>
+                     <origin>0.0</origin>
+                     <size>1.0</size>
+                     <size>1.0</size>
+                     <view>1</view>
+                     <lower_left_corner>-1.5</lower_left_corner>
+                     <lower_left_corner>0.0</lower_left_corner>
+                     <lower_left_corner>-2.0</lower_left_corner>
+                     <lower_right_corner>1.5</lower_right_corner>
+                     <lower_right_corner>0.0</lower_right_corner>
+                     <lower_right_corner>-2.0</lower_right_corner>
+                     <upper_right_corner>1.5</upper_right_corner>
+                     <upper_right_corner>3.0</upper_right_corner>
+                     <upper_right_corner>-2.0</upper_right_corner>
+                     <upper_left_corner>-1.5</upper_left_corner>
+                     <upper_left_corner>3.0</upper_left_corner>
+                     <upper_left_corner>-2.0</upper_left_corner>
+                     <user>User</user>
+                     <active>true</active>
+                     <tracked>false</tracked>
+                     <tracker_proxy />
+                     <auto_corner_update>0</auto_corner_update>
+                  </surface_viewport>
+               </surface_viewports>
+               <keyboard_mouse_device_name>Keyboard/MouseInputHandler</keyboard_mouse_device_name>
+               <allow_mouse_locking>true</allow_mouse_locking>
+               <lock_key>0</lock_key>
+               <start_locked>false</start_locked>
+               <sleep_time>75</sleep_time>
+            </display_window>
+         </display_windows>
+         <display_windows>
+            <display_window name="sim" version="6">
+               <origin>0</origin>
+               <origin>0</origin>
+               <size>800</size>
+               <size>600</size>
+               <pipe>0</pipe>
+               <frame_buffer_config>
+                  <opengl_frame_buffer_config name="frame_buffer_config 0" version="4">
+                     <visual_id>-1</visual_id>
+                     <red_size>1</red_size>
+                     <green_size>1</green_size>
+                     <blue_size>1</blue_size>
+                     <alpha_size>1</alpha_size>
+                     <auxiliary_buffer_count>0</auxiliary_buffer_count>
+                     <depth_buffer_size>1</depth_buffer_size>
+                     <stencil_buffer_size>1</stencil_buffer_size>
+                     <accum_red_size>1</accum_red_size>
+                     <accum_green_size>1</accum_green_size>
+                     <accum_blue_size>1</accum_blue_size>
+                     <accum_alpha_size>1</accum_alpha_size>
+                     <num_sample_buffers>1</num_sample_buffers>
+                     <num_samples>2</num_samples>
+                     <use_create_context_attribs>false</use_create_context_attribs>
+                     <gl_context_major_version>3</gl_context_major_version>
+                     <gl_context_minor_version>0</gl_context_minor_version>
+                     <gl_context_flags>0</gl_context_flags>
+                  </opengl_frame_buffer_config>
+               </frame_buffer_config>
+               <stereo>false</stereo>
+               <border>true</border>
+               <hide_mouse>false</hide_mouse>
+               <full_screen>false</full_screen>
+               <always_on_top>false</always_on_top>
+               <active>false</active>
+               <simulator_viewports>
+                  <simulator_viewport name="sim" version="3">
+                     <origin>0.0</origin>
+                     <origin>0.0</origin>
+                     <size>1.0</size>
+                     <size>1.0</size>
+                     <view>1</view>
+                     <user>User</user>
+                     <active>true</active>
+                     <vertical_fov>80.0</vertical_fov>
+                     <simulator_plugin>
+                        <default_simulator name="CHANGEME" version="3">
+                           <camera_pos>VJHead</camera_pos>
+                           <wand_pos>VJWand</wand_pos>
+                           <draw_projections>true</draw_projections>
+                           <surface_color>0.0</surface_color>
+                           <surface_color>0.0</surface_color>
+                           <surface_color>0.0</surface_color>
+                           <head_model>${VJ_DATA_DIR}/data/models/head.flt</head_model>
+                           <wand_model>${VJ_DATA_DIR}/data/models/wand.flt</wand_model>
+                        </default_simulator>
+                     </simulator_plugin>
+                  </simulator_viewport>
+               </simulator_viewports>
+               <keyboard_mouse_device_name />
+               <allow_mouse_locking>true</allow_mouse_locking>
+               <lock_key>0</lock_key>
+               <start_locked>false</start_locked>
+               <sleep_time>75</sleep_time>
+            </display_window>
+         </display_windows>
+         <listen_port>12599</listen_port>
+         <host_name>147.83.172.41</host_name>
+      </cluster_node>
+      <vrpn name="Fastrack" version="2">
+         <tracker_server>Polhemus@147.83.172.40</tracker_server>
+         <button_server>Stylus@147.83.172.40</button_server>
+         <analog_server />
+         <tracker_count>2</tracker_count>
+         <button_count>1</button_count>
+         <analog_count>0</analog_count>
+         <min>-1.0</min>
+         <max>1.0</max>
+         <position_filters>
+            <position_transform_filter name="default" version="1">
+               <pre_translate>0.0</pre_translate>
+               <pre_translate>0.0</pre_translate>
+               <pre_translate>0.0</pre_translate>
+               <pre_rotation>0.0</pre_rotation>
+               <pre_rotation>0.0</pre_rotation>
+               <pre_rotation>0.0</pre_rotation>
+               <custom_scale>1.0</custom_scale>
+               <device_units>1.0</device_units>
+               <post_translate>0.0</post_translate>
+               <post_translate>0.0</post_translate>
+               <post_translate>0.0</post_translate>
+               <post_rotation>0.0</post_rotation>
+               <post_rotation>0.0</post_rotation>
+               <post_rotation>0.0</post_rotation>
+            </position_transform_filter>
+         </position_filters>
+      </vrpn>
+      <user name="User" version="1">
+         <head_position>VJHead</head_position>
+         <interocular_distance>0.069</interocular_distance>
+      </user>
+      <position_proxy name="VJHead" version="1">
+         <device>Fastrack</device>
+         <unit>1</unit>
+         <position_filters>
+            <position_transform_filter name="head" version="1">
+               <pre_translate>-1.5</pre_translate>
+               <pre_translate>2.0</pre_translate>
+               <pre_translate>0.0</pre_translate>
+               <pre_rotation>-90.0</pre_rotation>
+               <pre_rotation>0.0</pre_rotation>
+               <pre_rotation>0.0</pre_rotation>
+               <custom_scale>1.0</custom_scale>
+               <device_units>1.0</device_units>
+               <post_translate>0.0</post_translate>
+               <post_translate>0.0</post_translate>
+               <post_translate>0.0</post_translate>
+               <post_rotation>0.0</post_rotation>
+               <post_rotation>0.0</post_rotation>
+               <post_rotation>0.0</post_rotation>
+            </position_transform_filter>
+         </position_filters>
+      </position_proxy>
+      <position_proxy name="VJWand" version="1">
+         <device>Fastrack</device>
+         <unit>0</unit>
+         <position_filters>
+            <position_transform_filter name="wand" version="1">
+               <pre_translate>-1.5</pre_translate>
+               <pre_translate>2.0</pre_translate>
+               <pre_translate>0.0</pre_translate>
+               <pre_rotation>-90.0</pre_rotation>
+               <pre_rotation>0.0</pre_rotation>
+               <pre_rotation>0.0</pre_rotation>
+               <custom_scale>1.0</custom_scale>
+               <device_units>1.0</device_units>
+               <post_translate>-1.5</post_translate>
+               <post_translate>0.0</post_translate>
+               <post_translate>0.0</post_translate>
+               <post_rotation>0.0</post_rotation>
+               <post_rotation>0.0</post_rotation>
+               <post_rotation>0.0</post_rotation>
+            </position_transform_filter>
+         </position_filters>
+      </position_proxy>
+      <digital_proxy name="VJButton0" version="1">
+         <device>Fastrack</device>
+         <unit>0</unit>
+      </digital_proxy>
+      <keyboard_mouse_device name="Keyboard/MouseInputHandler" version="2">
+         <mouse_sensitivity>1.0</mouse_sensitivity>
+         <scroll_as_buttons>false</scroll_as_buttons>
+         <scroll_up_button>53</scroll_up_button>
+         <scroll_down_button>54</scroll_down_button>
+         <scroll_left_button>55</scroll_left_button>
+         <scroll_right_button>56</scroll_right_button>
+      </keyboard_mouse_device>
+      <simulated_digital_device name="SystemControls" version="2">
+         <keyboard_mouse_proxy>VJKeyboard</keyboard_mouse_proxy>
+         <key_pair>
+            <key_modifier_pair name="ESC" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>KEY_ESC</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="Button" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>MOUSE_BUT1</key>
+            </key_modifier_pair>
+         </key_pair>
+      </simulated_digital_device>
+      <keyboard_mouse_proxy name="VJKeyboard" version="1">
+         <device>Keyboard/MouseInputHandler</device>
+      </keyboard_mouse_proxy>
+      <digital_proxy name="VJSystemStopKernel" version="1">
+         <device>SystemControls</device>
+         <unit>0</unit>
+      </digital_proxy>
+      <digital_proxy name="VJButton2" version="1">
+         <device />
+         <unit>0</unit>
+      </digital_proxy>
+      <digital_proxy name="VJButton1" version="1">
+         <device />
+         <unit>0</unit>
+      </digital_proxy>
+   </elements>
+</configuration>
+
