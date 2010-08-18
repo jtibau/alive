@@ -20,39 +20,18 @@
 #include <vrj/Kernel/Kernel.h>
 
 #include <alive/App.h>
-#include <alive/juggler/App.h>
-
+#include <alive/juggler/Kernel.h>
 #include <alive/interaction/BasicNavigation.h>
 
 #include "Scene.h"
 
 int main(int argc, char* argv[]){
-	if ( argc <= 2 ){
-		std::cout << "Usage: " << argv[0]
-			<< " modelname vjconfigfile[0] vjconfigfile[1] ... vjconfigfile[n]\n"
-			<< std::endl << std::endl;
-
-		std::exit(EXIT_FAILURE);
-	}
-
-	vrj::Kernel* kernel = vrj::Kernel::instance();	// Get the kernel
 	alive::App* application = new alive::App( new alive::poly::Scene() , new alive::interaction::BasicNavigation() );
-	alive::juggler::App* app = new alive::juggler::App(kernel, application); // Instantiate the app
+	alive::juggler::Kernel* kernel = new alive::juggler::Kernel(application);
 
-	application->setModelName(argv[1]);
+	kernel->startAndWait(argc,argv);
 
-	kernel->init(argc, argv);
-
-	// Load any config files specified on the command line
-	for ( int i = 2; i < argc; ++i )
-		kernel->loadConfigFile(argv[i]);
-
-	kernel->start();
-
-	kernel->setApplication(app);
-	kernel->waitForKernelStop();
-
-	delete application;
+	delete kernel;
 
 	return EXIT_SUCCESS;
 }
