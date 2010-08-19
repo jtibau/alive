@@ -27,6 +27,8 @@
 #include <alive/Input.h>
 #include <alive/InteractionMethod.h>
 
+#include <iostream>
+
 namespace alive {
 
 	namespace interaction {
@@ -47,6 +49,7 @@ namespace alive {
 
 				// Translate in the direction the wand is pointing.
 				if ( mInput->getButtonState(0) ){
+					std::cout << "Button0 pressed\n";
 					gmtl::Vec3f translation =  mInput->getWandDirection() * mInput->getTimeDelta();
 					translation *= 4;
 					// translation[1] = 0.0f;	// comment out if you wanna fly!
