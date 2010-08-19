@@ -24,74 +24,6 @@
             </display_system>
          </display_system>
          <display_windows>
-            <display_window name="test" version="6">
-               <origin>0</origin>
-               <origin>0</origin>
-               <size>800</size>
-               <size>600</size>
-               <pipe>0</pipe>
-               <frame_buffer_config>
-                  <opengl_frame_buffer_config name="frame_buffer_config 0" version="4">
-                     <visual_id>-1</visual_id>
-                     <red_size>1</red_size>
-                     <green_size>1</green_size>
-                     <blue_size>1</blue_size>
-                     <alpha_size>1</alpha_size>
-                     <auxiliary_buffer_count>0</auxiliary_buffer_count>
-                     <depth_buffer_size>1</depth_buffer_size>
-                     <stencil_buffer_size>1</stencil_buffer_size>
-                     <accum_red_size>1</accum_red_size>
-                     <accum_green_size>1</accum_green_size>
-                     <accum_blue_size>1</accum_blue_size>
-                     <accum_alpha_size>1</accum_alpha_size>
-                     <num_sample_buffers>1</num_sample_buffers>
-                     <num_samples>2</num_samples>
-                     <use_create_context_attribs>false</use_create_context_attribs>
-                     <gl_context_major_version>3</gl_context_major_version>
-                     <gl_context_minor_version>0</gl_context_minor_version>
-                     <gl_context_flags>0</gl_context_flags>
-                  </opengl_frame_buffer_config>
-               </frame_buffer_config>
-               <stereo>false</stereo>
-               <border>true</border>
-               <hide_mouse>false</hide_mouse>
-               <full_screen>false</full_screen>
-               <always_on_top>false</always_on_top>
-               <active>true</active>
-               <surface_viewports>
-                  <surface_viewport name="test" version="3">
-                     <origin>0.0</origin>
-                     <origin>0.0</origin>
-                     <size>1.0</size>
-                     <size>1.0</size>
-                     <view>1</view>
-                     <lower_left_corner>-1.5</lower_left_corner>
-                     <lower_left_corner>0.0</lower_left_corner>
-                     <lower_left_corner>-1.5</lower_left_corner>
-                     <lower_right_corner>1.5</lower_right_corner>
-                     <lower_right_corner>0.0</lower_right_corner>
-                     <lower_right_corner>-1.5</lower_right_corner>
-                     <upper_right_corner>1.5</upper_right_corner>
-                     <upper_right_corner>3.0</upper_right_corner>
-                     <upper_right_corner>-1.5</upper_right_corner>
-                     <upper_left_corner>-1.5</upper_left_corner>
-                     <upper_left_corner>3.0</upper_left_corner>
-                     <upper_left_corner>-1.5</upper_left_corner>
-                     <user>User</user>
-                     <active>true</active>
-                     <tracked>false</tracked>
-                     <tracker_proxy />
-                     <auto_corner_update>0</auto_corner_update>
-                  </surface_viewport>
-               </surface_viewports>
-               <keyboard_mouse_device_name>Keyboard/MouseInputHandler</keyboard_mouse_device_name>
-               <allow_mouse_locking>true</allow_mouse_locking>
-               <lock_key>0</lock_key>
-               <start_locked>false</start_locked>
-               <sleep_time>75</sleep_time>
-            </display_window>
-         </display_windows>
-         <display_windows>
             <display_window name="sim" version="6">
                <origin>0</origin>
                <origin>0</origin>
@@ -138,7 +70,7 @@
                      <vertical_fov>80.0</vertical_fov>
                      <simulator_plugin>
                         <default_simulator name="CHANGEME" version="3">
-                           <camera_pos>VJHead</camera_pos>
+                           <camera_pos>Camera</camera_pos>
                            <wand_pos>VJWand</wand_pos>
                            <draw_projections>true</draw_projections>
                            <surface_color>0.0</surface_color>
@@ -150,6 +82,210 @@
                      </simulator_plugin>
                   </simulator_viewport>
                </simulator_viewports>
+               <keyboard_mouse_device_name>Keyboard/MouseInputHandler</keyboard_mouse_device_name>
+               <allow_mouse_locking>true</allow_mouse_locking>
+               <lock_key>0</lock_key>
+               <start_locked>false</start_locked>
+               <sleep_time>75</sleep_time>
+            </display_window>
+         </display_windows>
+         <display_windows>
+            <display_window name="leftwall" version="6">
+               <origin>800</origin>
+               <origin>0</origin>
+               <size>200</size>
+               <size>200</size>
+               <pipe>0</pipe>
+               <frame_buffer_config>
+                  <opengl_frame_buffer_config name="frame_buffer_config 0" version="4">
+                     <visual_id>-1</visual_id>
+                     <red_size>1</red_size>
+                     <green_size>1</green_size>
+                     <blue_size>1</blue_size>
+                     <alpha_size>1</alpha_size>
+                     <auxiliary_buffer_count>0</auxiliary_buffer_count>
+                     <depth_buffer_size>1</depth_buffer_size>
+                     <stencil_buffer_size>1</stencil_buffer_size>
+                     <accum_red_size>1</accum_red_size>
+                     <accum_green_size>1</accum_green_size>
+                     <accum_blue_size>1</accum_blue_size>
+                     <accum_alpha_size>1</accum_alpha_size>
+                     <num_sample_buffers>1</num_sample_buffers>
+                     <num_samples>2</num_samples>
+                     <use_create_context_attribs>false</use_create_context_attribs>
+                     <gl_context_major_version>3</gl_context_major_version>
+                     <gl_context_minor_version>0</gl_context_minor_version>
+                     <gl_context_flags>0</gl_context_flags>
+                  </opengl_frame_buffer_config>
+               </frame_buffer_config>
+               <stereo>false</stereo>
+               <border>true</border>
+               <hide_mouse>false</hide_mouse>
+               <full_screen>false</full_screen>
+               <always_on_top>false</always_on_top>
+               <active>true</active>
+               <surface_viewports>
+                  <surface_viewport name="leftwall" version="3">
+                     <origin>0.0</origin>
+                     <origin>0.0</origin>
+                     <size>1.0</size>
+                     <size>1.0</size>
+                     <view>1</view>
+                     <lower_left_corner>-1.5</lower_left_corner>
+                     <lower_left_corner>0.0</lower_left_corner>
+                     <lower_left_corner>0.0</lower_left_corner>
+                     <lower_right_corner>-1.5</lower_right_corner>
+                     <lower_right_corner>0.0</lower_right_corner>
+                     <lower_right_corner>-3.0</lower_right_corner>
+                     <upper_right_corner>-1.5</upper_right_corner>
+                     <upper_right_corner>3.0</upper_right_corner>
+                     <upper_right_corner>-3.0</upper_right_corner>
+                     <upper_left_corner>-1.5</upper_left_corner>
+                     <upper_left_corner>3.0</upper_left_corner>
+                     <upper_left_corner>0.0</upper_left_corner>
+                     <user>User</user>
+                     <active>true</active>
+                     <tracked>false</tracked>
+                     <tracker_proxy />
+                     <auto_corner_update>0</auto_corner_update>
+                  </surface_viewport>
+               </surface_viewports>
+               <keyboard_mouse_device_name>Keyboard/MouseInputHandler</keyboard_mouse_device_name>
+               <allow_mouse_locking>true</allow_mouse_locking>
+               <lock_key>0</lock_key>
+               <start_locked>false</start_locked>
+               <sleep_time>75</sleep_time>
+            </display_window>
+         </display_windows>
+         <display_windows>
+            <display_window name="frontwall" version="6">
+               <origin>1000</origin>
+               <origin>0</origin>
+               <size>200</size>
+               <size>200</size>
+               <pipe>0</pipe>
+               <frame_buffer_config>
+                  <opengl_frame_buffer_config name="frame_buffer_config 0" version="4">
+                     <visual_id>-1</visual_id>
+                     <red_size>1</red_size>
+                     <green_size>1</green_size>
+                     <blue_size>1</blue_size>
+                     <alpha_size>1</alpha_size>
+                     <auxiliary_buffer_count>0</auxiliary_buffer_count>
+                     <depth_buffer_size>1</depth_buffer_size>
+                     <stencil_buffer_size>1</stencil_buffer_size>
+                     <accum_red_size>1</accum_red_size>
+                     <accum_green_size>1</accum_green_size>
+                     <accum_blue_size>1</accum_blue_size>
+                     <accum_alpha_size>1</accum_alpha_size>
+                     <num_sample_buffers>1</num_sample_buffers>
+                     <num_samples>2</num_samples>
+                     <use_create_context_attribs>false</use_create_context_attribs>
+                     <gl_context_major_version>3</gl_context_major_version>
+                     <gl_context_minor_version>0</gl_context_minor_version>
+                     <gl_context_flags>0</gl_context_flags>
+                  </opengl_frame_buffer_config>
+               </frame_buffer_config>
+               <stereo>false</stereo>
+               <border>true</border>
+               <hide_mouse>false</hide_mouse>
+               <full_screen>false</full_screen>
+               <always_on_top>false</always_on_top>
+               <active>true</active>
+               <surface_viewports>
+                  <surface_viewport name="frontwall" version="3">
+                     <origin>0.0</origin>
+                     <origin>0.0</origin>
+                     <size>1.0</size>
+                     <size>1.0</size>
+                     <view>1</view>
+                     <lower_left_corner>-1.5</lower_left_corner>
+                     <lower_left_corner>0.0</lower_left_corner>
+                     <lower_left_corner>-3.0</lower_left_corner>
+                     <lower_right_corner>1.5</lower_right_corner>
+                     <lower_right_corner>0.0</lower_right_corner>
+                     <lower_right_corner>-3.0</lower_right_corner>
+                     <upper_right_corner>1.5</upper_right_corner>
+                     <upper_right_corner>3.0</upper_right_corner>
+                     <upper_right_corner>-3.0</upper_right_corner>
+                     <upper_left_corner>-1.5</upper_left_corner>
+                     <upper_left_corner>3.0</upper_left_corner>
+                     <upper_left_corner>-3.0</upper_left_corner>
+                     <user>User</user>
+                     <active>true</active>
+                     <tracked>false</tracked>
+                     <tracker_proxy />
+                     <auto_corner_update>0</auto_corner_update>
+                  </surface_viewport>
+               </surface_viewports>
+               <keyboard_mouse_device_name>Keyboard/MouseInputHandler</keyboard_mouse_device_name>
+               <allow_mouse_locking>true</allow_mouse_locking>
+               <lock_key>0</lock_key>
+               <start_locked>false</start_locked>
+               <sleep_time>75</sleep_time>
+            </display_window>
+         </display_windows>
+         <display_windows>
+            <display_window name="rightwall" version="6">
+               <origin>1200</origin>
+               <origin>0</origin>
+               <size>200</size>
+               <size>200</size>
+               <pipe>0</pipe>
+               <frame_buffer_config>
+                  <opengl_frame_buffer_config name="frame_buffer_config 0" version="4">
+                     <visual_id>-1</visual_id>
+                     <red_size>1</red_size>
+                     <green_size>1</green_size>
+                     <blue_size>1</blue_size>
+                     <alpha_size>1</alpha_size>
+                     <auxiliary_buffer_count>0</auxiliary_buffer_count>
+                     <depth_buffer_size>1</depth_buffer_size>
+                     <stencil_buffer_size>1</stencil_buffer_size>
+                     <accum_red_size>1</accum_red_size>
+                     <accum_green_size>1</accum_green_size>
+                     <accum_blue_size>1</accum_blue_size>
+                     <accum_alpha_size>1</accum_alpha_size>
+                     <num_sample_buffers>1</num_sample_buffers>
+                     <num_samples>2</num_samples>
+                     <use_create_context_attribs>false</use_create_context_attribs>
+                     <gl_context_major_version>3</gl_context_major_version>
+                     <gl_context_minor_version>0</gl_context_minor_version>
+                     <gl_context_flags>0</gl_context_flags>
+                  </opengl_frame_buffer_config>
+               </frame_buffer_config>
+               <stereo>false</stereo>
+               <border>true</border>
+               <hide_mouse>false</hide_mouse>
+               <full_screen>false</full_screen>
+               <always_on_top>false</always_on_top>
+               <active>true</active>
+               <surface_viewports>
+                  <surface_viewport name="rightwall" version="3">
+                     <origin>0.0</origin>
+                     <origin>0.0</origin>
+                     <size>1.0</size>
+                     <size>1.0</size>
+                     <view>1</view>
+                     <lower_left_corner>1.5</lower_left_corner>
+                     <lower_left_corner>0.0</lower_left_corner>
+                     <lower_left_corner>-3.0</lower_left_corner>
+                     <lower_right_corner>1.5</lower_right_corner>
+                     <lower_right_corner>0.0</lower_right_corner>
+                     <lower_right_corner>0.0</lower_right_corner>
+                     <upper_right_corner>1.5</upper_right_corner>
+                     <upper_right_corner>3.0</upper_right_corner>
+                     <upper_right_corner>0.0</upper_right_corner>
+                     <upper_left_corner>1.5</upper_left_corner>
+                     <upper_left_corner>3.0</upper_left_corner>
+                     <upper_left_corner>-3.0</upper_left_corner>
+                     <user>User</user>
+                     <active>true</active>
+                     <tracked>false</tracked>
+                     <tracker_proxy />
+                     <auto_corner_update>0</auto_corner_update>
+                  </surface_viewport>
+               </surface_viewports>
                <keyboard_mouse_device_name>Keyboard/MouseInputHandler</keyboard_mouse_device_name>
                <allow_mouse_locking>true</allow_mouse_locking>
                <lock_key>0</lock_key>
@@ -171,12 +307,12 @@
          <max>1.0</max>
          <position_filters>
             <position_transform_filter name="tracker position filter" version="1">
-               <pre_translate>-1.5</pre_translate>
-               <pre_translate>2.0</pre_translate>
+               <pre_translate>0.0</pre_translate>
+               <pre_translate>2.3</pre_translate>
                <pre_translate>0.0</pre_translate>
                <pre_rotation>-90.0</pre_rotation>
                <pre_rotation>0.0</pre_rotation>
-               <pre_rotation>0.0</pre_rotation>
+               <pre_rotation>90.0</pre_rotation>
                <custom_scale>1.0</custom_scale>
                <device_units>1.0</device_units>
                <post_translate>0.0</post_translate>
@@ -205,11 +341,11 @@
                <pre_rotation>0.0</pre_rotation>
                <custom_scale>1.0</custom_scale>
                <device_units>1.0</device_units>
-               <post_translate>0.0</post_translate>
-               <post_translate>0.0</post_translate>
-               <post_translate>0.0</post_translate>
+               <post_translate>0.3</post_translate>
+               <post_translate>-0.01</post_translate>
+               <post_translate>0.105</post_translate>
                <post_rotation>0.0</post_rotation>
-               <post_rotation>0.0</post_rotation>
+               <post_rotation>-90.0</post_rotation>
                <post_rotation>0.0</post_rotation>
             </position_transform_filter>
          </position_filters>
@@ -230,8 +366,8 @@
                <post_translate>0.0</post_translate>
                <post_translate>0.0</post_translate>
                <post_translate>0.0</post_translate>
-               <post_rotation>0.0</post_rotation>
-               <post_rotation>0.0</post_rotation>
+               <post_rotation>-90.0</post_rotation>
+               <post_rotation>-90.0</post_rotation>
                <post_rotation>0.0</post_rotation>
             </position_transform_filter>
          </position_filters>
@@ -289,7 +425,7 @@
             </display_system>
          </display_system>
          <display_windows>
-            <display_window name="left" version="6">
+            <display_window name="ltll" version="6">
                <origin>0</origin>
                <origin>0</origin>
                <size>1024</size>
@@ -324,7 +460,7 @@
                <always_on_top>false</always_on_top>
                <active>true</active>
                <surface_viewports>
-                  <surface_viewport name="view" version="3">
+                  <surface_viewport name="ltll" version="3">
                      <origin>0.0</origin>
                      <origin>0.0</origin>
                      <size>1.0</size>
@@ -332,16 +468,16 @@
                      <view>1</view>
                      <lower_left_corner>-1.5</lower_left_corner>
                      <lower_left_corner>2.0</lower_left_corner>
-                     <lower_left_corner>-1.5</lower_left_corner>
-                     <lower_right_corner>0.0</lower_right_corner>
+                     <lower_left_corner>0.0</lower_left_corner>
+                     <lower_right_corner>-1.5</lower_right_corner>
                      <lower_right_corner>2.0</lower_right_corner>
                      <lower_right_corner>-1.5</lower_right_corner>
-                     <upper_right_corner>0.0</upper_right_corner>
+                     <upper_right_corner>-1.5</upper_right_corner>
                      <upper_right_corner>3.0</upper_right_corner>
                      <upper_right_corner>-1.5</upper_right_corner>
                      <upper_left_corner>-1.5</upper_left_corner>
                      <upper_left_corner>3.0</upper_left_corner>
-                     <upper_left_corner>-1.5</upper_left_corner>
+                     <upper_left_corner>0.0</upper_left_corner>
                      <user>User</user>
                      <active>true</active>
                      <tracked>false</tracked>
@@ -357,7 +493,7 @@
             </display_window>
          </display_windows>
          <display_windows>
-            <display_window name="right" version="6">
+            <display_window name="ltrl" version="6">
                <origin>0</origin>
                <origin>0</origin>
                <size>1024</size>
@@ -392,22 +528,22 @@
                <always_on_top>false</always_on_top>
                <active>true</active>
                <surface_viewports>
-                  <surface_viewport name="view" version="3">
+                  <surface_viewport name="ltrl" version="3">
                      <origin>0.0</origin>
                      <origin>0.0</origin>
                      <size>1.0</size>
                      <size>1.0</size>
                      <view>1</view>
-                     <lower_left_corner>0.0</lower_left_corner>
+                     <lower_left_corner>-1.5</lower_left_corner>
                      <lower_left_corner>2.0</lower_left_corner>
                      <lower_left_corner>-1.5</lower_left_corner>
-                     <lower_right_corner>1.5</lower_right_corner>
-                     <lower_right_corner>2.0</lower_right_corner>
                      <lower_right_corner>-1.5</lower_right_corner>
-                     <upper_right_corner>1.5</upper_right_corner>
-                     <upper_right_corner>3.0</upper_right_corner>
+                     <lower_right_corner>2.0</lower_right_corner>
+                     <lower_right_corner>-3.0</lower_right_corner>
                      <upper_right_corner>-1.5</upper_right_corner>
-                     <upper_left_corner>0.0</upper_left_corner>
+                     <upper_right_corner>3.0</upper_right_corner>
+                     <upper_right_corner>-3.0</upper_right_corner>
+                     <upper_left_corner>-1.5</upper_left_corner>
                      <upper_left_corner>3.0</upper_left_corner>
                      <upper_left_corner>-1.5</upper_left_corner>
                      <user>User</user>
@@ -437,7 +573,7 @@
             </display_system>
          </display_system>
          <display_windows>
-            <display_window name="left" version="6">
+            <display_window name="lmll" version="6">
                <origin>0</origin>
                <origin>0</origin>
                <size>1024</size>
@@ -472,7 +608,7 @@
                <always_on_top>false</always_on_top>
                <active>true</active>
                <surface_viewports>
-                  <surface_viewport name="view" version="3">
+                  <surface_viewport name="lmll" version="3">
                      <origin>0.0</origin>
                      <origin>0.0</origin>
                      <size>1.0</size>
@@ -480,16 +616,16 @@
                      <view>1</view>
                      <lower_left_corner>-1.5</lower_left_corner>
                      <lower_left_corner>1.0</lower_left_corner>
-                     <lower_left_corner>-1.5</lower_left_corner>
-                     <lower_right_corner>0.0</lower_right_corner>
+                     <lower_left_corner>0.0</lower_left_corner>
+                     <lower_right_corner>-1.5</lower_right_corner>
                      <lower_right_corner>1.0</lower_right_corner>
                      <lower_right_corner>-1.5</lower_right_corner>
-                     <upper_right_corner>0.0</upper_right_corner>
+                     <upper_right_corner>-1.5</upper_right_corner>
                      <upper_right_corner>2.0</upper_right_corner>
                      <upper_right_corner>-1.5</upper_right_corner>
                      <upper_left_corner>-1.5</upper_left_corner>
                      <upper_left_corner>2.0</upper_left_corner>
-                     <upper_left_corner>-1.5</upper_left_corner>
+                     <upper_left_corner>0.0</upper_left_corner>
                      <user>User</user>
                      <active>true</active>
                      <tracked>false</tracked>
@@ -505,7 +641,7 @@
             </display_window>
          </display_windows>
          <display_windows>
-            <display_window name="right" version="6">
+            <display_window name="lmrl" version="6">
                <origin>0</origin>
                <origin>0</origin>
                <size>1024</size>
@@ -540,22 +676,22 @@
                <always_on_top>false</always_on_top>
                <active>true</active>
                <surface_viewports>
-                  <surface_viewport name="view" version="3">
+                  <surface_viewport name="lmrl" version="3">
                      <origin>0.0</origin>
                      <origin>0.0</origin>
                      <size>1.0</size>
                      <size>1.0</size>
                      <view>1</view>
-                     <lower_left_corner>0.0</lower_left_corner>
+                     <lower_left_corner>-1.5</lower_left_corner>
                      <lower_left_corner>1.0</lower_left_corner>
                      <lower_left_corner>-1.5</lower_left_corner>
-                     <lower_right_corner>1.5</lower_right_corner>
-                     <lower_right_corner>1.0</lower_right_corner>
                      <lower_right_corner>-1.5</lower_right_corner>
-                     <upper_right_corner>1.5</upper_right_corner>
-                     <upper_right_corner>2.0</upper_right_corner>
+                     <lower_right_corner>1.0</lower_right_corner>
+                     <lower_right_corner>-3.0</lower_right_corner>
                      <upper_right_corner>-1.5</upper_right_corner>
-                     <upper_left_corner>0.0</upper_left_corner>
+                     <upper_right_corner>2.0</upper_right_corner>
+                     <upper_right_corner>-3.0</upper_right_corner>
+                     <upper_left_corner>-1.5</upper_left_corner>
                      <upper_left_corner>2.0</upper_left_corner>
                      <upper_left_corner>-1.5</upper_left_corner>
                      <user>User</user>
@@ -585,7 +721,7 @@
             </display_system>
          </display_system>
          <display_windows>
-            <display_window name="left" version="6">
+            <display_window name="lbll" version="6">
                <origin>0</origin>
                <origin>0</origin>
                <size>1024</size>
@@ -620,7 +756,7 @@
                <always_on_top>false</always_on_top>
                <active>true</active>
                <surface_viewports>
-                  <surface_viewport name="view" version="3">
+                  <surface_viewport name="lbll" version="3">
                      <origin>0.0</origin>
                      <origin>0.0</origin>
                      <size>1.0</size>
@@ -628,11 +764,11 @@
                      <view>1</view>
                      <lower_left_corner>-1.5</lower_left_corner>
                      <lower_left_corner>0.0</lower_left_corner>
-                     <lower_left_corner>-1.5</lower_left_corner>
-                     <lower_right_corner>0.0</lower_right_corner>
+                     <lower_left_corner>0.0</lower_left_corner>
+                     <lower_right_corner>-1.5</lower_right_corner>
                      <lower_right_corner>0.0</lower_right_corner>
                      <lower_right_corner>-1.5</lower_right_corner>
-                     <upper_right_corner>0.0</upper_right_corner>
+                     <upper_right_corner>-1.5</upper_right_corner>
                      <upper_right_corner>1.0</upper_right_corner>
                      <upper_right_corner>-1.5</upper_right_corner>
                      <upper_left_corner>-1.5</upper_left_corner>
@@ -653,7 +789,7 @@
             </display_window>
          </display_windows>
          <display_windows>
-            <display_window name="right" version="6">
+            <display_window name="lbrl" version="6">
                <origin>0</origin>
                <origin>0</origin>
                <size>1024</size>
@@ -688,22 +824,22 @@
                <always_on_top>false</always_on_top>
                <active>true</active>
                <surface_viewports>
-                  <surface_viewport name="view" version="3">
+                  <surface_viewport name="lbrl" version="3">
                      <origin>0.0</origin>
                      <origin>0.0</origin>
                      <size>1.0</size>
                      <size>1.0</size>
                      <view>1</view>
-                     <lower_left_corner>0.0</lower_left_corner>
+                     <lower_left_corner>-1.5</lower_left_corner>
                      <lower_left_corner>0.0</lower_left_corner>
                      <lower_left_corner>-1.5</lower_left_corner>
-                     <lower_right_corner>1.5</lower_right_corner>
-                     <lower_right_corner>0.0</lower_right_corner>
                      <lower_right_corner>-1.5</lower_right_corner>
-                     <upper_right_corner>1.5</upper_right_corner>
-                     <upper_right_corner>1.0</upper_right_corner>
+                     <lower_right_corner>0.0</lower_right_corner>
+                     <lower_right_corner>-3.0</lower_right_corner>
                      <upper_right_corner>-1.5</upper_right_corner>
-                     <upper_left_corner>0.0</upper_left_corner>
+                     <upper_right_corner>1.0</upper_right_corner>
+                     <upper_right_corner>-3.0</upper_right_corner>
+                     <upper_left_corner>-1.5</upper_left_corner>
                      <upper_left_corner>1.0</upper_left_corner>
                      <upper_left_corner>-1.5</upper_left_corner>
                      <user>User</user>
@@ -743,6 +879,98 @@
       </alias>
       <alias name="VJSystemStopKernel" version="1">
          <proxy>SystemStopKernel Proxy</proxy>
+      </alias>
+      <simulated_positional_device name="Overview Camera" version="3">
+         <keyboard_mouse_proxy>Keyboard Proxy</keyboard_mouse_proxy>
+         <key_pair>
+            <key_modifier_pair name="key_pair 0" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="key_pair 1" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="key_pair 2" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="key_pair 3" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="key_pair 4" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="key_pair 5" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="key_pair 6" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="key_pair 7" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="key_pair 8" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="key_pair 9" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="key_pair 10" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <key_pair>
+            <key_modifier_pair name="key_pair 11" version="1">
+               <modifier_key>-1</modifier_key>
+               <key>0</key>
+            </key_modifier_pair>
+         </key_pair>
+         <initial_position>0.0</initial_position>
+         <initial_position>0.5</initial_position>
+         <initial_position>0.0</initial_position>
+         <initial_rotation>0.0</initial_rotation>
+         <initial_rotation>0.0</initial_rotation>
+         <initial_rotation>0.0</initial_rotation>
+         <translation_delta>0.1</translation_delta>
+         <rotation_delta>1.0</rotation_delta>
+         <translation_coordinate_system>0</translation_coordinate_system>
+         <rotation_coordinate_system>0</rotation_coordinate_system>
+      </simulated_positional_device>
+      <position_proxy name="Camera Proxy" version="1">
+         <device>Overview Camera</device>
+         <unit>0</unit>
+      </position_proxy>
+      <alias name="Camera" version="1">
+         <proxy>Camera Proxy</proxy>
       </alias>
    </elements>
 </configuration>

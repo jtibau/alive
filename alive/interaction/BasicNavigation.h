@@ -51,8 +51,8 @@ namespace alive {
 				if ( mInput->getButtonState(0) ){
 					std::cout << "Button0 pressed\n";
 					gmtl::Vec3f translation =  mInput->getWandDirection() * mInput->getTimeDelta();
-					translation *= 4;
-					// translation[1] = 0.0f;	// comment out if you wanna fly!
+					// translation *= 1;	// move faster/slower
+					translation[1] = 0.0f;	// comment out if you wanna fly!
 					// Post multiply the delta translation
 					gmtl::Matrix44f trans_matrix = gmtl::makeTrans<gmtl::Matrix44f>(translation);
 
