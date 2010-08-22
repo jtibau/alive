@@ -20,14 +20,13 @@
 #include <vrj/vrjConfig.h>
 
 #include <alive/Input.h>
+#include <alive/Scene.h>
 
 #include <gadget/Type/PositionInterface.h>
 #include <gadget/Type/DigitalInterface.h>
 
 #include <gmtl/Generate.h>
-#include <gmtl/Vec.h>
 #include <gmtl/VecOps.h>
-#include <gmtl/Matrix.h>
 #include <gmtl/MatrixOps.h>
 
 #include <vrj/Draw/OpenGL/Window.h>
@@ -37,21 +36,11 @@
 
 #include <iostream>
 
-#include <alive/Scene.h>
-
-#define MAX_BUTTONS 3
-
 namespace alive {
 	namespace juggler {
-
 		class Input : public alive::Input {
-
 		public:
-
-			Input(){}
-			~Input(){}
-
-			void init() {
+			void init(){
 				mWand.init("VJWand");
 				mHead.init("VJHead");
 				for(int i=0; i<MAX_BUTTONS; i++){
@@ -61,15 +50,13 @@ namespace alive {
 					mButtonState[i] = false;
 					mFirstButtonClick[i] = true;
 				}
+				mCurrentTime = 0;
 			}
-
-			void update() {
+			void update(){
 				mPreviousTime = mCurrentTime;
-				mCurrentTime = mHead->getTimeStamp();
-				vpr::Interval diff_time(mCurrentTime - mPreviousTime);
-				if(mPreviousTime.getBaseVal() >= mCurrentTime.getBaseVal())
-					diff_time.secf(0.0f);
-				timeDelta = diff_time.secf();
+				mCurrentTime = mHead->getTimeStamp().secd();
+				mTimeDelta = (float)(mCurrentTime - mPreviousTime);
+
 
 				// store previous head and wand data
 				mPreviousWandPosition = mWandPosition;
@@ -104,45 +91,11 @@ namespace alive {
 				}
 			}
 
-			unsigned int getCurrentContext() {
+			unsigned int getCurrentContext(){
 				return vrj::opengl::DrawManager::instance()->getCurrentContext();
 			}
 
-			virtual double getCurrentTimeStamp() { return mCurrentTime.secd(); }
-			virtual float getTimeDelta() { return timeDelta; }
-
-			virtual bool getButtonState(unsigned int buttonNumber) {
-				if(buttonNumber < MAX_BUTTONS)
-					return mButtonState[buttonNumber];
-				else return false;
-			}
-
-			virtual gmtl::Vec3f getHeadPosition(Time t = CURRENT) {
-				if(t == PREVIOUS) return mPreviousHeadPosition;
-				return mHeadPosition;
-			}
-			virtual gmtl::Vec3f getHeadDirection(Time t = CURRENT) {
-				if(t == PREVIOUS) return mPreviousHeadDirection;
-				return mHeadDirection;
-			}
-			virtual gmtl::Vec3f getWandPosition(Time t = CURRENT) {
-				if(t == PREVIOUS) return mPreviousWandPosition;
-				return mWandPosition;
-			}
-			virtual gmtl::Vec3f getWandDirection(Time t = CURRENT) {
-				if(t == PREVIOUS) return mPreviousWandDirection;
-				return mWandDirection;
-			}
-
-			virtual gmtl::Matrix44f getNavigationMatrix() {
-				return mNavigationMatrix;
-			}
-
-			virtual void setNavigationMatrix(gmtl::Matrix44f navigationMatrix) {
-				mNavigationMatrix = navigationMatrix;
-			}
-
-			virtual const int* getViewport() {
+			const int* getViewport(){
 				vrj::opengl::DrawManager* gl_manager = vrj::opengl::DrawManager::instance();
 				vprASSERT(gl_manager != NULL);
 				vrj::opengl::UserData* user_data = gl_manager->currentUserData();
@@ -161,8 +114,7 @@ namespace alive {
 
 				return v;
 			}
-
-			virtual const float* getViewMatrix() {
+			const float* getViewMatrix(){
 				vrj::opengl::DrawManager* gl_manager = vrj::opengl::DrawManager::instance();
 				vprASSERT(gl_manager != NULL);
 				vrj::opengl::UserData* user_data = gl_manager->currentUserData();
@@ -170,8 +122,7 @@ namespace alive {
 				vrj::ProjectionPtr project = user_data->getProjection();
 				return project->getViewMatrix().mData;
 			}
-
-			virtual const float* getFrustum() {
+			const float* getFrustum(){
 				vrj::opengl::DrawManager* gl_manager = vrj::opengl::DrawManager::instance();
 				vprASSERT(gl_manager != NULL);
 				vrj::opengl::UserData* user_data = gl_manager->currentUserData();
@@ -195,18 +146,7 @@ namespace alive {
 			gadget::PositionInterface  mHead;
 			gadget::DigitalInterface   mButtonInterface[MAX_BUTTONS];
 
-			vpr::Interval mCurrentTime, mPreviousTime;
-			float timeDelta;
-
-			gmtl::Vec3f mHeadPosition, mHeadDirection;
-			gmtl::Vec3f mPreviousHeadPosition, mPreviousHeadDirection;
-			gmtl::Vec3f mWandPosition, mWandDirection;
-			gmtl::Vec3f mPreviousWandPosition, mPreviousWandDirection;
-
-			bool mButtonState[MAX_BUTTONS];
-			bool mFirstButtonClick[MAX_BUTTONS];
-
-			gmtl::Matrix44f mNavigationMatrix;
+			bool mFirstButtonClick[MAX_BUTTONS];			
 		};
 	}
 }

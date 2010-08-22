@@ -31,13 +31,14 @@ HEADERS = alive/App.h \
 HEADERS += alive/juggler/App.h \
     alive/juggler/Input.h \
     alive/juggler/Kernel.h
-HEADERS += alive/interaction/BasicNavigation.h
 SOURCES = 
+HEADERS += alive/interaction/BasicNavigation.h
+SOURCES = alive/interaction/BasicNavigation.cpp
 HEADERS += alive/poly/Scene.h
-SOURCES = alive/poly/main.cpp \
+SOURCES += alive/poly/main.cpp \
     alive/poly/Scene.cpp
-DEPENDPATH = alive/poly
-DEPENDPATH += alive \
+DEPENDPATH = alive/poly \
+    alive \
     alive/juggler \
     alive/interaction
 OBJECTS_DIR = build

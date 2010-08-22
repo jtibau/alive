@@ -42,21 +42,59 @@ namespace alive {
 
 		virtual unsigned int getCurrentContext() = 0;
 
-		virtual double getCurrentTimeStamp() = 0;
-		virtual float getTimeDelta() = 0;
+		virtual double getCurrentTimeStamp(){
+			return mCurrentTime;
+		}
 
-		virtual bool getButtonState(unsigned int buttonNumber) = 0;
+		virtual float getTimeDelta(){
+			return mTimeDelta;
+		}
 
-		virtual gmtl::Vec3f getHeadPosition(Time t = CURRENT) = 0;
-		virtual gmtl::Vec3f getHeadDirection(Time t = CURRENT) = 0;
-		virtual gmtl::Vec3f getWandPosition(Time t = CURRENT) = 0;
-		virtual gmtl::Vec3f getWandDirection(Time t = CURRENT) = 0;
+		virtual bool getButtonState(unsigned int buttonNumber) {
+			if(buttonNumber < MAX_BUTTONS)
+				return mButtonState[buttonNumber];
+			else return false;
+		}
 
-		virtual gmtl::Matrix44f getNavigationMatrix() = 0;
-		virtual void setNavigationMatrix(gmtl::Matrix44f navigationMatrix) = 0;
+		virtual gmtl::Vec3f getHeadPosition(Time t = CURRENT) {
+			if(t == PREVIOUS) return mPreviousHeadPosition;
+			return mHeadPosition;
+		}
+		virtual gmtl::Vec3f getHeadDirection(Time t = CURRENT) {
+			if(t == PREVIOUS) return mPreviousHeadDirection;
+			return mHeadDirection;
+		}
+		virtual gmtl::Vec3f getWandPosition(Time t = CURRENT) {
+			if(t == PREVIOUS) return mPreviousWandPosition;
+			return mWandPosition;
+		}
+		virtual gmtl::Vec3f getWandDirection(Time t = CURRENT) {
+			if(t == PREVIOUS) return mPreviousWandDirection;
+			return mWandDirection;
+		}
+
+		virtual gmtl::Matrix44f getNavigationMatrix(){
+			return mNavigationMatrix;
+		}
+		virtual void setNavigationMatrix(gmtl::Matrix44f navigationMatrix){
+			mNavigationMatrix = navigationMatrix;
+		}
 
 		virtual const int* getViewport() = 0;
 		virtual const float* getViewMatrix() = 0;
 		virtual const float* getFrustum() = 0;
+
+	protected:
+		gmtl::Vec3f mHeadPosition, mHeadDirection;
+		gmtl::Vec3f mPreviousHeadPosition, mPreviousHeadDirection;
+		gmtl::Vec3f mWandPosition, mWandDirection;
+		gmtl::Vec3f mPreviousWandPosition, mPreviousWandDirection;
+
+		bool mButtonState[MAX_BUTTONS];
+
+		double mCurrentTime, mPreviousTime;
+		float mTimeDelta;
+
+		gmtl::Matrix44f mNavigationMatrix;
 	};
 }
