@@ -17,39 +17,19 @@
 
 #pragma once
 
-#include <gmtl/Generate.h>
-
-#include <gmtl/Vec.h>
-#include <gmtl/VecOps.h>
-#include <gmtl/Matrix.h>
-#include <gmtl/MatrixOps.h>
-
-#include <alive/Input.h>
 #include <alive/InteractionMethod.h>
 
-#include <iostream>
-
 namespace alive {
-
+	class Input;
 	namespace interaction {
-
 		class BasicNavigation : public alive::InteractionMethod {
-
 		public:
-			BasicNavigation() {}
-			virtual ~BasicNavigation() {}
-
-			void init(Input *input) {
-				alive::InteractionMethod::init(input);
-			}
-
 			void update() {
 				gmtl::Matrix44f navigationMatrix;
 				gmtl::identity(navigationMatrix);
 
 				// Translate in the direction the wand is pointing.
 				if ( mInput->getButtonState(0) ){
-					std::cout << "Button0 pressed\n";
 					gmtl::Vec3f translation =  mInput->getWandDirection() * mInput->getTimeDelta();
 					// translation *= 1;	// move faster/slower
 					translation[1] = 0.0f;	// comment out if you wanna fly!
@@ -112,11 +92,8 @@ namespace alive {
 						gmtl::postMult(navigationMatrix, gmtl::makeTrans<gmtl::Matrix44f>(-mInput->getHeadPosition()));
 					}
 				}
-
 				mInput->setNavigationMatrix(navigationMatrix);
 			}
-
-			void draw() {}
 		};
 	}
 }

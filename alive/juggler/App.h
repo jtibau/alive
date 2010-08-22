@@ -26,9 +26,7 @@
 #include <alive/juggler/Input.h>
 
 namespace alive{
-
 	namespace juggler{
-
 		class App : public vrj::opengl::App
 		{
 

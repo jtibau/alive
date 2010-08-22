@@ -18,23 +18,17 @@
 #pragma once
 
 namespace alive {
-
 	class Input;
-
 	class InteractionMethod {
-
 	public:
+		InteractionMethod(){}
+		virtual ~InteractionMethod(){}
 
-		InteractionMethod() {}
-		virtual ~InteractionMethod() {}
-
-		virtual void init(Input* input) {
-			mInput = input;
-		}
+		virtual void init(Input* input){ mInput = input; }
 
 		virtual void update() = 0;
-		virtual void draw() = 0;
 
+		virtual void draw(){}
 	protected:
 		Input* mInput;
 	};
