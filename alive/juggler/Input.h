@@ -41,6 +41,8 @@ namespace alive {
 
 		/** @class alive::juggler::Input alive/juggler/Input.h
 		  * @brief VR Juggler implementation of the abstract alive::Input
+		  *
+		  * @note alive::Input (father) is better documented, read it.
 		  */
 		class Input : public alive::Input {
 
@@ -79,12 +81,12 @@ namespace alive {
 				gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -1.0f);
 
 				// update wand data
-				gmtl::Matrix44f wandMatrix = mWand->getData();
+				gmtl::Matrix44f wandMatrix = mWand->getData(gadget::PositionUnitConversion::ConvertToMeters);
 				gmtl::xform(mWandDirection, wandMatrix, Zdir);
 				mWandPosition = gmtl::makeTrans<gmtl::Point3f>(wandMatrix);
 
 				// update head data
-				gmtl::Matrix44f headMatrix = mHead->getData();
+				gmtl::Matrix44f headMatrix = mHead->getData(gadget::PositionUnitConversion::ConvertToMeters);
 				gmtl::xform(mHeadDirection, headMatrix, Zdir);
 				mHeadPosition = gmtl::makeTrans<gmtl::Point3f>(headMatrix);
 

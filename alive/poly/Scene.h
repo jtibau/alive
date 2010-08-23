@@ -34,20 +34,64 @@ namespace alive {
 
 	namespace poly {
 
+
+		/** @class alive::poly::Scene alive/poly/Scene.h
+		  * @brief Sample Implementation of the alive::Scene class
+		  *
+		  * This and package implement ALIVE, as a simple polygonal renderer based on openscenegraph
+		  *
+		  * @note Two features will be deprecated from this implementation, since they make this code
+		  * vrj-dependant: vpr::Mutex and vrj::opengl::ContextData. They should be replaced by wrapper
+		  * objects in ALIVE.
+		  */
 		class Scene : public alive::Scene {
 
 		public:
 
+			/** @brief Default Constructor
+			  *
+			  * Sets mFrameNumber to 0 and configures threading on osg
+			  */
 			Scene() : mFrameNumber(0) {
 				osg::Referenced::setThreadSafeReferenceCounting(true);
 			}
 
+			/** @brief Initializes the SceneGraph
+			  *
+			  * Creates the structure for the graph and loads the model.
+			  * @note It is possible that model loading (if not modularized) be better done in contextInit
+			  */
 			void init(Input* input);
+
+			/** @brief Initializes context specific variables and objects.
+			  *
+			  * Which in this case is the helper class osgUtil::SceneView
+			  */
 			void contextInit();
 
+			/** @brief Updates to the Scene
+			  *
+			  * Updates the scene by:
+			  * - Increasing the frame number
+			  * - Giving it the current timestamp
+			  * - Updates the NodeVisitor mUdateVisitor
+			  * - Tells the scene to calculate the newer bounding boxes
+			  *
+			  * @note It also gets the most recent navigation matrix from Input, this should be replaced by signals and slots
+			  */
 			void latePreFrame();
+
+			/** @brief Rendering code, made context-specific through ContextData
+			  *
+			  * Gets the sceneViewer object for the current context. Gives it the current
+			  * viewport, frustum and view matrix. Tells osg to do some culling and send the draw commands.
+			  */
 			void draw();
 
+			/** @brief Updates the navigation matrix for this Scene
+			  *
+			  * Replaces the old navigation matrix with the one provided
+			  */
 			void navigationMatrixChanged(const float* navigationMatrix);
 
 		protected:

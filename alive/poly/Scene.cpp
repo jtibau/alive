@@ -51,7 +51,7 @@ namespace alive {
 			mModelTrans  = new osg::MatrixTransform();
 			//This can be used if the model orientation needs to change
 			//mModelTrans->preMult(osg::Matrix::rotate(-90.0, osg::Vec3f(1.0,0.0,0.0)));
-			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(-2.0,0.0,-2.0)));
+			//mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(-2.0,0.0,-2.0)));
 
 			if ( ! mModel.valid() )
 				std::cout << "ERROR: Could not load file: " << mFileToLoad << std::endl;
@@ -146,9 +146,7 @@ namespace alive {
 			nav.set(navigationMatrix);
 			nav.invert(nav);
 
-			osg::Matrix n = mNavTrans->getMatrix() * nav;
-
-			mNavTrans->setMatrix(n);
+			mNavTrans->setMatrix(nav);
 		}
 	}
 }

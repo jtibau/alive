@@ -17,11 +17,12 @@
 
 #include "BasicNavigation.h"
 
+#include <iostream>
+
 namespace alive{
 	namespace interaction{
 		void BasicNavigation::update(){
-			gmtl::Matrix44f navigationMatrix;
-			gmtl::identity(navigationMatrix);
+			gmtl::Matrix44f navigationMatrix = mInput->getNavigationMatrix();
 
 			// Translate in the direction the wand is pointing.
 			if ( mInput->getButtonState(0) ){
@@ -33,11 +34,11 @@ namespace alive{
 
 				gmtl::postMult(navigationMatrix, trans_matrix);
 			}
-			if( mInput->getButtonState(2) )
+			if( mInput->getButtonState(1) )
 			{
 				gmtl::Vec3f v1,v2;
 
-				v1 = mInput->getWandPosition(alive::PREVIOUS) - mInput->getHeadPosition();
+				v1 = mInput->getWandPosition(alive::PREVIOUS) - mInput->getHeadPosition(alive::PREVIOUS);
 				v2 = mInput->getWandPosition() - mInput->getHeadPosition();
 
 				if(v1!=v2){
@@ -70,8 +71,6 @@ namespace alive{
 
 					gmtl::Matrix44f transfMat = im1 * m2 * m1;
 
-					//move to the head in order to rotate around it
-					gmtl::postMult(navigationMatrix, gmtl::makeTrans<gmtl::Matrix44f>(mInput->getHeadPosition()));
 
 					float x_rot = 0;
 					float y_rot = 0;
@@ -81,10 +80,15 @@ namespace alive{
 					y_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[1];
 					//z_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[2];
 
-					gmtl::postMult(navigationMatrix, gmtl::makeRot<gmtl::Matrix44f>(gmtl::EulerAngleXYZf(x_rot,y_rot,z_rot)));
+					std::cout << "Head position: x" << mInput->getHeadPosition()[0]
+							<< " y" << mInput->getHeadPosition()[1]
+							<< " z" << mInput->getHeadPosition()[2]
+							<< std::endl;
 
-					//move back to its original place
+					gmtl::postMult(navigationMatrix, gmtl::makeTrans<gmtl::Matrix44f>(mInput->getHeadPosition()));
+					gmtl::postMult(navigationMatrix, gmtl::makeRot<gmtl::Matrix44f>(gmtl::EulerAngleXYZf(x_rot,y_rot,z_rot)));
 					gmtl::postMult(navigationMatrix, gmtl::makeTrans<gmtl::Matrix44f>(-mInput->getHeadPosition()));
+
 				}
 			}
 			mInput->setNavigationMatrix(navigationMatrix);
