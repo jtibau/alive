@@ -18,7 +18,6 @@
 #pragma once
 
 namespace alive {
-
 	class Input;
 
 	/** @class alive::Scene alive/Scene.h
@@ -30,9 +29,11 @@ namespace alive {
 	class Scene {
 
 	public:
+
 		/**	@brief Default constructor
 		  */
 		Scene() {}
+
 		/**	@brief Default destructor
 		  */
 		virtual ~Scene() {}
@@ -79,11 +80,13 @@ namespace alive {
 		/** @brief Stores the model's file name until an appropriate time to load (contextInit).
 		  */
 		virtual void setModelName(char* modelFileName) { mFileToLoad = modelFileName; }
+
 		/** @brief Sets the new navigation matrix
 		  */
 		virtual void navigationMatrixChanged(const float* navigationMatrix) = 0;
 
 	protected:
+
 		Input* mInput; /**< Pointer to the Input object */
 		char* mFileToLoad; /**< The filename of the model to be loaded */
 	};

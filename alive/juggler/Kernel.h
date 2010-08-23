@@ -27,18 +27,37 @@
 
 namespace alive {
 	namespace juggler {
+
+		/** @class alive::juggler::Kernel alive/juggler/Kernel.h
+		  * @brief Encapsulates what goes on the main function for a VR Juggler App
+		  */
 		class Kernel {
+
 		public:
+
+			/** @brief Takes the user's App and instantiates an alive::juggler::App with it.
+			  */
 			Kernel(alive::App* userApp) {
 				mUserApp = userApp;
 				kernel = vrj::Kernel::instance();	// Get the kernel
 				app = new alive::juggler::App(kernel, mUserApp); // Instantiate the app
 			}
 
+			/** @brief Deletes the juggler app.
+			  *
+			  * The user's app is deleted by the juggler app.
+			  */
 			~Kernel() {
-				delete app;
+				delete kernel;
+				delete app;	// its destructor deletes mUserApp
 			}
 
+			/** @brief Inits the kernel and waits for the loop to stop
+			  *
+			  * Also processes the command line arguments:
+			  * Sends the modelname to the user's app
+			  * Gives the jconf files to the kernel to configure itself
+			  */
 			void startAndWait(int argc, char* argv[]) {
 				if ( argc <= 2 ){
 					std::cout << "Usage: " << argv[0]
@@ -54,16 +73,16 @@ namespace alive {
 				// Load any config files specified on the command line
 				for ( int i = 2; i < argc; ++i )
 					kernel->loadConfigFile(argv[i]);
-				
+
 				kernel->start();
 
 				kernel->setApplication(app);
 				kernel->waitForKernelStop();
 			}
-		protected:
-			vrj::Kernel* kernel;
-			alive::juggler::App* app;
-			alive::App* mUserApp;
+		private:
+			vrj::Kernel* kernel; /**< The VR Juggler kernel */
+			alive::juggler::App* app; /**< The alive::juggler::App wrapper object */
+			alive::App* mUserApp; /**< The user's App object */
 		};
 	}
 }

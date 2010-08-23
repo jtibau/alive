@@ -23,7 +23,6 @@
 #define MAX_BUTTONS 3
 
 namespace alive {
-
 	class Scene;
 
 	enum Time {
@@ -43,6 +42,7 @@ namespace alive {
 	class Input {
 
 	public:
+
 		/** @brief Default Constructor
 		  *
 		  * Constructors do very few things in ALIVE, since most initialization happens
@@ -104,6 +104,7 @@ namespace alive {
 			if(t == PREVIOUS) return mPreviousHeadPosition;
 			return mHeadPosition;
 		}
+
 		/** @brief Returns a 3D vector with the head direction
 		  *
 		  *	The two possible time values are CURRENT and PREVIOUS. These are stored
@@ -113,6 +114,7 @@ namespace alive {
 			if(t == PREVIOUS) return mPreviousHeadDirection;
 			return mHeadDirection;
 		}
+
 		/** @brief Returns a 3D vector with the wand position
 		  *
 		  *	The two possible time values are CURRENT and PREVIOUS. These are stored
@@ -122,6 +124,7 @@ namespace alive {
 			if(t == PREVIOUS) return mPreviousWandPosition;
 			return mWandPosition;
 		}
+
 		/** @brief Returns a 3D vector with the wand direction
 		  *
 		  *	The two possible time values are CURRENT and PREVIOUS. These are stored
@@ -165,6 +168,7 @@ namespace alive {
 		virtual const float* getFrustum() = 0;
 
 	protected:
+
 		gmtl::Vec3f mHeadPosition; /**< Head position */
 		gmtl::Vec3f mHeadDirection; /**< Head direction */
 		gmtl::Vec3f mPreviousHeadPosition; /**< Previous head position */

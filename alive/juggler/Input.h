@@ -38,8 +38,16 @@
 
 namespace alive {
 	namespace juggler {
+
+		/** @class alive::juggler::Input alive/juggler/Input.h
+		  * @brief VR Juggler implementation of the abstract alive::Input
+		  */
 		class Input : public alive::Input {
+
 		public:
+
+			/** @brief Initializes the devices according to VR Juggler requirements
+			  */
 			void init(){
 				mWand.init("VJWand");
 				mHead.init("VJHead");
@@ -52,6 +60,9 @@ namespace alive {
 				}
 				mCurrentTime = 0;
 			}
+
+			/** @brief Updates device state
+			  */
 			void update(){
 				mPreviousTime = mCurrentTime;
 				mCurrentTime = mHead->getTimeStamp().secd();
@@ -91,10 +102,14 @@ namespace alive {
 				}
 			}
 
+			/** @brief Returns the OpenGL context
+			  */
 			unsigned int getCurrentContext(){
 				return vrj::opengl::DrawManager::instance()->getCurrentContext();
 			}
 
+			/** @brief Returns the OpenGL Viewport
+			  */
 			const int* getViewport(){
 				vrj::opengl::DrawManager* gl_manager = vrj::opengl::DrawManager::instance();
 				vprASSERT(gl_manager != NULL);
@@ -114,6 +129,9 @@ namespace alive {
 
 				return v;
 			}
+
+			/** @brief Returns the OpenGL View Matrix
+			  */
 			const float* getViewMatrix(){
 				vrj::opengl::DrawManager* gl_manager = vrj::opengl::DrawManager::instance();
 				vprASSERT(gl_manager != NULL);
@@ -122,6 +140,9 @@ namespace alive {
 				vrj::ProjectionPtr project = user_data->getProjection();
 				return project->getViewMatrix().mData;
 			}
+
+			/** @brief Returns the OpenGL Frustum
+			  */
 			const float* getFrustum(){
 				vrj::opengl::DrawManager* gl_manager = vrj::opengl::DrawManager::instance();
 				vprASSERT(gl_manager != NULL);
@@ -142,11 +163,12 @@ namespace alive {
 			}
 
 		private:
-			gadget::PositionInterface  mWand;
-			gadget::PositionInterface  mHead;
-			gadget::DigitalInterface   mButtonInterface[MAX_BUTTONS];
 
-			bool mFirstButtonClick[MAX_BUTTONS];			
+			gadget::PositionInterface  mWand; /**< The VRJuggler pointer to the Wand */
+			gadget::PositionInterface  mHead; /**< The VRJuggler pointer to the Head */
+			gadget::DigitalInterface   mButtonInterface[MAX_BUTTONS]; /**< The VRJuggler pointers to the buttons */
+
+			bool mFirstButtonClick[MAX_BUTTONS]; /**< A hack, to handle a current bug with the VRPN driver in vrj*/
 		};
 	}
 }

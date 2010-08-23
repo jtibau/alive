@@ -29,8 +29,19 @@
 
 namespace alive {
 	namespace interaction {
+
+		/** @class alive::interaction::BasicNavigation alive/interaction/BasicNavgigation.h
+		  * @brief The most basic navigation type. Move in the direction of the wand.
+		  *
+		  * Also rotates the scene around the user's head using the wand.
+		  */
 		class BasicNavigation : public alive::InteractionMethod {
+
 		public:
+
+			/** @brief Update code, handles what to do with each button press and
+			  * changes the navigation matrix according to the method.
+			  */
 			void update();
 		};
 	}

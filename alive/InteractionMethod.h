@@ -19,6 +19,7 @@
 
 namespace alive {
 	class Input;
+
 	/** @class alive::InteractionMethod alive/InteractionMethod.h
 	  * @brief Interface to any type of Interaction Method (navigation, selection, manipulation).
 	  *
@@ -26,7 +27,9 @@ namespace alive {
 	  * through signals and slots, or alive::Input
 	  */
 	class InteractionMethod {
+
 	public:
+
 		InteractionMethod(){}
 		virtual ~InteractionMethod(){}
 
@@ -43,7 +46,9 @@ namespace alive {
 		/** @brief Optional place to place opengl code.
 		  */
 		virtual void draw(){}
+
 	protected:
+
 		Input* mInput; /**< Pointer to the Input object */
 	};
 }

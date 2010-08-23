@@ -180,6 +180,7 @@ namespace alive {
 		}
 
 	protected:
+
 		Scene* mScene;	/**< The object that contains the rendering code */
 		Input* mInput;	/**< Input Handler */
 		InteractionMethod* mInteractionMethod;	/**< The App's InteractionMethod */
