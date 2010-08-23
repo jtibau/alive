@@ -116,6 +116,5 @@ namespace alive{
 			alive::App* mApp; /**< Pointer to the user's App */
 			alive::Input* mInput; /**< Pointer to a juggler Input object */
 		};
-
 	}
 }

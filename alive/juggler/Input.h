@@ -168,7 +168,7 @@ namespace alive {
 			gadget::PositionInterface  mHead; /**< The VRJuggler pointer to the Head */
 			gadget::DigitalInterface   mButtonInterface[MAX_BUTTONS]; /**< The VRJuggler pointers to the buttons */
 
-			bool mFirstButtonClick[MAX_BUTTONS]; /**< A hack, to handle a current bug with the VRPN driver in vrj*/
+			bool mFirstButtonClick[MAX_BUTTONS]; /**< A hack, to handle a current bug with the VRPN driver in vrj SS*/
 		};
 	}
 }

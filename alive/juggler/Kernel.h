@@ -48,7 +48,6 @@ namespace alive {
 			  * The user's app is deleted by the juggler app.
 			  */
 			~Kernel() {
-				delete kernel;
 				delete app;	// its destructor deletes mUserApp
 			}
 
