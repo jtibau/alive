@@ -119,6 +119,7 @@ namespace alive {
 		virtual void bufferPreDraw() {
 			glClearColor(0.0, 0.0, 0.0, 0.0);
 			glClear(GL_COLOR_BUFFER_BIT);
+			if(mScene) mScene->bufferPreDraw();
 		}
 
 		/** @brief Just before drawing, inside the the opengl context
