@@ -22,11 +22,12 @@
 #include <alive/App.h>
 #include <alive/juggler/Kernel.h>
 #include <alive/interaction/BasicNavigation.h>
+#include <alive/interaction/BasicRayIntersection.h>
 
 #include "Scene.h"
 
 int main(int argc, char* argv[]){
-	alive::App* application = new alive::App( new alive::poly::Scene() , new alive::interaction::BasicNavigation() );
+	alive::App* application = new alive::App( new alive::poly::Scene() , new alive::interaction::BasicRayIntersection() );
 
 	alive::juggler::Kernel* kernel = new alive::juggler::Kernel(application);
 

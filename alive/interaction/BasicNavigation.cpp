@@ -17,15 +17,13 @@
 
 #include "BasicNavigation.h"
 
-#include <iostream>
-
 namespace alive{
 	namespace interaction{
 		void BasicNavigation::update(){
 			gmtl::Matrix44f navigationMatrix = mInput->getNavigationMatrix();
 
 			// Translate in the direction the wand is pointing.
-			if ( mInput->getButtonState(0) ){
+			if ( mInput->getButtonState(1) ){
 				gmtl::Vec3f translation =  mInput->getWandDirection() * mInput->getTimeDelta();
 				// translation *= 1;	// move faster/slower
 				translation[1] = 0.0f;	// comment out if you wanna fly!
@@ -34,7 +32,7 @@ namespace alive{
 
 				gmtl::postMult(navigationMatrix, trans_matrix);
 			}
-			if( mInput->getButtonState(1) )
+			if( mInput->getButtonState(0) )
 			{
 				gmtl::Vec3f v1,v2;
 
@@ -79,11 +77,6 @@ namespace alive{
 					//x_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[0];
 					y_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[1];
 					//z_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[2];
-
-					std::cout << "Head position: x" << mInput->getHeadPosition()[0]
-							<< " y" << mInput->getHeadPosition()[1]
-							<< " z" << mInput->getHeadPosition()[2]
-							<< std::endl;
 
 					gmtl::postMult(navigationMatrix, gmtl::makeTrans<gmtl::Matrix44f>(mInput->getHeadPosition()));
 					gmtl::postMult(navigationMatrix, gmtl::makeRot<gmtl::Matrix44f>(gmtl::EulerAngleXYZf(x_rot,y_rot,z_rot)));

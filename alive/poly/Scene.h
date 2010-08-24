@@ -96,16 +96,24 @@ namespace alive {
 
 		protected:
 
+			/** A scene viewer object from osg.
+			  * Encapsuled within a ContextData object, it acts as a smart pointer which always points to the viewer from each context.
+			  */
 			vrj::opengl::ContextData< ::osg::ref_ptr<osgUtil::SceneView> > sceneViewer;
-			vpr::Mutex mSceneViewLock;
+
+			vpr::Mutex mSceneViewLock; /**< Mutex to prevent simultaneous manipulation of the graph by different osg threads */
 
 			osg::ref_ptr< osg::NodeVisitor > mUpdateVisitor;
 			osg::ref_ptr< osg::FrameStamp >  mFrameStamp;
 
-			osg::ref_ptr<osg::Group>           mRootNode;
-			osg::ref_ptr<osg::MatrixTransform> mNavTrans;
-			osg::ref_ptr<osg::MatrixTransform> mModelTrans;
-			osg::ref_ptr<osg::Node>            mModel;
+			//
+			// mRootNode
+			//         \-- mNavTrans -- mModelTrans -- mModel
+
+			osg::ref_ptr<osg::Group>           mRootNode;	/**< The root of the scenegraph */
+			osg::ref_ptr<osg::MatrixTransform> mNavTrans;	/**< A transformation node that affects the position/orientation of the whole scene */
+			osg::ref_ptr<osg::MatrixTransform> mModelTrans; /**< Transformation specific to the loaded model */
+			osg::ref_ptr<osg::Node>            mModel;		/**< The node where the model is loaded and placed */
 
 			int mFrameNumber;
 		};

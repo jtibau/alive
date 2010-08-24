@@ -135,6 +135,11 @@ namespace alive {
 			return mWandDirection;
 		}
 
+		virtual gmtl::Vec3f getRayStart(){ return mRayStart; }
+		virtual void setRayStart(gmtl::Vec3f rayStart){ mRayStart = rayStart; }
+		virtual gmtl::Vec3f getRayEnd(){ return mRayEnd; }
+		virtual void setRayEnd(gmtl::Vec3f rayEnd){ mRayEnd = rayEnd; }
+
 		/** @brief Returns a 4x4 navigation matrix
 		  *
 		  *	This is here more as a hack, since the Input object is available everywhere.
@@ -150,6 +155,12 @@ namespace alive {
 		virtual void setNavigationMatrix(gmtl::Matrix44f navigationMatrix){
 			mNavigationMatrix = navigationMatrix;
 		}
+
+		virtual gmtl::Matrix44f getSelectedTransformation(){ return mSelectedTransformation; }
+		virtual void setSelectedTransformation( gmtl::Matrix44f selectedTransformation ){ mSelectedTransformation = selectedTransformation; }
+
+		virtual bool getObjectSelectedFlag(){ return mObjectSelectedFlag; }
+		virtual void setObjectSelectedFlag(bool objectSelectedFlag){ mObjectSelectedFlag = objectSelectedFlag; }
 
 		/** @brief Returns the viewport for the context where it is called
 		  *
@@ -178,6 +189,9 @@ namespace alive {
 		gmtl::Vec3f mPreviousWandPosition; /**< Previous Wand Position */
 		gmtl::Vec3f mPreviousWandDirection; /**< Previuos Wand Direction */
 
+		gmtl::Vec3f mRayStart;
+		gmtl::Vec3f mRayEnd;
+
 		bool mButtonState[MAX_BUTTONS]; /**< State of the buttons */
 
 		double mCurrentTime; /**< Current timestamp */
@@ -185,5 +199,8 @@ namespace alive {
 		float mTimeDelta; /**< Time passed between now and the previous frame */
 
 		gmtl::Matrix44f mNavigationMatrix; /**< The user's navigation matrix */
+		gmtl::Matrix44f mSelectedTransformation; /**< The transformation that will be applied to the selected object */
+
+		bool mObjectSelectedFlag;
 	};
 }

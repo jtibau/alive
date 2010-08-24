@@ -18,6 +18,10 @@
 #include "Scene.h"
 
 #include <osgDB/ReadFile>
+#include <osgUtil/IntersectionVisitor>
+#include <osgUtil/LineSegmentIntersector>
+
+#include <iostream>
 
 #include <alive/Input.h>
 
@@ -51,7 +55,8 @@ namespace alive {
 			mModelTrans  = new osg::MatrixTransform();
 			//This can be used if the model orientation needs to change
 			//mModelTrans->preMult(osg::Matrix::rotate(-90.0, osg::Vec3f(1.0,0.0,0.0)));
-			//mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(-2.0,0.0,-2.0)));
+			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(-2.0,0.0,-2.0)));
+			mModelTrans->setName("Model Transformation");
 
 			if ( ! mModel.valid() )
 				std::cout << "ERROR: Could not load file: " << mFileToLoad << std::endl;
@@ -114,6 +119,42 @@ namespace alive {
 			mUpdateVisitor->setTraversalNumber(mFrameNumber);
 			mRootNode.get()->accept(*mUpdateVisitor);
 			mRootNode.get()->getBound();
+
+			// Intersection check
+			gmtl::Vec3f s = mInput->getRayStart();
+			gmtl::Vec3f e = mInput->getRayEnd();
+			osg::Vec3d start(s[0],s[1],s[2]);
+			osg::Vec3d end(e[0],e[1],e[2]);
+			osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector =
+					new osgUtil::LineSegmentIntersector(start, end);
+			osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
+			mRootNode->accept(intersectVisitor);
+
+			if(intersector->containsIntersections()){
+				const osgUtil::LineSegmentIntersector::Intersection intersection =
+						intersector->getFirstIntersection();
+
+				osg::NodePath npath = intersection.nodePath;
+				osg::ref_ptr<osg::MatrixTransform> intersectedNode =
+						npath[npath.size()-3]->asTransform()->asMatrixTransform();
+				//std::cout << "Intersected: " << intersectedNode->getName() << std::endl;
+				mInput->setObjectSelectedFlag(true);
+
+				osg::Matrixf transf = intersectedNode->getMatrix();
+				transf.invert(transf);
+
+				float tmatrix[4][4];
+				for(int i; i<4; i++)
+					for(int j; j<4; j++)
+						tmatrix[i][j] = transf(i,j);
+				gmtl::Matrix44f tm;
+
+				// find a way to convert from osg::Matrix to float* without doing the above
+				//tm.set(transf._mat);
+
+				mInput->setSelectedTransformation(tm);
+			}
+			else{ mInput->setObjectSelectedFlag(false); }
 		}
 
 		void Scene::draw() {

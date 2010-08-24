@@ -27,11 +27,12 @@ DEFINES += BOOST_ALL_DYN_LINK \
 HEADERS = alive/App.h \
     alive/Input.h \
     alive/InteractionMethod.h \
-    alive/Scene.h
+    alive/Scene.h \
+    alive/interaction/BasicRayIntersection.h
 HEADERS += alive/juggler/App.h \
     alive/juggler/Input.h \
     alive/juggler/Kernel.h
-SOURCES = 
+SOURCES = alive/interaction/BasicRayIntersection.cpp
 HEADERS += alive/interaction/BasicNavigation.h
 SOURCES = alive/interaction/BasicNavigation.cpp
 HEADERS += alive/poly/Scene.h

@@ -61,6 +61,7 @@ namespace alive {
 					mFirstButtonClick[i] = true;
 				}
 				mCurrentTime = 0;
+				mObjectSelectedFlag = false;
 			}
 
 			/** @brief Updates device state
