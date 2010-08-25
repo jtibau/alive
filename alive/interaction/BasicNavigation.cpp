@@ -23,9 +23,9 @@ namespace alive{
 			gmtl::Matrix44f navigationMatrix = mInput->getNavigationMatrix();
 
 			// Translate in the direction the wand is pointing.
-			if ( mInput->getButtonState(1) ){
+			if ( mInput->getButtonState(0) ){
 				gmtl::Vec3f translation =  mInput->getWandDirection() * mInput->getTimeDelta();
-				// translation *= 1;	// move faster/slower
+				translation *= 3;	// move faster/slower
 				translation[1] = 0.0f;	// comment out if you wanna fly!
 				// Post multiply the delta translation
 				gmtl::Matrix44f trans_matrix = gmtl::makeTrans<gmtl::Matrix44f>(translation);

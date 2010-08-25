@@ -27,7 +27,7 @@
 #include "Scene.h"
 
 int main(int argc, char* argv[]){
-	alive::App* application = new alive::App( new alive::poly::Scene() , new alive::interaction::BasicRayIntersection() );
+	alive::App* application = new alive::App( new alive::poly::Scene() , new alive::interaction::BasicNavigation() );
 
 	alive::juggler::Kernel* kernel = new alive::juggler::Kernel(application);
 

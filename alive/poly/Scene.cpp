@@ -55,7 +55,7 @@ namespace alive {
 			mModelTrans  = new osg::MatrixTransform();
 			//This can be used if the model orientation needs to change
 			//mModelTrans->preMult(osg::Matrix::rotate(-90.0, osg::Vec3f(1.0,0.0,0.0)));
-			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(0.0,0.0,-1.0)));
+			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(0.0,0.1,0.0)));
 			mModelTrans->setName("Model Transformation");
 
 			if ( ! mModel.valid() )
@@ -84,7 +84,8 @@ namespace alive {
 				newSceneViewer->setFrameStamp(mFrameStamp.get());
 
 				newSceneViewer->init();
-				newSceneViewer->setClearColor(::osg::Vec4(0.0f, 0.0f, 0.0f, 0.0f));
+				//135-206-250
+				newSceneViewer->setClearColor(::osg::Vec4(135.0f/256.0f, 206.0f/256.0f, 250.0f/256.0f, 1.0f));
 
 				// Needed for stereo to work.
 				newSceneViewer->setDrawBufferValue(GL_NONE);
@@ -139,7 +140,7 @@ namespace alive {
 			mRootNode.get()->getBound();
 
 
-
+/*
 			// Intersection check
 			gmtl::Vec3f s = mInput->getRayStart();
 			gmtl::Vec3f e = mInput->getRayEnd();
@@ -175,7 +176,7 @@ namespace alive {
 			}
 			else{ mInput->setObjectSelectedFlag(false); }
 
-
+*/
 
 		}
 
