@@ -27,6 +27,8 @@
 
 #include <gmtl/Generate.h>
 
+#include <iostream>
+
 namespace alive {
 	namespace interaction {
 
@@ -50,10 +52,17 @@ namespace alive {
 				mInput->setRayStart( start );
 				mInput->setRayEnd( end );
 
+				// This is actually manip code
 				if( mInput->getButtonState(0) && mInput->getObjectSelectedFlag() ){
-					gmtl::Matrix44f objectTransformation = mInput->getSelectedTransformation();
+					std::cout << "Sending new matrix\n";
+					gmtl::Matrix44f objectMatrix = mInput->getSelectedObjectMatrix();
+					gmtl::Vec3f translation =  mInput->getWandDirection() * mInput->getTimeDelta();
+					// translation *= 1;	// move faster/slower
+					translation[1] = 0.0f;	// comment out if you wanna fly!
+					// Post multiply the delta translation
+					gmtl::Matrix44f trans_matrix = objectMatrix * gmtl::makeTrans<gmtl::Matrix44f>(translation);
 
-					mInput->setSelectedTransformation(objectTransformation);
+					mInput->setSelectedTransformation(trans_matrix);
 				}
 			}
 		};

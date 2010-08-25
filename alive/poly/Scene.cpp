@@ -55,7 +55,7 @@ namespace alive {
 			mModelTrans  = new osg::MatrixTransform();
 			//This can be used if the model orientation needs to change
 			//mModelTrans->preMult(osg::Matrix::rotate(-90.0, osg::Vec3f(1.0,0.0,0.0)));
-			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(-2.0,0.0,-2.0)));
+			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(0.0,0.0,-1.0)));
 			mModelTrans->setName("Model Transformation");
 
 			if ( ! mModel.valid() )
@@ -105,8 +105,26 @@ namespace alive {
 			(*sceneViewer) = new_sv;
 		}
 
+		gmtl::Matrix44f convertMatrix(osg::Matrix original){
+			original.invert(original);
+			gmtl::Matrix44f converted;
+			converted.set(original(0,0),original(1,0),original(2,0),original(3,0),
+						  original(0,1),original(1,1),original(2,1),original(3,1),
+						  original(0,2),original(1,2),original(2,2),original(3,2),
+						  original(0,3),original(1,3),original(2,3),original(3,3));
+
+			return converted;
+		}
+
+		osg::Matrix converMatrix(gmtl::Matrix44f original){
+			osg::Matrix converted(original.getData());
+			converted.invert(converted);
+			return converted;
+		}
+
+
 		void Scene::latePreFrame(){
-			navigationMatrixChanged(mInput->getNavigationMatrix().getData());
+			navigationMatrixChanged(mInput->getNavigationMatrix());
 
 			const double head_time = mInput->getCurrentTimeStamp();
 			++mFrameNumber;
@@ -120,6 +138,8 @@ namespace alive {
 			mRootNode.get()->accept(*mUpdateVisitor);
 			mRootNode.get()->getBound();
 
+
+
 			// Intersection check
 			gmtl::Vec3f s = mInput->getRayStart();
 			gmtl::Vec3f e = mInput->getRayEnd();
@@ -130,31 +150,33 @@ namespace alive {
 			osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
 			mRootNode->accept(intersectVisitor);
 
+			// What to do with the selected object
 			if(intersector->containsIntersections()){
+				std::cout << "Some object interesected\n";
 				const osgUtil::LineSegmentIntersector::Intersection intersection =
 						intersector->getFirstIntersection();
 
 				osg::NodePath npath = intersection.nodePath;
 				osg::ref_ptr<osg::MatrixTransform> intersectedNode =
 						npath[npath.size()-3]->asTransform()->asMatrixTransform();
-				//std::cout << "Intersected: " << intersectedNode->getName() << std::endl;
+
 				mInput->setObjectSelectedFlag(true);
 
-				osg::Matrixf transf = intersectedNode->getMatrix();
-				transf.invert(transf);
+				osg::Matrix osg_transf = intersectedNode->getMatrix();
+				gmtl::Matrix44f  gmtl_transf = convertMatrix(osg_transf);
+				mInput->setSelectedObjectMatrix(gmtl_transf);
 
-				float tmatrix[4][4];
-				for(int i; i<4; i++)
-					for(int j; j<4; j++)
-						tmatrix[i][j] = transf(i,j);
-				gmtl::Matrix44f tm;
-
-				// find a way to convert from osg::Matrix to float* without doing the above
-				//tm.set(transf._mat);
-
-				mInput->setSelectedTransformation(tm);
+				// Apply manipulation
+				if( mInput->getButtonState(0) ){
+					osg_transf = converMatrix( mInput->getSelectedTransformation() );
+					if(!osg_transf.isIdentity())
+						intersectedNode->setMatrix(osg_transf);
+				}
 			}
 			else{ mInput->setObjectSelectedFlag(false); }
+
+
+
 		}
 
 		void Scene::draw() {
@@ -182,10 +204,10 @@ namespace alive {
 			}
 		}
 
-		void Scene::navigationMatrixChanged(const float* navigationMatrix){
+		void Scene::navigationMatrixChanged(gmtl::Matrix44f navigationMatrix){
 			osg::Matrix nav;
-			nav.set(navigationMatrix);
-			nav.invert(nav);
+				nav.set(navigationMatrix.getData());
+				nav.invert(nav);
 
 			mNavTrans->setMatrix(nav);
 		}

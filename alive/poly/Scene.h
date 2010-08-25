@@ -26,6 +26,8 @@
 
 #include <vrj/Draw/OpenGL/ContextData.h>
 
+#include <gmtl/Matrix.h>
+
 #include <alive/Scene.h>
 
 namespace alive {
@@ -92,7 +94,7 @@ namespace alive {
 			  *
 			  * Replaces the old navigation matrix with the one provided
 			  */
-			void navigationMatrixChanged(const float* navigationMatrix);
+			void navigationMatrixChanged(gmtl::Matrix44f navigationMatrix);
 
 		protected:
 

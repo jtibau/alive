@@ -159,6 +159,9 @@ namespace alive {
 		virtual gmtl::Matrix44f getSelectedTransformation(){ return mSelectedTransformation; }
 		virtual void setSelectedTransformation( gmtl::Matrix44f selectedTransformation ){ mSelectedTransformation = selectedTransformation; }
 
+		virtual gmtl::Matrix44f getSelectedObjectMatrix(){ return mSelectedObjectMatrix; }
+		virtual void setSelectedObjectMatrix( gmtl::Matrix44f selectedObjectMatrix ){ mSelectedObjectMatrix = selectedObjectMatrix; }
+
 		virtual bool getObjectSelectedFlag(){ return mObjectSelectedFlag; }
 		virtual void setObjectSelectedFlag(bool objectSelectedFlag){ mObjectSelectedFlag = objectSelectedFlag; }
 
@@ -199,6 +202,7 @@ namespace alive {
 		float mTimeDelta; /**< Time passed between now and the previous frame */
 
 		gmtl::Matrix44f mNavigationMatrix; /**< The user's navigation matrix */
+		gmtl::Matrix44f mSelectedObjectMatrix;
 		gmtl::Matrix44f mSelectedTransformation; /**< The transformation that will be applied to the selected object */
 
 		bool mObjectSelectedFlag;

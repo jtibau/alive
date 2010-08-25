@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include <gmtl/Matrix.h>
+
 namespace alive {
 	class Input;
 
@@ -83,7 +85,7 @@ namespace alive {
 
 		/** @brief Sets the new navigation matrix
 		  */
-		virtual void navigationMatrixChanged(const float* navigationMatrix) = 0;
+		virtual void navigationMatrixChanged(gmtl::Matrix44f navigationMatrix) = 0;
 
 	protected:
 
