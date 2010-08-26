@@ -43,3 +43,4 @@ DEPENDPATH = alive/poly \
     alive/juggler \
     alive/interaction
 OBJECTS_DIR = build
+DESTDIR = $(HOME)/Share

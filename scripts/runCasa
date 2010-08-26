@@ -1,0 +1,14 @@
+#!/bin/bash
+
+export OSG_FILE_PATH=~/Share/data
+
+if [ $1 = "-s" ]; then
+	./poly ./data/casa.3DS --vrjslave
+fi
+if [ $1 = "-m" ]; then
+	./poly ./data/casa.3DS ./conf/cave.jconf --vrjmaster
+fi
+if [ -z $1 ]; then 
+	./poly ./data/casa.3DS standalone.jconf
+fi
+

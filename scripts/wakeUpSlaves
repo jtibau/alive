@@ -1,0 +1,5 @@
+#!/bin/bash
+# Wake the nodes of the CAVE Cluster, uses their MAC Address
+wakeonlan 00:22:15:32:db:75 #cave0
+wakeonlan 00:1c:c0:b2:11:d4 #cave1
+wakeonlan 00:1c:c0:b1:a7:4e #cave2
