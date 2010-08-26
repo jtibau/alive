@@ -1,0 +1,7 @@
+TEMPLATE = lib
+INCLUDEPATH += include $(VJ_BASE_DIR)/include/gmtl-0.6.0 
+HEADERS = 
+SOURCES = 
+DEPENDPATH = 
+OBJECTS_DIR = build
+DESTDIR = lib

@@ -1,0 +1,10 @@
+TEMPLATE = lib
+CONFIG += debug
+INCLUDEPATH += include ../../alive/include
+INCLUDEPATH +=  $(VJ_BASE_DIR)/include/gmtl-0.6.0 \
+LIBS += -L../alive/lib -lalive
+HEADERS = include/alive/interaction/WandDirectionDisplacement.h
+SOURCES = src/WandDirectionDisplacement.cpp
+DEPENDPATH = src
+OBJECTS_DIR = build
+DESTDIR = lib
