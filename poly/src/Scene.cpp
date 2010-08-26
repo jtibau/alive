@@ -15,7 +15,7 @@
  *
  *****************************************************************************/
 
-#include <alive/poly/Scene.h>
+#include "Scene.h"
 
 #include <osgDB/ReadFile>
 #include <osgUtil/IntersectionVisitor>

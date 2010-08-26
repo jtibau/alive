@@ -1,4 +1,4 @@
-#include <alive/juggler/App.h>
+#include "App.h"
 
 namespace alive {
 	namespace juggler {

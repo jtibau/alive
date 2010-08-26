@@ -1,10 +1,14 @@
 TEMPLATE = lib
 CONFIG += debug
-INCLUDEPATH += include ../../alive/include
+INCLUDEPATH += $(ALIVE_HOME)/include
 INCLUDEPATH +=  $(VJ_BASE_DIR)/include/gmtl-0.6.0 \
-LIBS += -L../alive/lib -lalive
-HEADERS = include/alive/interaction/BasicRayIntersection.h
+LIBS += -L$(ALIVE_HOME)/lib -lalive
+HEADERS = src/BasicRayIntersection.h
 SOURCES = src/BasicRayIntersection.cpp
 DEPENDPATH = src
 OBJECTS_DIR = build
 DESTDIR = lib
+headers.files = $$HEADERS
+headers.path = ../../../include/alive/interaction
+target.path = ../../../lib
+INSTALLS = target headers

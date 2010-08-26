@@ -1,8 +1,12 @@
 TEMPLATE = lib
 CONFIG += debug
-INCLUDEPATH += include $(VJ_BASE_DIR)/include/gmtl-0.6.0 
-HEADERS = include/alive/App.h include/alive/Input.h include/alive/InteractionMethod.h include/alive/Kernel.h include/alive/Scene.h  
+INCLUDEPATH += $(VJ_BASE_DIR)/include/gmtl-0.6.0 
+HEADERS = src/App.h src/Input.h src/InteractionMethod.h src/Kernel.h src/Scene.h  
 SOURCES = src/App.cpp src/Input.cpp src/InteractionMethod.cpp src/Scene.cpp
 DEPENDPATH = src
 OBJECTS_DIR = build
 DESTDIR = lib
+headers.files = $$HEADERS
+headers.path = ../../include/alive
+target.path = ../../lib
+INSTALLS = target headers

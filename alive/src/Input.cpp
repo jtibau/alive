@@ -1,4 +1,4 @@
-#include <alive/Input.h>
+#include "Input.h"
 
 namespace alive {
 	Input::Input() {}

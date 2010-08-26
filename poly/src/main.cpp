@@ -22,8 +22,8 @@
 #include <alive/App.h>
 #include <alive/juggler/Kernel.h>
 
-#include <alive/poly/Scene.h>
-#include <alive/poly/MyInteraction.h>
+#include "Scene.h"
+#include "MyInteraction.h"
 
 int main(int argc, char* argv[]){
 	alive::App* application =

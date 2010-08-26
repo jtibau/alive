@@ -23,7 +23,7 @@
 #include <vrj/Kernel/Kernel.h>
 
 #include <alive/App.h>
-#include <alive/juggler/Input.h>
+#include "Input.h"
 
 namespace alive{
 	namespace juggler{

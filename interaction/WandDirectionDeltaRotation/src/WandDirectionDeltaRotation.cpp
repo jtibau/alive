@@ -15,7 +15,7 @@
  *
  *****************************************************************************/
 
-#include <alive/interaction/WandDirectionDeltaRotation.h>
+#include "WandDirectionDeltaRotation.h"
 
 namespace alive{
 	namespace interaction{

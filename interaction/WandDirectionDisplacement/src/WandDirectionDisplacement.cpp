@@ -15,7 +15,7 @@
  *
  *****************************************************************************/
 
-#include <alive/interaction/WandDirectionDisplacement.h>
+#include "WandDirectionDisplacement.h"
 
 namespace alive{
 	namespace interaction{

@@ -15,7 +15,7 @@
  *
  *****************************************************************************/
 
-#include <alive/interaction/BasicRayIntersection.h>
+#include "BasicRayIntersection.h"
 
 namespace alive{
 	namespace interaction{

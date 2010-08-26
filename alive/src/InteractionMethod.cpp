@@ -1,4 +1,4 @@
-#include <alive/InteractionMethod.h>
+#include "InteractionMethod.h"
 
 namespace alive {
 		InteractionMethod::InteractionMethod(unsigned int buttonNumber) :

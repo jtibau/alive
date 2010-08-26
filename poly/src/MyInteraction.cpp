@@ -1,4 +1,4 @@
-#include <alive/poly/MyInteraction.h>
+#include "MyInteraction.h"
 
 namespace alive {
 	namespace poly {
