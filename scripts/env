@@ -1,0 +1,10 @@
+export VJ_BASE_DIR=~/Workspace/juggler
+
+export ACLOCAL_FLAGS="-I $VJ_BASE_DIR/share/aclocal/"
+export FLAGPOLL_PATH=$VJ_BASE_DIR/share/flagpoll:$VJ_BASE_DIR/lib64/flagpoll:$VJ_BASE_DIR/juggler/lib64/debug/flagpoll
+export PATH="$VJ_BASE_DIR/bin:$PATH"
+
+export JDK_HOME=/usr
+export LD_LIBRARY_PATH=$VJ_BASE_DIR/lib:$VJ_BASE_DIR/lib64:$ALIVE_HOME/lib
+
+export OSG_FILE_PATH=~/Share/data
