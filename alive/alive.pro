@@ -9,4 +9,6 @@ DESTDIR = lib
 headers.files = $$HEADERS
 headers.path = ../../include/alive
 target.path = ../../lib
-INSTALLS = target headers
+shared.files = lib/*
+shared.path = ~/Share/lib
+INSTALLS = target headers shared
