@@ -15,11 +15,24 @@
  *
  *****************************************************************************/
 
-#include "BasicRayIntersection.h"
+#include "WandDirectionRay.h"
 
 namespace alive{
 	namespace interaction{
+		WandDirectionRay::WandDirectionRay(int buttonNumber) :
+			alive::InteractionMethod(buttonNumber)
+		{}
 
+		WandDirectionRay::~WandDirectionRay(){}
+
+		void WandDirectionRay::update(){
+			gmtl::Vec3f start = mInput->getWandPosition();
+			gmtl::Vec3f dir = mInput->getWandDirection() *2.0f;
+			gmtl::Vec3f end = start + dir;
+
+			mInput->setRayStart( start );
+			mInput->setRayEnd( end );
+		}
 	}
 }
 
