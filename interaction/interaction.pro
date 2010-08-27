@@ -1,3 +1,3 @@
 TEMPLATE = subdirs
 
-SUBDIRS = BasicRayIntersection WandDirectionDeltaRotation WandDirectionDisplacement
+SUBDIRS = WandDirectionRay WandDirectionDeltaRotation WandDirectionDisplacement
