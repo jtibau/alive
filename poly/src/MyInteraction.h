@@ -20,6 +20,7 @@
 #include <alive/InteractionMethod.h>
 #include <alive/interaction/WandDirectionDeltaRotation.h>
 #include <alive/interaction/WandDirectionDisplacement.h>
+#include <alive/interaction/WandDirectionRay.h>
 
 
 namespace alive {
@@ -28,23 +29,15 @@ namespace alive {
 		class MyInteraction : public alive::InteractionMethod {
 
 		public:
-			MyInteraction(int buttonNumber = 0){
-				displacement = new alive::interaction::WandDirectionDisplacement(0);
-				//rotation = new alive::interaction::WandDirectionDeltaRotation(2);
-			}
+			MyInteraction(int buttonNumber = 0);
 
-			~MyInteraction(){
-				delete displacement;
-				//delete rotation;
-			}
-			
-			void init(alive::Input* input){
-				alive::InteractionMethod::init(input);
-				displacement->init(input);
-			}
+			~MyInteraction();
+
+			void init(alive::Input* input);
 
 			void update();
 		private:
+			alive::InteractionMethod *raycast;
 			alive::InteractionMethod *displacement;
 			alive::InteractionMethod *rotation;
 		};

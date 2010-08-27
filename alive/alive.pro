@@ -6,9 +6,8 @@ SOURCES = src/App.cpp src/Input.cpp src/InteractionMethod.cpp src/Scene.cpp
 DEPENDPATH = src
 OBJECTS_DIR = build
 DESTDIR = lib
+target.path = ../../lib
 headers.files = $$HEADERS
 headers.path = ../../include/alive
-target.path = ../../lib
-shared.files = lib/*
-shared.path = ~/Share/lib
-INSTALLS = target headers shared
+INSTALLS = target headers 
+

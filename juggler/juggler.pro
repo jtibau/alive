@@ -24,6 +24,5 @@ DESTDIR = lib
 headers.files = $$HEADERS
 headers.path = ../../include/alive/juggler
 target.path = ../../lib
-shared.files = lib/*
-shared.path = ~/Share/lib
-INSTALLS = target headers shared
+INSTALLS = target headers
+

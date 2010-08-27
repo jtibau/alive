@@ -8,7 +8,11 @@ SOURCES = src/WandDirectionDisplacement.cpp
 DEPENDPATH = src
 OBJECTS_DIR = build
 DESTDIR = lib
+
 headers.files = $$HEADERS
 headers.path = ../../../include/alive/interaction
+INSTALLS += headers
+
 target.path = ../../../lib
-INSTALLS = target headers
+INSTALLS += target
+
