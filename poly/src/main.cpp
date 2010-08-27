@@ -15,10 +15,6 @@
  *
  *****************************************************************************/
 
-#include <cstdlib>
-
-#include <vrj/Kernel/Kernel.h>
-
 #include <alive/App.h>
 #include <alive/juggler/Kernel.h>
 
@@ -26,11 +22,10 @@
 #include "MyInteraction.h"
 
 int main(int argc, char* argv[]){
-	alive::App* application =
-			new alive::App(	new alive::poly::Scene() ,
-							new alive::poly::MyInteraction() );
-//							new alive::interaction::WandDirectionDisplacement(0) );
-	alive::juggler::Kernel* kernel = new alive::juggler::Kernel(application);
+	alive::App* application = new alive::App( new alive::poly::Scene() ,
+		new alive::poly::MyInteraction() );
+	
+	alive::Kernel* kernel = new alive::juggler::Kernel(application);
 
 	kernel->startAndWait(argc,argv);
 	delete kernel;

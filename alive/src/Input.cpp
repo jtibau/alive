@@ -43,6 +43,9 @@ namespace alive {
 	void Input::setRayStart(gmtl::Vec3f rayStart){ mRayStart = rayStart; }
 	gmtl::Vec3f Input::getRayEnd(){ return mRayEnd; }
 	void Input::setRayEnd(gmtl::Vec3f rayEnd){ mRayEnd = rayEnd; }
+	
+	bool Input::getRayCasted() { return mRayCasted; }
+	void Input::setRayCasted(bool rayCasted) { mRayCasted = rayCasted; }
 
 	gmtl::Matrix44f Input::getNavigationMatrix(){
 		return mNavigationMatrix;
@@ -60,5 +63,8 @@ namespace alive {
 
 	bool Input::getObjectSelectedFlag(){ return mObjectSelectedFlag; }
 	void Input::setObjectSelectedFlag(bool objectSelectedFlag){ mObjectSelectedFlag = objectSelectedFlag; }
+
+	bool Input::getApplyManipulation(){ return mApplyManipulation; }
+	void Input::setApplyManipulation(bool applyManipulation){ mApplyManipulation = applyManipulation; }
 
 }

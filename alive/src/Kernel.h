@@ -15,12 +15,15 @@
  *
  *****************************************************************************/
 
+#pragma once
+
 namespace alive {
 	class App;
 	class Kernel {
 	public:
-		Kernel(alive::App* userApp) = 0;
-		virtual ~Kernel() = 0;
+		Kernel();
+		Kernel(alive::App* userApp);
+		virtual ~Kernel();
 		
 		virtual void startAndWait(int argc, char* argv[]) = 0;
 		

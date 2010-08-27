@@ -48,7 +48,7 @@ namespace alive {
 
 			//Load the model
 			std::cout << "Attempting to load file: " << mFileToLoad << "... ";
-			mModel = osgDB::readNodeFile(mFileToLoad);
+			mModel = osgDB::readNodeFile("./data/casa.3DS");
 			std::cout << "done." << std::endl;
 
 			// Transform node for the model
@@ -69,7 +69,6 @@ namespace alive {
 
 		void Scene::contextInit(){
 			const unsigned int unique_context_id = mInput->getCurrentContext();
-			//vrj::opengl::DrawManager::instance()->getCurrentContext();
 
 			// --- Create new context specific scene viewer -- //
 			::osg::ref_ptr<osgUtil::SceneView> new_sv(new osgUtil::SceneView);
@@ -93,6 +92,8 @@ namespace alive {
 				newSceneViewer->getLight()->setAmbient(osg::Vec4(0.3f,0.3f,0.3f,1.0f));
 				newSceneViewer->getLight()->setDiffuse(osg::Vec4(0.9f,0.9f,0.9f,1.0f));
 				newSceneViewer->getLight()->setSpecular(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
+
+				newSceneViewer->getLight()->setPosition(osg::Vec4(0.0f,5.0f,0.0f,1.0f));
 			}
 
 			new_sv->getState()->setContextID(unique_context_id);
@@ -140,43 +141,44 @@ namespace alive {
 			mRootNode.get()->getBound();
 
 
-/*
-			// Intersection check
-			gmtl::Vec3f s = mInput->getRayStart();
-			gmtl::Vec3f e = mInput->getRayEnd();
-			osg::Vec3d start(s[0],s[1],s[2]);
-			osg::Vec3d end(e[0],e[1],e[2]);
-			osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector =
-					new osgUtil::LineSegmentIntersector(start, end);
-			osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
-			mRootNode->accept(intersectVisitor);
+			if(mInput->getRayCasted()){
 
-			// What to do with the selected object
-			if(intersector->containsIntersections()){
-				std::cout << "Some object interesected\n";
-				const osgUtil::LineSegmentIntersector::Intersection intersection =
-						intersector->getFirstIntersection();
+				// Intersection check
+				gmtl::Vec3f s = mInput->getRayStart();
+				gmtl::Vec3f e = mInput->getRayEnd();
+				osg::Vec3d start(s[0],s[1],s[2]);
+				osg::Vec3d end(e[0],e[1],e[2]);
+				osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector =
+						new osgUtil::LineSegmentIntersector(start, end);
+				osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
+				mRootNode->accept(intersectVisitor);
 
-				osg::NodePath npath = intersection.nodePath;
-				osg::ref_ptr<osg::MatrixTransform> intersectedNode =
-						npath[npath.size()-3]->asTransform()->asMatrixTransform();
+				// What to do with the selected object
+				if(intersector->containsIntersections()){
+					const osgUtil::LineSegmentIntersector::Intersection intersection =
+							intersector->getFirstIntersection();
 
-				mInput->setObjectSelectedFlag(true);
+					osg::NodePath npath = intersection.nodePath;
+					osg::ref_ptr<osg::MatrixTransform> intersectedNode =
+							npath[npath.size()-3]->asTransform()->asMatrixTransform();
 
-				osg::Matrix osg_transf = intersectedNode->getMatrix();
-				gmtl::Matrix44f  gmtl_transf = convertMatrix(osg_transf);
-				mInput->setSelectedObjectMatrix(gmtl_transf);
+					mInput->setObjectSelectedFlag(true);
 
-				// Apply manipulation
-				if( mInput->getButtonState(0) ){
-					osg_transf = converMatrix( mInput->getSelectedTransformation() );
-					if(!osg_transf.isIdentity())
-						intersectedNode->setMatrix(osg_transf);
+					osg::Matrix osg_transf = intersectedNode->getMatrix();
+					gmtl::Matrix44f  gmtl_transf = convertMatrix(osg_transf);
+					mInput->setSelectedObjectMatrix(gmtl_transf);
+
+					// Apply manipulation
+					if( mInput->getApplyManipulation() ){
+						osg_transf = converMatrix( mInput->getSelectedTransformation() );
+						if(!osg_transf.isIdentity())
+							intersectedNode->setMatrix(osg_transf);
+					}
 				}
+				else{ mInput->setObjectSelectedFlag(false); }
 			}
-			else{ mInput->setObjectSelectedFlag(false); }
 
-*/
+
 
 		}
 
@@ -207,8 +209,8 @@ namespace alive {
 
 		void Scene::navigationMatrixChanged(gmtl::Matrix44f navigationMatrix){
 			osg::Matrix nav;
-				nav.set(navigationMatrix.getData());
-				nav.invert(nav);
+			nav.set(navigationMatrix.getData());
+			nav.invert(nav);
 
 			mNavTrans->setMatrix(nav);
 		}

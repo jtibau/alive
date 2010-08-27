@@ -19,6 +19,7 @@
 
 #include <vrj/Kernel/Kernel.h>
 
+#include <alive/Kernel.h>
 #include <alive/App.h>
 #include <alive/Scene.h>
 #include <alive/InteractionMethod.h>
@@ -31,9 +32,11 @@ namespace alive {
 		/** @class alive::juggler::Kernel alive/juggler/Kernel.h
 		  * @brief Encapsulates what goes on the main function for a VR Juggler App
 		  */
-		class Kernel {
+		class Kernel : public alive::Kernel {
 
-		public:
+		public: 
+
+			Kernel();
 
 			/** @brief Takes the user's App and instantiates an alive::juggler::App with it.
 			  */
@@ -54,9 +57,9 @@ namespace alive {
 			void startAndWait(int argc, char* argv[]);
 
 		private:
+
 			vrj::Kernel* kernel; /**< The VR Juggler kernel */
 			alive::juggler::App* app; /**< The alive::juggler::App wrapper object */
-			alive::App* mUserApp; /**< The user's App object */
 		};
 	}
 }

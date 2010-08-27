@@ -2,6 +2,9 @@
 
 namespace alive {
 	namespace juggler {
+
+		Kernel::Kernel(){}
+
 		Kernel::Kernel(alive::App* userApp) {
 			mUserApp = userApp;
 			kernel = vrj::Kernel::instance();	// Get the kernel

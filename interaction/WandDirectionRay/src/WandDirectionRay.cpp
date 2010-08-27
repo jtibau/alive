@@ -32,6 +32,8 @@ namespace alive{
 
 			mInput->setRayStart( start );
 			mInput->setRayEnd( end );
+			
+			mInput->setRayCasted(true);
 		}
 	}
 }

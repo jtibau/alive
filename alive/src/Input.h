@@ -119,6 +119,9 @@ namespace alive {
 		virtual void setRayStart(gmtl::Vec3f rayStart);
 		virtual gmtl::Vec3f getRayEnd();
 		virtual void setRayEnd(gmtl::Vec3f rayEnd);
+		
+		virtual bool getRayCasted();
+		virtual void setRayCasted(bool rayCasted);
 
 		/** @brief Returns a 4x4 navigation matrix
 		  *
@@ -140,6 +143,9 @@ namespace alive {
 
 		virtual bool getObjectSelectedFlag();
 		virtual void setObjectSelectedFlag(bool objectSelectedFlag);
+
+		virtual bool getApplyManipulation();
+		virtual void setApplyManipulation(bool applyManipulation);
 
 		/** @brief Returns the viewport for the context where it is called
 		  *
@@ -170,6 +176,7 @@ namespace alive {
 
 		gmtl::Vec3f mRayStart;
 		gmtl::Vec3f mRayEnd;
+		bool mRayCasted;
 
 		bool mButtonState[MAX_BUTTONS]; /**< State of the buttons */
 
@@ -182,5 +189,6 @@ namespace alive {
 		gmtl::Matrix44f mSelectedTransformation; /**< The transformation that will be applied to the selected object */
 
 		bool mObjectSelectedFlag;
+		bool mApplyManipulation;
 	};
 }
