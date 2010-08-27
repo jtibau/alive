@@ -6,8 +6,8 @@ SOURCES = src/App.cpp src/Input.cpp src/InteractionMethod.cpp src/Scene.cpp
 DEPENDPATH = src
 OBJECTS_DIR = build
 DESTDIR = lib
-target.path = ../../lib
+target.path = $${PREFIX}/lib
 headers.files = $$HEADERS
-headers.path = ../../include/alive
+headers.path = $${PREFIX}/include/alive
 INSTALLS = target headers 
 

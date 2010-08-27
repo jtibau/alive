@@ -27,5 +27,5 @@ HEADERS += src/Scene.h src/MyInteraction.h
 SOURCES += src/main.cpp src/Scene.cpp src/MyInteraction.cpp
 DEPENDPATH = src
 OBJECTS_DIR = build
-target.path = ~/Share
+target.path = $${PREFIX}/bin
 INSTALLS = target

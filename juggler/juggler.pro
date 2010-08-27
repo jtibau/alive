@@ -21,8 +21,8 @@ SOURCES = src/App.cpp src/Input.cpp src/Kernel.cpp
 DEPENDPATH = src
 OBJECTS_DIR = build
 DESTDIR = lib
+target.path = $${PREFIX}/lib
 headers.files = $$HEADERS
-headers.path = ../../include/alive/juggler
-target.path = ../../lib
-INSTALLS = target headers
+headers.path = $${PREFIX}/include/alive/juggler
+INSTALLS = target headers 
 
