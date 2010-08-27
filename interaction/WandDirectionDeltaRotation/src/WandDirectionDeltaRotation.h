@@ -36,9 +36,7 @@ namespace alive {
 		class WandDirectionDeltaRotation : public alive::InteractionMethod {
 
 		public:
-			WandDirectionDeltaRotation(int buttonNumber = 0) :
-					alive::InteractionMethod(buttonNumber)
-			{}
+			WandDirectionDeltaRotation(int buttonNumber = 0);
 
 
 			/** @brief Update code, handles what to do with each button press and
