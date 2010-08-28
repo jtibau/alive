@@ -17,14 +17,20 @@
 
 #include "PullManipulation.h"
 
+#include <gmtl/VecOps.h>
+#include <gmtl/MatrixOps.h>
+#include <gmtl/Xforms.h>
+
 namespace alive{
 	namespace interaction{
 		void PullManipulation::update(){
 			if( mInput->getButtonState(mButtonNumber) && mInput->getObjectSelectedFlag() ){
 					gmtl::Matrix44f objectMatrix = mInput->getSelectedObjectMatrix();
+					gmtl::Matrix44f nav = mInput->getNavigationMatrix();
 
-					gmtl::Vec3f translation =  mInput->getWandDirection() * mInput->getTimeDelta();
-					translation *= 4;	// move faster/slower
+					gmtl::Vec3f translation =  mInput->getWandDirection();
+					translation = nav * translation;
+					translation *= 4 * mInput->getTimeDelta();	// move faster/slower
 					translation[1] = 0.0f;	// comment out if you wanna fly!
 					// Post multiply the delta translation
 					gmtl::Matrix44f trans_matrix = objectMatrix * gmtl::makeTrans<gmtl::Matrix44f>(translation);
