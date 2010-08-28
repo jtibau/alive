@@ -1,5 +1,7 @@
 #include "App.h"
 
+#include <gmtl/VecOps.h>
+
 namespace alive {
 	App::App(){}
 
@@ -70,8 +72,10 @@ namespace alive {
 
 		glBegin(GL_LINES);
 		{
-			gmtl::Vec3f start = mInput->getRayStart();
-			gmtl::Vec3f end = mInput->getRayEnd();
+			gmtl::Vec3f start = mInput->getWandPosition();
+			gmtl::Vec3f end = mInput->getWandPosition();
+			end += mInput->getWandDirection();
+
 			glVertex3f(start[0],start[1],start[2]);
 			glVertex3f(end[0],end[1],end[2]);
 		}

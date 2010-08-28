@@ -36,35 +36,21 @@ namespace alive {
 			mFrameStamp    = new ::osg::FrameStamp();
 			mUpdateVisitor->setFrameStamp(mFrameStamp.get());
 
-			//
-			// mRootNode
-			//         \-- mNavTrans -- mModelTrans -- mModel
-
-			//The top level nodes of the tree
 			mRootNode = new osg::Group();
 			mNavTrans = new osg::MatrixTransform();
-
 			mRootNode->addChild(mNavTrans.get());
 
-			//Load the model
-			std::cout << "Attempting to load file: " << mFileToLoad << "... ";
-			mModel = osgDB::readNodeFile("./data/casa.3DS");
-			std::cout << "done." << std::endl;
-
-			// Transform node for the model
+			mModel = osgDB::readNodeFile("./data/stand.3DS");
 			mModelTrans  = new osg::MatrixTransform();
-			//This can be used if the model orientation needs to change
-			//mModelTrans->preMult(osg::Matrix::rotate(-90.0, osg::Vec3f(1.0,0.0,0.0)));
-			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(0.0,0.1,0.0)));
 			mModelTrans->setName("Model Transformation");
-
-			if ( ! mModel.valid() )
-				std::cout << "ERROR: Could not load file: " << mFileToLoad << std::endl;
-			else
-				mModelTrans->addChild(mModel.get());
-
-			// Add the transform to the tree
+			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(-2.0,0.0,-2.0)));
+			mModelTrans->addChild(mModel.get());
 			mNavTrans->addChild(mModelTrans.get());
+
+			mHouse = osgDB::readNodeFile("./data/casa.3DS");
+			mHouseTrans = new osg::MatrixTransform();
+			mHouseTrans->addChild(mHouse.get());
+			mNavTrans->addChild(mHouseTrans.get());
 		}
 
 		void Scene::contextInit(){
@@ -162,17 +148,18 @@ namespace alive {
 					osg::ref_ptr<osg::MatrixTransform> intersectedNode =
 							npath[npath.size()-3]->asTransform()->asMatrixTransform();
 
-					mInput->setObjectSelectedFlag(true);
+					if(intersectedNode->getName() == "Model Transformation"){
+						mInput->setObjectSelectedFlag(true);
 
-					osg::Matrix osg_transf = intersectedNode->getMatrix();
-					gmtl::Matrix44f  gmtl_transf = convertMatrix(osg_transf);
-					mInput->setSelectedObjectMatrix(gmtl_transf);
+						osg::Matrix osg_transf = intersectedNode->getMatrix();
+						gmtl::Matrix44f  gmtl_transf = convertMatrix(osg_transf);
+						mInput->setSelectedObjectMatrix(gmtl_transf);
 
-					// Apply manipulation
-					if( mInput->getApplyManipulation() ){
-						osg_transf = converMatrix( mInput->getSelectedTransformation() );
-						if(!osg_transf.isIdentity())
-							intersectedNode->setMatrix(osg_transf);
+						// Apply manipulation
+						if( mInput->getApplyManipulation() ){
+							osg_transf = converMatrix( mInput->getSelectedTransformation() );
+							if(!osg_transf.isIdentity()) intersectedNode->setMatrix(osg_transf);
+						}
 					}
 				}
 				else{ mInput->setObjectSelectedFlag(false); }

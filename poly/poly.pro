@@ -14,7 +14,7 @@ LIBS += -lGL \
 	-losgGA \
 	-losgUtil \
 	-lOpenThreads
-LIBS += -L$(ALIVE_HOME)/lib -lalive -ljuggler -lWandDirectionDeltaRotation -lWandDirectionDisplacement -lWandDirectionRay
+LIBS += -L$(ALIVE_HOME)/lib -lalive -ljuggler -lWandDirectionDeltaRotation -lWandDirectionDisplacement -lWandDirectionRay -lPullManipulation
 LIBS += -L$(VJ_BASE_DIR)/lib \
 	-lvrj-3_1_1 \
 	-lvpr-2_3_2 \

@@ -113,11 +113,16 @@ namespace alive {
 			//
 			// mRootNode
 			//         \-- mNavTrans -- mModelTrans -- mModel
+			//			\-- mHouseTrans -- mHouse
 
 			osg::ref_ptr<osg::Group>           mRootNode;	/**< The root of the scenegraph */
 			osg::ref_ptr<osg::MatrixTransform> mNavTrans;	/**< A transformation node that affects the position/orientation of the whole scene */
 			osg::ref_ptr<osg::MatrixTransform> mModelTrans; /**< Transformation specific to the loaded model */
 			osg::ref_ptr<osg::Node>            mModel;		/**< The node where the model is loaded and placed */
+
+			osg::ref_ptr<osg::MatrixTransform> mHouseTrans;
+			osg::ref_ptr<osg::Node>            mHouse;
+
 
 			int mFrameNumber;
 		};

@@ -21,7 +21,7 @@
 #include <alive/interaction/WandDirectionDeltaRotation.h>
 #include <alive/interaction/WandDirectionDisplacement.h>
 #include <alive/interaction/WandDirectionRay.h>
-
+#include <alive/interaction/PullManipulation.h>
 
 namespace alive {
 	namespace poly {
@@ -40,6 +40,7 @@ namespace alive {
 			alive::InteractionMethod *raycast;
 			alive::InteractionMethod *displacement;
 			alive::InteractionMethod *rotation;
+			alive::InteractionMethod *pull;
 		};
 	}
 }
