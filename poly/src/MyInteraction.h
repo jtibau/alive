@@ -26,20 +26,47 @@
 namespace alive {
 	namespace poly {
 
+		/** @class alive::poly::MyInteraction alive/poly/MyInteraction.h
+		  * @brief A composition of other provided Interaction Methods
+		  *
+		  * We can take the code of ready-made methods to combine them into
+		  * our preferred interaction.
+		  * If a certain combination works for you, it may also be possible
+		  * to add it to the default methods.
+		  */
 		class MyInteraction : public alive::InteractionMethod {
 
 		public:
+			/** @brief Instantiates the sub methods
+			  *
+			  * Tells each sub method which button to use. It might not
+			  * really use the buttonNumber parametter... It's up to you.
+			  */
 			MyInteraction(int buttonNumber = 0);
 
+			/** @brief Destroy sub methods
+			  */
 			~MyInteraction();
 
+			/** @brief Store input and init sub methods
+			  */
 			void init(alive::Input* input);
 
+			/** @brief Updates the sub methods
+			  */
 			void update();
+			
 		private:
+			/** @brief The ray caster method object */
 			alive::InteractionMethod *raycast;
+			
+			/** @brief The scene translation method object */
 			alive::InteractionMethod *displacement;
+			
+			/** @brief The reorientation method object */
 			alive::InteractionMethod *rotation;
+			
+			/** @brief The manipulation method object */
 			alive::InteractionMethod *pull;
 		};
 	}

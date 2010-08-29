@@ -1,8 +1,8 @@
 #include "InteractionMethod.h"
 
 namespace alive {
-		InteractionMethod::InteractionMethod(unsigned int buttonNumber) :
-			mButtonNumber(buttonNumber){}
+	InteractionMethod::InteractionMethod(unsigned int buttonNumber) :
+		mButtonNumber(buttonNumber){}
 
 	InteractionMethod::~InteractionMethod(){}
 

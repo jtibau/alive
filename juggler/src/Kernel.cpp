@@ -3,10 +3,9 @@
 namespace alive {
 	namespace juggler {
 
-		Kernel::Kernel(){}
-
-		Kernel::Kernel(alive::App* userApp) {
-			mUserApp = userApp;
+		Kernel::Kernel(alive::App* userApp) :
+			alive::Kernel(userApp)
+		{
 			kernel = vrj::Kernel::instance();	// Get the kernel
 			app = new alive::juggler::App(kernel, mUserApp); // Instantiate the app
 		}

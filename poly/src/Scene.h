@@ -40,10 +40,12 @@ namespace alive {
 		/** @class alive::poly::Scene alive/poly/Scene.h
 		  * @brief Sample Implementation of the alive::Scene class
 		  *
-		  * This and package implement ALIVE, as a simple polygonal renderer based on openscenegraph
+		  * This Scene and package (poly) implements ALIVE.
+		  * It is a *simple* polygonal renderer based on openscenegraph
 		  *
-		  * @note Two features will be deprecated from this implementation, since they make this code
-		  * vrj-dependant: vpr::Mutex and vrj::opengl::ContextData. They should be replaced by wrapper
+		  * @note Two features will be deprecated from this implementation,
+		  * since they make this code vrj-dependant: vpr::Mutex and
+		  * vrj::opengl::ContextData. They should be replaced by wrapper
 		  * objects in ALIVE.
 		  */
 		class Scene : public alive::Scene {
@@ -92,12 +94,6 @@ namespace alive {
 			  */
 			void draw();
 
-			/** @brief Updates the navigation matrix for this Scene
-			  *
-			  * Replaces the old navigation matrix with the one provided
-			  */
-			void navigationMatrixChanged(gmtl::Matrix44f navigationMatrix);
-
 		protected:
 
 			/** A scene viewer object from osg.
@@ -113,7 +109,7 @@ namespace alive {
 			//
 			// mRootNode
 			//         \-- mNavTrans -- mModelTrans -- mModel
-			//			\-- mHouseTrans -- mHouse
+			//						\-- mHouseTrans -- mHouse
 
 			osg::ref_ptr<osg::Group>           mRootNode;	/**< The root of the scenegraph */
 			osg::ref_ptr<osg::MatrixTransform> mNavTrans;	/**< A transformation node that affects the position/orientation of the whole scene */
@@ -125,6 +121,10 @@ namespace alive {
 
 
 			int mFrameNumber;
+			
+		private:
+			/** A pointer to the selected objects transformation, only to be used internally */
+			osg::ref_ptr<osg::MatrixTransform> mSelectedObjectTrans;
 		};
 
 	}

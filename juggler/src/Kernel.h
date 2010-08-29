@@ -36,11 +36,9 @@ namespace alive {
 
 		public: 
 
-			Kernel();
-
 			/** @brief Takes the user's App and instantiates an alive::juggler::App with it.
 			  */
-			Kernel(alive::App* userApp);
+			Kernel(alive::App* userApp = 0);
 
 			/** @brief Deletes the juggler app.
 			  *

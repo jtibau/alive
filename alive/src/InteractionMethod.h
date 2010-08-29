@@ -21,17 +21,26 @@ namespace alive {
 	class Input;
 
 	/** @class alive::InteractionMethod alive/InteractionMethod.h
-	  * @brief Interface to any type of Interaction Method (navigation, selection, manipulation).
+	  * @brief Interface to any type of Interaction Method
+	  * (navigation, selection, manipulation).
 	  *
-	  * Most of the subclasses' work should get done in update. Changes reported to the Scene
+	  * Most of the subclasses' work should get done in update.
+	  * Changes reported to the Scene
 	  * through signals and slots, or alive::Input
 	  */
 	class InteractionMethod {
 
 	public:
-
+		/** @brief Default constructor
+		  *
+		  * Stores the buttonNumber, optionally just the first button
+		  */
 		InteractionMethod(unsigned int buttonNumber = 0);
 
+		/** @brief Destructor
+		  *
+		  * @note Does nothing, but subclasses might
+		  */
 		virtual ~InteractionMethod();
 
 		/** @brief Initialization code
@@ -45,11 +54,13 @@ namespace alive {
 		virtual void update() = 0;
 
 		/** @brief Optional place to place opengl code.
+		  *
+		  * @note Does nothing for the moment
 		  */
 		virtual void draw();
 
 	protected:
-		unsigned int mButtonNumber;
+		unsigned int mButtonNumber; /**< Button id that activates the method */
 		Input* mInput; /**< Pointer to the Input object */
 	};
 }

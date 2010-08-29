@@ -64,21 +64,19 @@ namespace alive {
 
 	public:
 
-		/**	@brief Default constructor
-		  *
-		  * @note Only use it if you subclass. If not, there is no way to provide
-		  * mScene and mInteractionMethod
-		  */
-		App();
-
 		/** @brief Preferred constructor
 		  *
 		  *	Provide an uninitialized pointer to your Scene object. The App
 		  *	can take a NULL InteractionMethod, if you only want to look at
 		  *	the scene and are not interested in interacting with it.
 		  */
-		App(alive::Scene* scene, alive::InteractionMethod* interactionMethod = NULL);
-
+		App(alive::Scene* scene = NULL,
+			alive::InteractionMethod* interactionMethod = NULL);
+		
+		/** @brief Destructor
+		  *
+		  * Should delete the Scene and InteractionMethod
+		  */
 		virtual ~App();
 
 		/** @brief Application initialization function.
@@ -112,7 +110,8 @@ namespace alive {
 		  */
 		virtual void draw();
 
-		/** @brief Processes that can be performed at the same time as the drawing routine
+		/** @brief Processes that can be performed at the same time
+		  *  as the drawing routine
 		  */
 		virtual void intraFrame();
 

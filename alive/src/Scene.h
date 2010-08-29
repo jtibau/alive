@@ -81,10 +81,6 @@ namespace alive {
 		  */
 		virtual void setModelName(char* modelFileName);
 
-		/** @brief Sets the new navigation matrix
-		  */
-		virtual void navigationMatrixChanged(gmtl::Matrix44f navigationMatrix) = 0;
-
 	protected:
 
 		Input* mInput; /**< Pointer to the Input object */

@@ -39,6 +39,10 @@ namespace alive{
 		public:
 
 			/** @brief Constructor
+			  *
+			  * Gives the vrjuggler kernel to the parent class.
+			  * Keeps the app pointer and instantiates a concrete implementation
+			  * of the Input class that deals with the vrjuggler framework.
 			  */
 			App(vrj::Kernel* kern, alive::App* app);
 
@@ -95,7 +99,8 @@ namespace alive{
 			  */
 			virtual void contextClose();
 
-			/** @brief Returns the scale factor, in order to convert to the spacially correct unit.
+			/** @brief Returns the scale factor, in order to convert to the
+			  * spacially correct unit.
 			  */
 			virtual float getDrawScaleFactor();
 

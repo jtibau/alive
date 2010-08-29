@@ -18,16 +18,6 @@
 #pragma once
 
 #include <alive/InteractionMethod.h>
-#include <alive/Input.h>
-
-#include <gmtl/Vec.h>
-#include <gmtl/VecOps.h>
-#include <gmtl/Matrix.h>
-#include <gmtl/MatrixOps.h>
-
-#include <gmtl/Generate.h>
-
-#include <iostream>
 
 namespace alive {
 	namespace interaction {
@@ -41,13 +31,18 @@ namespace alive {
 
 		public:
 
-			/** @brief Constructor, calls parent
+			/** @brief Constructor, calls parent and stores the button number
 			  */
 			WandDirectionRay(int buttonNumber = 0);
 
+			/** @brief Destructor
+			  */
 			~WandDirectionRay();
 
-			/** @brief Update code, for selection methods it means to set the casted ray's start and end vectors
+			/** @brief Sets the casted ray's start and end vectors
+			  *
+			  * This method's ray starts at the wand position and stretches in the
+			  * direction of the wand by 4 meters.
 			  */
 			void update();
 		};

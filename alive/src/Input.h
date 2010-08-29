@@ -115,19 +115,29 @@ namespace alive {
 		  */
 		virtual gmtl::Vec3f getWandDirection(Time t = CURRENT);
 
+		/** @brief Returns the starting point of the casted ray
+		  */
 		virtual gmtl::Vec3f getRayStart();
+		/** @brief Stores the starting point of the casted ray
+		  */
 		virtual void setRayStart(gmtl::Vec3f rayStart);
+		/** @brief Returns the end point of the casted ray
+		  */
 		virtual gmtl::Vec3f getRayEnd();
+		/** @brief Stores the end point of the casted ray
+		  */
 		virtual void setRayEnd(gmtl::Vec3f rayEnd);
 		
+		/** @brief Return flag signaling if a ray has been casted
+		  */
 		virtual bool getRayCasted();
+		/** @brief Set by the interation method that casts the ray
+		  */
 		virtual void setRayCasted(bool rayCasted);
 
 		/** @brief Returns a 4x4 navigation matrix
 		  *
-		  *	This is here more as a hack, since the Input object is available everywhere.
 		  * It makes possible to share the navigation matrix between any object.
-		  * QT Signals and Slots may be a better solution.
 		  */
 		virtual gmtl::Matrix44f getNavigationMatrix();
 
@@ -135,17 +145,43 @@ namespace alive {
 		  */
 		virtual void setNavigationMatrix(gmtl::Matrix44f navigationMatrix);
 
+		/** @brief Returns the transformation to be applied to the selected object
+		  */
 		virtual gmtl::Matrix44f getSelectedTransformation();
+		/** @brief Sets the transformation to be applied to the selected object
+		  */ 
 		virtual void setSelectedTransformation( gmtl::Matrix44f selectedTransformation );
-
+		/** @brief Returns the current transformation matrix for the selected object
+		  * @note Which is how the scene retrieves the manipulation and apply it to
+		  * the selected object
+		  */
 		virtual gmtl::Matrix44f getSelectedObjectMatrix();
+		/** @brief Sets a new transformation matrix for the selected object
+		  * @note Used by the manipulation method to store the manipulation
+		  */
 		virtual void setSelectedObjectMatrix( gmtl::Matrix44f selectedObjectMatrix );
 
+		/** @brief Confirms that there is an intersection with a scene object
+		  */
 		virtual bool getObjectSelectedFlag();
+		/** @brief Used by the scene to confirm that there has been an intersection
+		  */
 		virtual void setObjectSelectedFlag(bool objectSelectedFlag);
 
+		/** @brief Should we apply the manipulation transformation to the selected object
+		  */
 		virtual bool getApplyManipulation();
+		/** @brief The manipulation method sets it to confirm that a manipulation should
+		  * take place
+		  */
 		virtual void setApplyManipulation(bool applyManipulation);
+		
+		/** @brief Tells the scene if it should be trying out intersections
+		  */
+		virtual bool getIntersectionCheck();
+		/** @brief Sets the intersection check flag
+		  */
+		virtual void setIntersectionCheck(bool intersectionCheck);
 
 		/** @brief Returns the viewport for the context where it is called
 		  *
@@ -174,9 +210,9 @@ namespace alive {
 		gmtl::Vec3f mPreviousWandPosition; /**< Previous Wand Position */
 		gmtl::Vec3f mPreviousWandDirection; /**< Previuos Wand Direction */
 
-		gmtl::Vec3f mRayStart;
-		gmtl::Vec3f mRayEnd;
-		bool mRayCasted;
+		gmtl::Vec3f mRayStart; /**< Starting point of the casted ray, it is set by a manipulation method */
+		gmtl::Vec3f mRayEnd; /**< End point for the casted ray, set by a manipulation method */
+		bool mRayCasted; /**< The manipulation method must set this flag in order to signal that we should try intersecting the ray with the scene */
 
 		bool mButtonState[MAX_BUTTONS]; /**< State of the buttons */
 
@@ -185,10 +221,11 @@ namespace alive {
 		float mTimeDelta; /**< Time passed between now and the previous frame */
 
 		gmtl::Matrix44f mNavigationMatrix; /**< The user's navigation matrix */
-		gmtl::Matrix44f mSelectedObjectMatrix;
+		gmtl::Matrix44f mSelectedObjectMatrix; /**< Transformation matrix of the interesected/selected object, does not contain the navigation matrix */
 		gmtl::Matrix44f mSelectedTransformation; /**< The transformation that will be applied to the selected object */
 
-		bool mObjectSelectedFlag;
-		bool mApplyManipulation;
+		bool mObjectSelectedFlag; /**< The scene must set this flag in order to tell the manipulation method that an object has been intersected */
+		bool mApplyManipulation; /**< The manipulation method tells the scene that a transformation should be applied to the selected object */
+		bool mIntersectionCheck; /**< Flag that indicates if we should be looking for intersections */
 	};
 }

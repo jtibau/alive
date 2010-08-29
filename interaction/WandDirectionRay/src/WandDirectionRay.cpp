@@ -17,6 +17,15 @@
 
 #include "WandDirectionRay.h"
 
+#include <alive/Input.h>
+
+#include <gmtl/Vec.h>
+#include <gmtl/VecOps.h>
+#include <gmtl/Matrix.h>
+#include <gmtl/MatrixOps.h>
+
+#include <gmtl/Generate.h>
+
 namespace alive{
 	namespace interaction{
 		WandDirectionRay::WandDirectionRay(int buttonNumber) :
@@ -27,6 +36,7 @@ namespace alive{
 
 		void WandDirectionRay::update(){
 			gmtl::Vec3f start = mInput->getWandPosition();
+			// The wand direction is a unit vector, so this ray is 4 meters long :)
 			gmtl::Vec3f dir = mInput->getWandDirection() *4.0f;
 			gmtl::Vec3f end = start + dir;
 

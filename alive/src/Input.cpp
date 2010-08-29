@@ -66,5 +66,8 @@ namespace alive {
 
 	bool Input::getApplyManipulation(){ return mApplyManipulation; }
 	void Input::setApplyManipulation(bool applyManipulation){ mApplyManipulation = applyManipulation; }
+	
+	bool Input::getIntersectionCheck() { return mIntersectionCheck; }
+	void Input::setIntersectionCheck(bool intersectionCheck) { mIntersectionCheck = intersectionCheck; }
 
 }

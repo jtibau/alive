@@ -17,6 +17,15 @@
 
 #include "WandDirectionDeltaRotation.h"
 
+#include <alive/Input.h>
+
+#include <gmtl/Vec.h>
+#include <gmtl/VecOps.h>
+#include <gmtl/Matrix.h>
+#include <gmtl/MatrixOps.h>
+
+#include <gmtl/Generate.h>
+
 namespace alive{
 	namespace interaction{
 		WandDirectionDeltaRotation::WandDirectionDeltaRotation(int buttonNumber) :
@@ -24,22 +33,25 @@ namespace alive{
 		{}
 
 		void WandDirectionDeltaRotation::update(){
+			// lot of math on these transformations
 			if( mInput->getButtonState(mButtonNumber) ){
+				// Both vectors go from the head's to the wand's position
 				gmtl::Vec3f v1 = mInput->getWandPosition(alive::PREVIOUS) - mInput->getHeadPosition(alive::PREVIOUS);
 				gmtl::Vec3f v2 = mInput->getWandPosition() - mInput->getHeadPosition();
 
-				gmtl::normalize(v1);
-				gmtl::normalize(v2);
-
+				// Don't do anything if the wand/head haven't moved at all
 				if( v1!= v2 ){
-					gmtl::Matrix44f navigationMatrix = mInput->getNavigationMatrix();
+					// In order to do any calculations with them, we first need unit vectors
+					gmtl::normalize(v1);
+					gmtl::normalize(v2);
+					
 					gmtl::Vec3f v3,v4;
-
 					gmtl::cross(v3,v1,v2);
 					gmtl::normalize(v3);
 					gmtl::cross(v4,v3,v1);
 					gmtl::normalize(v4);
 
+					// the rotation factors for the rotation matrix
 					float u = gmtl::dot(v2,v1);
 					float v = gmtl::dot(v2,v4);
 
@@ -59,15 +71,12 @@ namespace alive{
 
 					gmtl::Matrix44f transfMat = im1 * m2 * m1;
 
+					float x_rot = 0; // (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[0];
+					float y_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[1];
+					float z_rot = 0; // (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[2];
 
-					float x_rot = 0;
-					float y_rot = 0;
-					float z_rot = 0;
-
-					//x_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[0];
-					y_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[1];
-					//z_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[2];
-
+					gmtl::Matrix44f navigationMatrix = mInput->getNavigationMatrix();
+					
 					gmtl::postMult(navigationMatrix, gmtl::makeTrans<gmtl::Matrix44f>(mInput->getHeadPosition()));
 					gmtl::postMult(navigationMatrix, gmtl::makeRot<gmtl::Matrix44f>(gmtl::EulerAngleXYZf(x_rot,y_rot,z_rot)));
 					gmtl::postMult(navigationMatrix, gmtl::makeTrans<gmtl::Matrix44f>(-mInput->getHeadPosition()));

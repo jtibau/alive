@@ -30,19 +30,29 @@ namespace alive {
 	namespace poly {
 
 		void Scene::init(Input* input){
+			// The parent class's init mehtod just stores the input object
 			alive::Scene::init(input);
 
+			// The code here is independent of context, it is purely related to
+			// the object database. Nothing is loaded into the gl contexts.
+			
 			mUpdateVisitor = new osgUtil::UpdateVisitor();
 			mFrameStamp    = new ::osg::FrameStamp();
 			mUpdateVisitor->setFrameStamp(mFrameStamp.get());
 
+			// This is the structure of the scene graph
+			// mRootNode
+			//         \-- mNavTrans -- mModelTrans -- mModel
+			//						\-- mHouseTrans -- mHouse
 			mRootNode = new osg::Group();
 			mNavTrans = new osg::MatrixTransform();
 			mRootNode->addChild(mNavTrans.get());
 
+			// I'm not using command line arguments for the model right now :(
+			// A configuration file (or more extensive cli processing) should be worked on
 			mModel = osgDB::readNodeFile("./data/stand.3DS");
 			mModelTrans  = new osg::MatrixTransform();
-			mModelTrans->setName("Model Transformation");
+			mModelTrans->setName("Model Transformation");	// Used in order to make some nodes moveable
 			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(-2.0,0.0,-2.0)));
 			mModelTrans->addChild(mModel.get());
 			mNavTrans->addChild(mModelTrans.get());
@@ -54,11 +64,16 @@ namespace alive {
 		}
 
 		void Scene::contextInit(){
+			// Now this is real gl code
+			// The purpose of the calls here is to get the graphics pipelines ready for rendering
+			
+			// The id of the context will be given to the context specific objects
 			const unsigned int unique_context_id = mInput->getCurrentContext();
 
 			// --- Create new context specific scene viewer -- //
+			// This is the object that will be in charged of rendering everything
 			::osg::ref_ptr<osgUtil::SceneView> new_sv(new osgUtil::SceneView);
-
+			
 			{
 				osgUtil::SceneView* newSceneViewer = new_sv.get();
 				newSceneViewer->setDefaults(osgUtil::SceneView::STANDARD_SETTINGS);
@@ -69,30 +84,37 @@ namespace alive {
 				newSceneViewer->setFrameStamp(mFrameStamp.get());
 
 				newSceneViewer->init();
-				//135-206-250
+				// A sort of sky color for the background (or change it to black, people didn't like this blue)
 				newSceneViewer->setClearColor(::osg::Vec4(135.0f/256.0f, 206.0f/256.0f, 250.0f/256.0f, 1.0f));
 
 				// Needed for stereo to work.
 				newSceneViewer->setDrawBufferValue(GL_NONE);
 
+				// Set the light
+				// Bear in mind that this light follows the camera...
+				// its position is not affected by the navigation matrix
 				newSceneViewer->getLight()->setAmbient(osg::Vec4(0.3f,0.3f,0.3f,1.0f));
 				newSceneViewer->getLight()->setDiffuse(osg::Vec4(0.9f,0.9f,0.9f,1.0f));
 				newSceneViewer->getLight()->setSpecular(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-
 				newSceneViewer->getLight()->setPosition(osg::Vec4(0.0f,5.0f,0.0f,1.0f));
 			}
 
+			// We tell it its context id
 			new_sv->getState()->setContextID(unique_context_id);
 
 			// Add the tree to the scene viewer and set properties
 			{
+				// should change this mutex for something vrjuggler-independent
 				vpr::Guard<vpr::Mutex> sv_guard(mSceneViewLock);
 				new_sv->setSceneData(mRootNode.get());
 			}
 
+			// And we set our newly configured scene viewer object on to the context specific pointer.
 			(*sceneViewer) = new_sv;
 		}
 
+		// This convertion methods are not to be used outside this files
+		// Outside objects shouldn't even be aware that we use osg
 		gmtl::Matrix44f convertMatrix(osg::Matrix original){
 			original.invert(original);
 			gmtl::Matrix44f converted;
@@ -103,8 +125,9 @@ namespace alive {
 
 			return converted;
 		}
-
-		osg::Matrix converMatrix(gmtl::Matrix44f original){
+		
+		// Ditto above
+		osg::Matrix convertMatrix(gmtl::Matrix44f original){
 			osg::Matrix converted(original.getData());
 			converted.invert(converted);
 			return converted;
@@ -112,8 +135,9 @@ namespace alive {
 
 
 		void Scene::latePreFrame(){
-			navigationMatrixChanged(mInput->getNavigationMatrix());
+			// The update code
 
+			// Time updates
 			const double head_time = mInput->getCurrentTimeStamp();
 			++mFrameNumber;
 
@@ -124,49 +148,86 @@ namespace alive {
 
 			mUpdateVisitor->setTraversalNumber(mFrameNumber);
 			mRootNode.get()->accept(*mUpdateVisitor);
+
+			// Update the navigation matrix
+			// should there be another flag here?
+			mNavTrans->setMatrix(convertMatrix(mInput->getNavigationMatrix()));
 			mRootNode.get()->getBound();
 
-
+			// Selection and Manipulation can only happen if a ray has been casted by a method
 			if(mInput->getRayCasted()){
+				
+				// There may be two cases where we don't want to find a new intersection:
+				// - We don't have a manipulation method... therefore we may have no need for selected objects
+				// - Some manips want to keep the same object that was intersected when the button was first pressed.
+				if( mInput->getIntersectionCheck() ){
+					// Intersection check
+					gmtl::Vec3f s = mInput->getRayStart();
+					gmtl::Vec3f e = mInput->getRayEnd();
+					osg::Vec3d start(s[0],s[1],s[2]);
+					osg::Vec3d end(e[0],e[1],e[2]);
+					osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector =
+							new osgUtil::LineSegmentIntersector(start, end);
+					osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
+					mRootNode->accept(intersectVisitor);
+				
+					// What to do with the selected object
+					if( intersector->containsIntersections() ){
+						const osgUtil::LineSegmentIntersector::Intersection intersection =
+								intersector->getFirstIntersection();
 
-				// Intersection check
-				gmtl::Vec3f s = mInput->getRayStart();
-				gmtl::Vec3f e = mInput->getRayEnd();
-				osg::Vec3d start(s[0],s[1],s[2]);
-				osg::Vec3d end(e[0],e[1],e[2]);
-				osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector =
-						new osgUtil::LineSegmentIntersector(start, end);
-				osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
-				mRootNode->accept(intersectVisitor);
+						// We remember our graph structure again
+						// mRootNode
+						//         \-- mNavTrans -- mModelTrans -- mModel
+						//						\-- mHouseTrans -- mHouse
+						osg::NodePath npath = intersection.nodePath;
+						// The intersection will give us the bottommost node in the graph
+						// Although not in our graph representation, the node is actually 
+						// a son of mModel, the Mesh.
+						// So, in the npath vector, the last element is the mesh. The third
+						// to last is the Transformation node we want to modify:
+						// -- mModelTrans -- mModel -- MESH   -
+						//       size-3      size-2   size-1 size
+						mSelectedObjectTrans = npath[npath.size()-3]->asTransform()->asMatrixTransform();
 
-				// What to do with the selected object
-				if(intersector->containsIntersections()){
-					const osgUtil::LineSegmentIntersector::Intersection intersection =
-							intersector->getFirstIntersection();
+						// Since we might be intersecting the walls/floor of the house
+						// We check if this node we are intersecting is actually the model
+						if(mSelectedObjectTrans->getName() == "Model Transformation"){
+							// If we are, we want to let the interaction methods about it
+							mInput->setObjectSelectedFlag(true);
 
-					osg::NodePath npath = intersection.nodePath;
-					osg::ref_ptr<osg::MatrixTransform> intersectedNode =
-							npath[npath.size()-3]->asTransform()->asMatrixTransform();
-
-					if(intersectedNode->getName() == "Model Transformation"){
-						mInput->setObjectSelectedFlag(true);
-
-						osg::Matrix osg_transf = intersectedNode->getMatrix();
-						gmtl::Matrix44f  gmtl_transf = convertMatrix(osg_transf);
-						mInput->setSelectedObjectMatrix(gmtl_transf);
-
-						// Apply manipulation
-						if( mInput->getApplyManipulation() ){
-							osg_transf = converMatrix( mInput->getSelectedTransformation() );
-							if(!osg_transf.isIdentity()) intersectedNode->setMatrix(osg_transf);
+							// We also need to let them now about the intersected objects whereabouts
+							osg::Matrix osg_transf = mSelectedObjectTrans->getMatrix();
+							gmtl::Matrix44f  gmtl_transf = convertMatrix(osg_transf);
+							mInput->setSelectedObjectMatrix(gmtl_transf);
+						}
+						else {
+							// If, while moving the wand, you switch from pointing to the model to pointing a wall...
+							mInput->setObjectSelectedFlag(false);
 						}
 					}
+					else{
+						// If the user stops intersecting anything
+						mInput->setObjectSelectedFlag(false);
+					}
 				}
-				else{ mInput->setObjectSelectedFlag(false); }
+				
+				// If no button is pressed, there might not be any manipulation to apply
+				// Although some manipulations may not need a button to be pressed,
+				// also the pressed button number cannot be known from here.
+				// The manipulation method needs to let us know if there is any manipulation to do
+				if( mInput->getApplyManipulation() ) {
+					// We don't try to intersect anything if we already are applying some manipulation
+
+					// Applying just means that we need to convert the matrix that the manip sent
+					// and give it to the transformation node that got intersected.
+					osg::Matrix osg_transf = convertMatrix( mInput->getSelectedTransformation() );
+					if(!osg_transf.isIdentity() && mSelectedObjectTrans->getName() == "Model Transformation" ){
+						mSelectedObjectTrans->setMatrix(osg_transf);
+						mInput->setSelectedObjectMatrix( mInput->getSelectedTransformation() );
+					}
+				}
 			}
-
-
-
 		}
 
 		void Scene::draw() {
@@ -192,14 +253,6 @@ namespace alive {
 				sv->cull();
 				sv->draw();
 			}
-		}
-
-		void Scene::navigationMatrixChanged(gmtl::Matrix44f navigationMatrix){
-			osg::Matrix nav;
-			nav.set(navigationMatrix.getData());
-			nav.invert(nav);
-
-			mNavTrans->setMatrix(nav);
 		}
 	}
 }

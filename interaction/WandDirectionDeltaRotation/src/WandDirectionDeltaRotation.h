@@ -18,29 +18,26 @@
 #pragma once
 
 #include <alive/InteractionMethod.h>
-#include <alive/Input.h>
-
-#include <gmtl/Vec.h>
-#include <gmtl/VecOps.h>
-#include <gmtl/Matrix.h>
-#include <gmtl/MatrixOps.h>
-
-#include <gmtl/Generate.h>
 
 namespace alive {
 	namespace interaction {
 
 		/** @class alive::interaction::BasicNavigation alive/interaction/BasicNavgigation.h
-		  * @brief The most basic reorientation type. Rotate to the wands direction, around the user's head
+		  * @brief A very basic reorientation type.
+		  * 
+		  * Rotates to the angle formed between the delta formed by moving the wand around the head
 		  */
 		class WandDirectionDeltaRotation : public alive::InteractionMethod {
 
 		public:
+			/** @brief Constructor
+			  */
 			WandDirectionDeltaRotation(int buttonNumber = 0);
 
 
-			/** @brief Update code, handles what to do with each button press and
-			  * changes the navigation matrix according to the method.
+			/** @brief Update code, handles what to do when the button is pressed
+			  *
+			  * Changes the navigation matrix according to the method.
 			  */
 			void update();
 		};

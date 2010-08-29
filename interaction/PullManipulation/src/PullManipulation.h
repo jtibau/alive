@@ -18,27 +18,28 @@
 #pragma once
 
 #include <alive/InteractionMethod.h>
-#include <alive/Input.h>
-
-#include <gmtl/Vec.h>
-#include <gmtl/VecOps.h>
-#include <gmtl/Matrix.h>
-#include <gmtl/MatrixOps.h>
-
-#include <gmtl/Generate.h>
 
 namespace alive {
 	namespace interaction {
 
-		/** @class alive::interaction::BasicNavigation alive/interaction/BasicNavgigation.h
-		  * @brief The most basic navigation type. Move in the direction of the wand.
+		/** @class alive::interaction::PullManipulation alive/interaction/PullManipulation.h
+		  * @brief Pulls the selected object towards the wand
 		  */
 		class PullManipulation : public alive::InteractionMethod {
 
 		public:
+			/** @brief Constructor
+			  */
 			PullManipulation(int buttonNumber = 0) :
-					alive::InteractionMethod(buttonNumber)
+				alive::InteractionMethod(buttonNumber)
 			{}
+
+			/** @brief inits the method
+			  *
+			  * Tells the scene that it should be checking intersections and
+			  * calls the parent init.
+			  */
+			void init(alive::Input* input);
 
 			/** @brief Update code, handles what to do with each button press and
 			  * changes the navigation matrix according to the method.

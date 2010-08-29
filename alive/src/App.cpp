@@ -3,14 +3,15 @@
 #include <gmtl/VecOps.h>
 
 namespace alive {
-	App::App(){}
-
 	App::App(alive::Scene* scene, alive::InteractionMethod* interactionMethod) {
 		mScene = scene;
 		mInteractionMethod = interactionMethod;
 	}
 
-	App::~App() {}
+	App::~App() {
+		if(mScene) delete mScene;
+		if(mInteractionMethod) delete mInteractionMethod;
+	}
 
 	void App::init(alive::Input* input) {
 		mInput = input;
@@ -34,6 +35,7 @@ namespace alive {
 	void App::bufferPreDraw() {
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT);
+
 		if(mScene) mScene->bufferPreDraw();
 	}
 
@@ -56,7 +58,6 @@ namespace alive {
 		glPushMatrix();
 
 		if(mScene) mScene->draw();
-
 
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
