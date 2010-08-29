@@ -36,6 +36,9 @@ namespace alive {
 
 	namespace poly {
 
+		/** @defgroup poly Polygon Renderer
+		  * @{
+		  */
 
 		/** @class alive::poly::Scene alive/poly/Scene.h
 		  * @brief Sample Implementation of the alive::Scene class
@@ -126,7 +129,6 @@ namespace alive {
 			/** A pointer to the selected objects transformation, only to be used internally */
 			osg::ref_ptr<osg::MatrixTransform> mSelectedObjectTrans;
 		};
-
+		/** @} */
 	}
-
 }

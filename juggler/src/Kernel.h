@@ -29,6 +29,10 @@
 namespace alive {
 	namespace juggler {
 
+		/** @addtogroup juggler
+		  * @{
+		  */
+	
 		/** @class alive::juggler::Kernel alive/juggler/Kernel.h
 		  * @brief Encapsulates what goes on the main function for a VR Juggler App
 		  */
@@ -59,5 +63,6 @@ namespace alive {
 			vrj::Kernel* kernel; /**< The VR Juggler kernel */
 			alive::juggler::App* app; /**< The alive::juggler::App wrapper object */
 		};
+		/** @} */
 	}
 }

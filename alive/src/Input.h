@@ -24,7 +24,11 @@
 
 namespace alive {
 	class Scene;
-
+	
+	/** @addtogroup alive
+	  * @{
+	  */
+	
 	enum Time {
 		CURRENT, PREVIOUS
 	};
@@ -228,4 +232,6 @@ namespace alive {
 		bool mApplyManipulation; /**< The manipulation method tells the scene that a transformation should be applied to the selected object */
 		bool mIntersectionCheck; /**< Flag that indicates if we should be looking for intersections */
 	};
+	
+	/** @} */
 }

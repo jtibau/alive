@@ -22,7 +22,11 @@
 namespace alive {
 	namespace interaction {
 
-		/** @class alive::interaction::BasicNavigation alive/interaction/BasicNavgigation.h
+		/** @addtogroup interaction
+		  * @{
+		  */
+	
+		/** @class alive::interaction::WandDirectionDeltaRotation alive/interaction/WandDirectionDeltaRotation.h
 		  * @brief A very basic reorientation type.
 		  * 
 		  * Rotates to the angle formed between the delta formed by moving the wand around the head
@@ -41,5 +45,6 @@ namespace alive {
 			  */
 			void update();
 		};
+		/** @} */
 	}
 }

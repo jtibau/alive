@@ -27,7 +27,11 @@
 
 namespace alive{
 	namespace juggler{
-
+	
+		/** @defgroup juggler VR Juggler Backend
+		  * @{
+		  */
+	
 		/** @class alive::juggler::App alive/juggler/App
 		  * @brief Wrapper class to interface between VR Juggler and our alive::App
 		  *
@@ -108,5 +112,6 @@ namespace alive{
 			alive::App* mApp; /**< Pointer to the user's App */
 			alive::Input* mInput; /**< Pointer to a juggler Input object */
 		};
+		/** @} */
 	}
 }

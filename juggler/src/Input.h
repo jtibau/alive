@@ -39,6 +39,10 @@
 namespace alive {
 	namespace juggler {
 
+		/** @addtogroup juggler
+		  * @{
+		  */
+	
 		/** @class alive::juggler::Input alive/juggler/Input.h
 		  * @brief VR Juggler implementation of the abstract alive::Input
 		  *
@@ -80,5 +84,6 @@ namespace alive {
 
 			bool mFirstButtonClick[MAX_BUTTONS]; /**< A hack, to handle a current bug with the VRPN driver in vrj SS*/
 		};
+		/** @} */
 	}
 }

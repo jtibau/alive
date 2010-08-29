@@ -25,8 +25,14 @@
 #include "Input.h"
 #include "InteractionMethod.h"
 
+/
+
 namespace alive {
 
+	/** @defgroup alive ALIVE Abstract Classes
+	  * @{
+	  */
+	  
 	/** @class alive::App alive/App.h
 	  * @brief The Application class in the library
 	  *
@@ -137,5 +143,5 @@ namespace alive {
 		Input* mInput;	/**< Input Handler */
 		InteractionMethod* mInteractionMethod;	/**< The App's InteractionMethod */
 	};
+	/** @} */
 }
-

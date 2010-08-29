@@ -26,6 +26,10 @@
 namespace alive {
 	namespace poly {
 
+		/** @addtogroup poly
+		  * @{
+		  */
+	
 		/** @class alive::poly::MyInteraction alive/poly/MyInteraction.h
 		  * @brief A composition of other provided Interaction Methods
 		  *
@@ -69,5 +73,6 @@ namespace alive {
 			/** @brief The manipulation method object */
 			alive::InteractionMethod *pull;
 		};
+		/** @} */
 	}
 }

@@ -29,8 +29,13 @@
 
 namespace alive {
 	namespace interaction {
+	
+		/** @defgroup interaction Default Interaction Methods
+		  * @{
+		  */
+	
 
-		/** @class alive::interaction::BasicNavigation alive/interaction/BasicNavgigation.h
+		/** @class alive::interaction::WandDirectionDisplacement alive/interaction/WandDirectionDisplacement.h
 		  * @brief The most basic navigation type. Move in the direction of the wand.
 		  */
 		class WandDirectionDisplacement : public alive::InteractionMethod {
@@ -45,5 +50,6 @@ namespace alive {
 			  */
 			void update();
 		};
+		/** @} */
 	}
 }

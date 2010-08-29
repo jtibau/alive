@@ -19,6 +19,11 @@
 
 namespace alive {
 	class App;
+	
+	/** @addtogroup alive
+	  * @{
+	  */
+	
 
 	/** @class alive::Kernel alive/Kernel.h
 	  * @brief Simplifies the startup process, so the main can be more abstracted from
@@ -48,4 +53,5 @@ namespace alive {
 		  */
 		alive::App* mUserApp;
 	};
+	/** @} */
 }

@@ -21,6 +21,10 @@
 
 namespace alive {
 	namespace interaction {
+	
+		/** @addtogroup interaction
+		  * @{
+		  */
 
 		/** @class alive::interaction::PullManipulation alive/interaction/PullManipulation.h
 		  * @brief Pulls the selected object towards the wand
@@ -46,5 +50,6 @@ namespace alive {
 			  */
 			void update();
 		};
+		/** @} */
 	}
 }

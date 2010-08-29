@@ -21,6 +21,9 @@
 
 namespace alive {
 	namespace interaction {
+		/** @addtogroup interaction
+		  * @{
+		  */
 
 		/** @class alive::interaction::WandDirectionRay alive/interaction/WandDirectionRay.h
 		  * @brief A very basic ray casting technique.
@@ -46,5 +49,6 @@ namespace alive {
 			  */
 			void update();
 		};
+		/** @} */
 	}
 }

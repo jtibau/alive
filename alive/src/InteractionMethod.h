@@ -20,6 +20,11 @@
 namespace alive {
 	class Input;
 
+	/** @addtogroup alive
+	  * @{
+	  */
+	
+
 	/** @class alive::InteractionMethod alive/InteractionMethod.h
 	  * @brief Interface to any type of Interaction Method
 	  * (navigation, selection, manipulation).
@@ -63,4 +68,5 @@ namespace alive {
 		unsigned int mButtonNumber; /**< Button id that activates the method */
 		Input* mInput; /**< Pointer to the Input object */
 	};
+	/** @} */
 }

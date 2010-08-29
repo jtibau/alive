@@ -21,6 +21,11 @@
 
 namespace alive {
 	class Input;
+	
+	/** @addtogroup alive
+	  * @{
+	  */
+	
 
 	/** @class alive::Scene alive/Scene.h
 	  * @brief The abstract Scene class
@@ -86,4 +91,6 @@ namespace alive {
 		Input* mInput; /**< Pointer to the Input object */
 		char* mFileToLoad; /**< The filename of the model to be loaded */
 	};
+	
+	/** @} */
 }
