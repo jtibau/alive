@@ -105,8 +105,10 @@ namespace alive {
 			// Add the tree to the scene viewer and set properties
 			{
 				// should change this mutex for something vrjuggler-independent
-				vpr::Guard<vpr::Mutex> sv_guard(mSceneViewLock);
+				//vpr::Guard<vpr::Mutex> sv_guard(mSceneViewLock);
+				mInput->lockMutex();
 				new_sv->setSceneData(mRootNode.get());
+				mInput->releaseMutex();
 			}
 
 			// And we set our newly configured scene viewer object on to the context specific pointer.

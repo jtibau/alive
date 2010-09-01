@@ -187,6 +187,9 @@ namespace alive {
 		  */
 		virtual void setIntersectionCheck(bool intersectionCheck);
 
+		virtual void lockMutex() = 0;
+		virtual void releaseMutex() = 0;
+
 		/** @brief Returns the viewport for the context where it is called
 		  *
 		  * The returned array is laid out as {originX, originY, width, height}

@@ -25,8 +25,6 @@
 #include "Input.h"
 #include "InteractionMethod.h"
 
-/
-
 namespace alive {
 
 	/** @defgroup alive ALIVE Abstract Classes

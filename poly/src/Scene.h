@@ -104,8 +104,6 @@ namespace alive {
 			  */
 			vrj::opengl::ContextData< ::osg::ref_ptr<osgUtil::SceneView> > sceneViewer;
 
-			vpr::Mutex mSceneViewLock; /**< Mutex to prevent simultaneous manipulation of the graph by different osg threads */
-
 			osg::ref_ptr< osg::NodeVisitor > mUpdateVisitor;
 			osg::ref_ptr< osg::FrameStamp >  mFrameStamp;
 

@@ -1,4 +1,5 @@
-export VJ_BASE_DIR=~/Workspace/juggler
+export VJ_BASE_DIR=~/Share/juggler
+export ALIVE_HOME=~/Share/alive
 
 export ACLOCAL_FLAGS="-I $VJ_BASE_DIR/share/aclocal/"
 export FLAGPOLL_PATH=$VJ_BASE_DIR/share/flagpoll:$VJ_BASE_DIR/lib64/flagpoll:$VJ_BASE_DIR/juggler/lib64/debug/flagpoll

@@ -64,6 +64,9 @@ namespace alive {
 			  */
 			unsigned int getCurrentContext();
 
+			void lockMutex();
+			void releaseMutex();
+
 			/** @brief Returns the OpenGL Viewport
 			  */
 			const int* getViewport();
@@ -83,6 +86,9 @@ namespace alive {
 			gadget::DigitalInterface   mButtonInterface[MAX_BUTTONS]; /**< The VRJuggler pointers to the buttons */
 
 			bool mFirstButtonClick[MAX_BUTTONS]; /**< A hack, to handle a current bug with the VRPN driver in vrj SS*/
+
+			vpr::Guard<vpr::Mutex> *mGuard;
+			vpr::Mutex mLock;
 		};
 		/** @} */
 	}

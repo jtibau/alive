@@ -60,6 +60,14 @@ namespace alive {
 			return vrj::opengl::DrawManager::instance()->getCurrentContext();
 		}
 
+		void Input::lockMutex(){
+			mGuard = new vpr::Guard<vpr::Mutex>(mLock);
+		}
+
+		void Input::releaseMutex(){
+			delete mGuard;
+		}
+
 		const int* Input::getViewport(){
 			vrj::opengl::DrawManager* gl_manager = vrj::opengl::DrawManager::instance();
 			vprASSERT(gl_manager != NULL);
