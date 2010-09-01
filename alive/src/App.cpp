@@ -65,7 +65,7 @@ namespace alive {
 		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
 
-
+/*
 		// Drawing the Wand
 		glDisable(GL_LIGHTING);
 		glColor3f(0.663f,0.83f,0.51f);
@@ -84,7 +84,7 @@ namespace alive {
 
 		glEnable(GL_LIGHTING);
 		// Wand Drawn
-
+*/
 		glPopAttrib();
 		glPopAttrib();
 		glPopAttrib();

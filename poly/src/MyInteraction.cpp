@@ -9,7 +9,7 @@ namespace alive {
 			// Second button pulls the selected object
 			pull = new alive::interaction::PullManipulation(1);
 			// Third button reorientates the navigation
-			rotation = new alive::interaction::WandDirectionDeltaRotation(2);
+			rotation = new alive::interaction::WandDirectionDeltaRotation(0);
 			// The ray is always casted, we don't need to press any buttons
 			raycast = new alive::interaction::WandDirectionRay();
 		}
