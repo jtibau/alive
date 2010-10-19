@@ -18,16 +18,43 @@
 #include "Scene.h"
 
 #include <osgDB/ReadFile>
+
+#include <osgDB/FileUtils>	//to load the shaders
+
 #include <osgUtil/IntersectionVisitor>
 #include <osgUtil/LineSegmentIntersector>
 
 #include <iostream>
+#include <fstream>
 
 #include <alive/Input.h>
 
 namespace alive {
 
 	namespace poly {
+
+		
+		float* loadHomographyFromFile(std::string file){
+			float homography[16];
+			
+			std::string line;
+			std::ifstream data(file.c_str());
+			
+			for(int i=0; i<16; i++){
+				std::getline(data,line,':');
+				
+				std::istringstream iss(line);
+				float f;
+				iss >> std::dec >> f;
+				homography[i] = f;
+				
+				std::cout << f << "\t";
+				if(i%4 == 3) std::cout << "\n";
+			}
+			std::cout << "\n\n";
+			return homography;
+		}
+		
 
 		void Scene::init(Input* input){
 			// The parent class's init mehtod just stores the input object
@@ -61,6 +88,38 @@ namespace alive {
 			mHouseTrans = new osg::MatrixTransform();
 			mHouseTrans->addChild(mHouse.get());
 			mNavTrans->addChild(mHouseTrans.get());
+			
+			// Shader stuff
+			rootStateSet = mRootNode->getOrCreateStateSet();
+			rootStateSet->ref();
+			
+			programObject = new osg::Program();
+
+			vertexObject = new osg::Shader(osg::Shader::VERTEX);
+			programObject->addShader(vertexObject);
+
+			fragmentObject = new osg::Shader(osg::Shader::FRAGMENT);
+			programObject->addShader(fragmentObject);
+			
+			std::string vertPath = osgDB::findDataFile("shaders/homography.vert");
+			std::string fragPath = osgDB::findDataFile("shaders/homography.frag");
+			//std::string vertPath = osgDB::findDataFile("shaders/gouraud.vert");
+			//std::string fragPath = osgDB::findDataFile("shaders/gouraud.frag");
+			
+			if( vertexObject->loadShaderSourceFromFile(vertPath) )
+				std::cout << vertPath << std::endl ;
+			if( fragmentObject->loadShaderSourceFromFile(fragPath) )
+				std::cout << fragPath << std::endl;
+			
+			rootStateSet->setAttributeAndModes(programObject, osg::StateAttribute::ON);
+			
+			float *homography1 = loadHomographyFromFile( osgDB::findDataFile("shaders/Homography1.txt"));
+			osg::Uniform* uniHomography1 = new osg::Uniform("mHomography1",osg::Matrix(homography1));
+			rootStateSet->addUniform(uniHomography1);
+			
+			float *homography2 = loadHomographyFromFile( osgDB::findDataFile("shaders/Homography2.txt"));
+			osg::Uniform* uniHomography2 = new osg::Uniform("mHomography2",osg::Matrix(homography2));
+			rootStateSet->addUniform(uniHomography2);
 		}
 
 		void Scene::contextInit(){
@@ -156,6 +215,8 @@ namespace alive {
 			mNavTrans->setMatrix(convertMatrix(mInput->getNavigationMatrix()));
 			mRootNode.get()->getBound();
 
+			/*
+			
 			// Selection and Manipulation can only happen if a ray has been casted by a method
 			if(mInput->getRayCasted()){
 				
@@ -229,7 +290,9 @@ namespace alive {
 						mInput->setSelectedObjectMatrix( mInput->getSelectedTransformation() );
 					}
 				}
+				
 			}
+			*/
 		}
 
 		void Scene::draw() {

@@ -107,6 +107,13 @@ namespace alive {
 			osg::ref_ptr< osg::NodeVisitor > mUpdateVisitor;
 			osg::ref_ptr< osg::FrameStamp >  mFrameStamp;
 
+		
+			/** Used for handling shaders and uniforms */
+			osg::StateSet *rootStateSet;
+			osg::Program *programObject;
+			osg::Shader *vertexObject;
+			osg::Shader *fragmentObject;
+		
 			//
 			// mRootNode
 			//         \-- mNavTrans -- mModelTrans -- mModel
