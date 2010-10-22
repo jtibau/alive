@@ -77,15 +77,20 @@ namespace alive {
 
 			// I'm not using command line arguments for the model right now :(
 			// A configuration file (or more extensive cli processing) should be worked on
-			mModel = osgDB::readNodeFile("./data/stand.3DS");
+			//mModel = osgDB::readNodeFile("./data/stand.3DS");
+			mModel = osgDB::readNodeFile("cessnafire.osg");
 			mModelTrans  = new osg::MatrixTransform();
 			mModelTrans->setName("Model Transformation");	// Used in order to make some nodes moveable
-			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(-2.0,0.0,-2.0)));
+			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(0.0,0.0,-40.0)));
+			mModelTrans->preMult(osg::Matrix::rotate(-osg::PI/2,osg::Vec3f(0.0,0.0,1.0)));
+			mModelTrans->preMult(osg::Matrix::rotate(osg::PI/2,osg::Vec3f(1.0,0.0,0.0)));
 			mModelTrans->addChild(mModel.get());
 			mNavTrans->addChild(mModelTrans.get());
 
-			mHouse = osgDB::readNodeFile("./data/casa.3DS");
+			//mHouse = osgDB::readNodeFile("./data/casa.3DS");
+			mHouse = osgDB::readNodeFile("lz.osg");
 			mHouseTrans = new osg::MatrixTransform();
+			mHouseTrans->preMult(osg::Matrix::rotate(osg::PI/2.0,osg::Vec3f(1.0,0.0,0.0)));
 			mHouseTrans->addChild(mHouse.get());
 			mNavTrans->addChild(mHouseTrans.get());
 			
@@ -103,8 +108,6 @@ namespace alive {
 			
 			std::string vertPath = osgDB::findDataFile("shaders/homography.vert");
 			std::string fragPath = osgDB::findDataFile("shaders/homography.frag");
-			//std::string vertPath = osgDB::findDataFile("shaders/gouraud.vert");
-			//std::string fragPath = osgDB::findDataFile("shaders/gouraud.frag");
 			
 			if( vertexObject->loadShaderSourceFromFile(vertPath) )
 				std::cout << vertPath << std::endl ;
