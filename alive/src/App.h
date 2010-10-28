@@ -21,7 +21,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-#include "Scene.h"
+#include "SceneRenderer.h"
 #include "Input.h"
 #include "InteractionMethod.h"
 
@@ -39,7 +39,7 @@ namespace alive {
 	  *
 	  * Most of the times, developers should not need to reimplement this
 	  * class. In order to simplify the code, you are encouraged to
-	  * provide your Scene and one of the InteractionMethods when
+	  * provide your SceneRenderer and one of the InteractionMethods when
 	  * instantiating your App.
 	  *
 	  * The control loop of the application will be similar to this:
@@ -70,27 +70,27 @@ namespace alive {
 
 		/** @brief Preferred constructor
 		  *
-		  *	Provide an uninitialized pointer to your Scene object. The App
+		  *	Provide an uninitialized pointer to your SceneRenderer object. The App
 		  *	can take a NULL InteractionMethod, if you only want to look at
-		  *	the scene and are not interested in interacting with it.
+		  *	the SceneRenderer and are not interested in interacting with it.
 		  */
-		App(alive::Scene* scene = NULL,
+		App(alive::SceneRenderer* SceneRenderer = NULL,
 			alive::InteractionMethod* interactionMethod = NULL);
 		
 		/** @brief Destructor
 		  *
-		  * Should delete the Scene and InteractionMethod
+		  * Should delete the SceneRenderer and InteractionMethod
 		  */
 		virtual ~App();
 
 		/** @brief Application initialization function.
 		  *
 		  * Execute any initialization needed before the grahpics API is started.
-		  * Initializes the members Scene and InteractionMethod
+		  * Initializes the members SceneRenderer and InteractionMethod
 		  */
 		virtual void init(alive::Input* input);
 
-		/** @brief Calls mScene->contextInit()
+		/** @brief Calls mSceneRenderer->contextInit()
 		  */
 		virtual void contextInit();
 
@@ -98,7 +98,7 @@ namespace alive {
 		  */
 		virtual void preFrame();
 
-		/** @brief Calls mScene->latePreFrame()
+		/** @brief Calls mSceneRenderer->latePreFrame()
 		  */
 		virtual void latePreFrame();
 
@@ -110,7 +110,7 @@ namespace alive {
 		  */
 		virtual void contextPreDraw();
 
-		/** @brief Draw routine, basically calls mScene->draw()
+		/** @brief Draw routine, basically calls mSceneRenderer->draw()
 		  */
 		virtual void draw();
 
@@ -133,13 +133,13 @@ namespace alive {
 		
 		virtual void exit();
 
-		/** @brief Gives mScene the file name of the file to load
+		/** @brief Gives mSceneRenderer the file name of the file to load
 		  */
 		virtual void setModelName(char* modelFileName);
 
 	protected:
 
-		Scene* mScene;	/**< The object that contains the rendering code */
+		SceneRenderer* mSceneRenderer;	/**< The object that contains the rendering code */
 		Input* mInput;	/**< Input Handler */
 		InteractionMethod* mInteractionMethod;	/**< The App's InteractionMethod */
 	};

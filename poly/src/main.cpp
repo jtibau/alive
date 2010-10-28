@@ -19,7 +19,7 @@
 #include <alive/juggler/Kernel.h>
 
 #include "App.h"
-#include "Scene.h"
+#include "SceneRenderer.h"
 #include "MyInteraction.h"
 
 #include <main/qapplication3d.h>
@@ -33,7 +33,7 @@ int main(int argc, char* argv[]){
 	// Since this application does fairly standard stuff,
 	// we don't need to subclass alive:App
 	alive::poly::App* application = new alive::poly::App(
-		new alive::poly::Scene(),				// Our Scene
+		new alive::poly::SceneRenderer(),				// Our SceneRenderer
 		new alive::poly::MyInteraction()		// Just a mix of available methods
 	);
 	

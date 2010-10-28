@@ -28,7 +28,7 @@
 
 #include <gmtl/Matrix.h>
 
-#include <alive/Scene.h>
+#include <alive/SceneRenderer.h>
 
 namespace alive {
 
@@ -40,10 +40,10 @@ namespace alive {
 		  * @{
 		  */
 
-		/** @class alive::poly::Scene alive/poly/Scene.h
-		  * @brief Sample Implementation of the alive::Scene class
+		/** @class alive::poly::SceneRenderer alive/poly/SceneRenderer.h
+		  * @brief Sample Implementation of the alive::SceneRenderer class
 		  *
-		  * This Scene and package (poly) implements ALIVE.
+		  * This SceneRenderer and package (poly) implements ALIVE.
 		  * It is a *simple* polygonal renderer based on openscenegraph
 		  *
 		  * @note Two features will be deprecated from this implementation,
@@ -51,7 +51,7 @@ namespace alive {
 		  * vrj::opengl::ContextData. They should be replaced by wrapper
 		  * objects in ALIVE.
 		  */
-		class Scene : public alive::Scene {
+		class SceneRenderer : public alive::SceneRenderer {
 
 		public:
 
@@ -59,11 +59,11 @@ namespace alive {
 			  *
 			  * Sets mFrameNumber to 0 and configures threading on osg
 			  */
-			Scene() : mFrameNumber(0) {
+			SceneRenderer() : mFrameNumber(0) {
 				osg::Referenced::setThreadSafeReferenceCounting(true);
 			}
 
-			/** @brief Initializes the SceneGraph
+			/** @brief Initializes the SceneRenderer
 			  *
 			  * Creates the structure for the graph and loads the model.
 			  * @note It is possible that model loading (if not modularized) be better done in contextInit
@@ -76,7 +76,7 @@ namespace alive {
 			  */
 			void contextInit();
 
-			/** @brief Updates to the Scene
+			/** @brief Updates to the SceneRenderer
 			  *
 			  * Updates the scene by:
 			  * - Increasing the frame number

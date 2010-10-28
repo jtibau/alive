@@ -49,8 +49,8 @@ LIBS += -lGL \
 
 #### SOURCES AND HEADERS ####
 
-HEADERS += src/Scene.h src/MyInteraction.h src/App.h
-SOURCES += src/main.cpp src/Scene.cpp src/MyInteraction.cpp src/App.cpp
+HEADERS += src/SceneRenderer.h src/MyInteraction.h src/App.h
+SOURCES += src/main.cpp src/SceneRenderer.cpp src/MyInteraction.cpp src/App.cpp
 
 #### Project folder layout ####
 
@@ -58,5 +58,6 @@ DEPENDPATH = src
 OBJECTS_DIR = build
 MOC_DIR = build
 DESTDIR = bin
+
 target.path = $${PREFIX}/bin
 INSTALLS = target

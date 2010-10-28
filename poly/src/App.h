@@ -28,7 +28,7 @@ namespace alive {
     class App : public QObject, public alive::App, public Qt3D::Modelview  {
     Q_OBJECT
     public:
-      App(alive::Scene* scene = NULL, alive::InteractionMethod* interactionMethod = NULL);
+      App(alive::SceneRenderer* scene = NULL, alive::InteractionMethod* interactionMethod = NULL);
 
       ~App();
       

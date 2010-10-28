@@ -15,7 +15,7 @@
  *
  *****************************************************************************/
 
-#include "Scene.h"
+#include "SceneRenderer.h"
 
 #include <osgDB/ReadFile>
 
@@ -58,9 +58,9 @@ namespace alive {
 		}
 		
 
-		void Scene::init(Input* input){
+		void SceneRenderer::init(Input* input){
 			// The parent class's init mehtod just stores the input object
-			alive::Scene::init(input);
+			alive::SceneRenderer::init(input);
 
 			// The code here is independent of context, it is purely related to
 			// the object database. Nothing is loaded into the gl contexts.
@@ -127,7 +127,7 @@ namespace alive {
 			*/
 		}
 
-		void Scene::contextInit(){
+		void SceneRenderer::contextInit(){
 			// Now this is real gl code
 			// The purpose of the calls here is to get the graphics pipelines ready for rendering
 			
@@ -200,7 +200,7 @@ namespace alive {
 		}
 
 
-		void Scene::latePreFrame(){
+		void SceneRenderer::latePreFrame(){
 			// The update code
 
 			// Time updates
@@ -300,7 +300,7 @@ namespace alive {
 			*/
 		}
 
-		void Scene::draw() {
+		void SceneRenderer::draw() {
 			osg::ref_ptr<osgUtil::SceneView> sv;
 			sv = (*sceneViewer);    // Get context specific scene viewer
 

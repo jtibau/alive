@@ -3,25 +3,25 @@
 #include <gmtl/VecOps.h>
 
 namespace alive {
-	App::App(alive::Scene* scene, alive::InteractionMethod* interactionMethod) {
-		mScene = scene;
+	App::App(alive::SceneRenderer* SceneRenderer, alive::InteractionMethod* interactionMethod) {
+		mSceneRenderer = SceneRenderer;
 		mInteractionMethod = interactionMethod;
 	}
 
 	App::~App() {
-		if(mScene) delete mScene;
+		if(mSceneRenderer) delete mSceneRenderer;
 		if(mInteractionMethod) delete mInteractionMethod;
 	}
 
 	void App::init(alive::Input* input) {
 		mInput = input;
 
-		if(mScene) mScene->init(mInput);
+		if(mSceneRenderer) mSceneRenderer->init(mInput);
 		if(mInteractionMethod) mInteractionMethod->init(mInput);
 	}
 
 	void App::contextInit() {
-		if(mScene) mScene->contextInit();
+		if(mSceneRenderer) mSceneRenderer->contextInit();
 	}
 
 	void App::preFrame() {
@@ -29,14 +29,14 @@ namespace alive {
 	}
 
 	void App::latePreFrame() {
-		if(mScene) mScene->latePreFrame();
+		if(mSceneRenderer) mSceneRenderer->latePreFrame();
 	}
 
 	void App::bufferPreDraw() {
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		if(mScene) mScene->bufferPreDraw();
+		if(mSceneRenderer) mSceneRenderer->bufferPreDraw();
 	}
 
 	void App::contextPreDraw() {}
@@ -57,7 +57,7 @@ namespace alive {
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 
-		if(mScene) mScene->draw();
+		if(mSceneRenderer) mSceneRenderer->draw();
 
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
@@ -98,6 +98,6 @@ namespace alive {
   void App::exit(){}
   
 	void App::setModelName(char* modelFileName) {
-		if(mScene) mScene->setModelName(modelFileName);
+		if(mSceneRenderer) mSceneRenderer->setModelName(modelFileName);
 	}
 }

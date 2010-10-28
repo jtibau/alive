@@ -6,7 +6,7 @@
 
 namespace alive{
   namespace poly{
-    App::App(alive::Scene* scene, alive::InteractionMethod* interactionMethod)
+    App::App(alive::SceneRenderer* scene, alive::InteractionMethod* interactionMethod)
         : alive::App(scene, interactionMethod){
         
         Qt3D::qApp3d->setWindowPosition(-1.5,1.2,1);

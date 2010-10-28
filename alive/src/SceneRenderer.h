@@ -27,23 +27,23 @@ namespace alive {
 	  */
 	
 
-	/** @class alive::Scene alive/Scene.h
-	  * @brief The abstract Scene class
+	/** @class alive::SceneRenderer alive/SceneRenderer.h
+	  * @brief The abstract SceneRenderer class
 	  *
 	  * Subclasses will hold all of the rendering code for the application.
-	  * @note Basiccally alive::App calls mScene methods of the same name.
+	  * @note Basiccally alive::App calls mSceneRenderer methods of the same name.
 	  */
-	class Scene {
+	class SceneRenderer {
 
 	public:
 
 		/**	@brief Default constructor
 		  */
-		Scene();
+		SceneRenderer();
 
 		/**	@brief Default destructor
 		  */
-		virtual ~Scene();
+		virtual ~SceneRenderer();
 
 		/** @brief Initialization code
 		  *
@@ -64,7 +64,7 @@ namespace alive {
 
 		/** @brief Is called once per frame, just before drawing.
 		  *
-		  * Scene update code should be placed here. Howerver this is still not inside and OpenGL context
+		  * SceneRenderer update code should be placed here. Howerver this is still not inside and OpenGL context
 		  */
 		virtual void latePreFrame() = 0;
 
@@ -74,10 +74,10 @@ namespace alive {
 		  */
 		virtual void bufferPreDraw() = 0;
 
-		/** @brief Called for each viewport, should hold all of the scene's drawing calls.
+		/** @brief Called for each viewport, should hold all of the SceneRenderer's drawing calls.
 		  *
 		  * The App clears the Depth buffer and pushes the necessary attributes, as well as the
-		  * modelview and projection matrix. Afer mScene->Draw() happens, it pops the matrices and attribs
+		  * modelview and projection matrix. Afer mSceneRenderer->Draw() happens, it pops the matrices and attribs
 		  * from the stack.
 		  */
 		virtual void draw() = 0;
