@@ -18,14 +18,21 @@
 #include <alive/App.h>
 #include <alive/juggler/Kernel.h>
 
+#include "App.h"
 #include "Scene.h"
 #include "MyInteraction.h"
 
+#include <main/qapplication3d.h>
+
+#include <iostream>
+
 int main(int argc, char* argv[]){
+
+  Qt3D::QApplication3D qt3DApp(argc,argv);
 
 	// Since this application does fairly standard stuff,
 	// we don't need to subclass alive:App
-	alive::App* application = new alive::App(
+	alive::poly::App* application = new alive::poly::App(
 		new alive::poly::Scene(),				// Our Scene
 		new alive::poly::MyInteraction()		// Just a mix of available methods
 	);
@@ -33,9 +40,15 @@ int main(int argc, char* argv[]){
 	// This is the *only* line that ties the project to vrjuggler
 	// Not yet, cause we still have to replace ContexData and the Mutex
 	alive::Kernel* kernel = new alive::juggler::Kernel(application);
-
-	// Give control loop to the backend (vr juggler for now)
-	kernel->startAndWait(argc,argv);
+	kernel->start(argc,argv);
+    
+  qt3DApp.setQuitOnLastWindowClosed(false);
+  qt3DApp.exec();
+  
+  
+  std::cout << "Stopping backend kernel\n";
+  kernel->stop();
+  std::cout << "Backend kernel stopped\n";
 	
 	// clean up
 	delete kernel;

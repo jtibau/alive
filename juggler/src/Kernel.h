@@ -56,7 +56,9 @@ namespace alive {
 			  * Sends the modelname to the user's app
 			  * Gives the jconf files to the kernel to configure itself
 			  */
-			void startAndWait(int argc, char* argv[]);
+			void start(int argc, char* argv[]);
+			
+			void stop();
 
 		private:
 

@@ -130,6 +130,8 @@ namespace alive {
 		/** @brief Closing the context, on App exit
 		  */
 		virtual void contextClose();
+		
+		virtual void exit();
 
 		/** @brief Gives mScene the file name of the file to load
 		  */

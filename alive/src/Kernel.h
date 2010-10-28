@@ -43,7 +43,9 @@ namespace alive {
 		/** @brief Processes command line arguments, starts the control loop
 		  *	and holds until App termination
 		  */
-		virtual void startAndWait(int argc, char* argv[]) = 0;
+		virtual void start(int argc, char* argv[]) = 0;
+		
+		virtual void stop() = 0;
 		
 	protected:
 		/** @brief The user's App

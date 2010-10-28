@@ -102,6 +102,8 @@ namespace alive{
 			/** @brief Calls alive::App's contextClose
 			  */
 			virtual void contextClose();
+			
+			virtual void exit();
 
 			/** @brief Returns the scale factor, in order to convert to the
 			  * spacially correct unit.

@@ -35,6 +35,8 @@ namespace alive {
 
 		
 		float* loadHomographyFromFile(std::string file){
+		
+		  std::cout << "Archivo Homografia: " << file << std::endl;
 			float homography[16];
 			
 			std::string line;
@@ -75,15 +77,13 @@ namespace alive {
 			mNavTrans = new osg::MatrixTransform();
 			mRootNode->addChild(mNavTrans.get());
 
-			// I'm not using command line arguments for the model right now :(
-			// A configuration file (or more extensive cli processing) should be worked on
-			//mModel = osgDB::readNodeFile("./data/stand.3DS");
-			mModel = osgDB::readNodeFile("cessnafire.osg");
+			mModel = osgDB::readNodeFile("share/data/stand.3DS");
+			//mModel = osgDB::readNodeFile("cessnafire.osg");
 			mModelTrans  = new osg::MatrixTransform();
 			mModelTrans->setName("Model Transformation");	// Used in order to make some nodes moveable
-			mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(0.0,0.0,-40.0)));
-			mModelTrans->preMult(osg::Matrix::rotate(-osg::PI/2,osg::Vec3f(0.0,0.0,1.0)));
-			mModelTrans->preMult(osg::Matrix::rotate(osg::PI/2,osg::Vec3f(1.0,0.0,0.0)));
+			//mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(0.0,0.0,-40.0)));
+			//mModelTrans->preMult(osg::Matrix::rotate(-osg::PI/2,osg::Vec3f(0.0,0.0,1.0)));
+			//mModelTrans->preMult(osg::Matrix::rotate(osg::PI/2,osg::Vec3f(1.0,0.0,0.0)));
 			mModelTrans->addChild(mModel.get());
 			mNavTrans->addChild(mModelTrans.get());
 
@@ -106,8 +106,8 @@ namespace alive {
 			fragmentObject = new osg::Shader(osg::Shader::FRAGMENT);
 			programObject->addShader(fragmentObject);
 			
-			std::string vertPath = osgDB::findDataFile("shaders/homography.vert");
-			std::string fragPath = osgDB::findDataFile("shaders/homography.frag");
+			std::string vertPath = osgDB::findDataFile("share/shaders/poly/homography.vert");
+			std::string fragPath = osgDB::findDataFile("share/shaders/poly/homography.frag");
 			
 			if( vertexObject->loadShaderSourceFromFile(vertPath) )
 				std::cout << vertPath << std::endl ;
@@ -116,13 +116,15 @@ namespace alive {
 			
 			rootStateSet->setAttributeAndModes(programObject, osg::StateAttribute::ON);
 			
-			float *homography1 = loadHomographyFromFile( osgDB::findDataFile("shaders/Homography1.txt"));
-			osg::Uniform* uniHomography1 = new osg::Uniform("mHomography1",osg::Matrix(homography1));
+			float *homography1 = loadHomographyFromFile( osgDB::findDataFile("share/shaders/poly/homography.txt"));
+			osg::Uniform* uniHomography1 = new osg::Uniform("homographyMatrix",osg::Matrix(homography1));
 			rootStateSet->addUniform(uniHomography1);
 			
+			/*
 			float *homography2 = loadHomographyFromFile( osgDB::findDataFile("shaders/Homography2.txt"));
 			osg::Uniform* uniHomography2 = new osg::Uniform("mHomography2",osg::Matrix(homography2));
 			rootStateSet->addUniform(uniHomography2);
+			*/
 		}
 
 		void Scene::contextInit(){

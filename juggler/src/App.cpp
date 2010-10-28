@@ -1,5 +1,7 @@
 #include "App.h"
 
+#include <iostream>
+
 namespace alive {
 	namespace juggler {
 		App::App(vrj::Kernel* kern, alive::App* app)
@@ -9,6 +11,7 @@ namespace alive {
 		}
 
 		App::~App(){
+		  std::cout << "Deleting the juggler app\n";
 			if(mApp) delete mApp;
 			delete mInput;
 		}
@@ -41,6 +44,8 @@ namespace alive {
 		void App::postFrame() { if(mApp) mApp->postFrame(); }
 
 		void App::contextClose() { if(mApp) mApp->contextClose(); }
+		
+		void App::exit() { if(mApp) mApp->exit(); }
 
 		float App::getDrawScaleFactor() { return gadget::PositionUnitConversion::ConvertToMeters; }
 

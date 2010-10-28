@@ -24,7 +24,7 @@ namespace alive {
 		  * Sends the modelname to the user's app
 		  * Gives the jconf files to the kernel to configure itself
 		  */
-		void Kernel::startAndWait(int argc, char* argv[]) {
+		void Kernel::start(int argc, char* argv[]) {
 			if ( argc <= 2 ){
 				std::cout << "Usage: " << argv[0]
 					<< " modelname vjconfigfile[0] vjconfigfile[1] ... vjconfigfile[n]\n"
@@ -43,7 +43,11 @@ namespace alive {
 			kernel->start();
 
 			kernel->setApplication(app);
-			kernel->waitForKernelStop();
+		}
+		
+		void Kernel::stop() {
+		  kernel->stop();
+		  kernel->waitForKernelStop();
 		}
 	}
 }

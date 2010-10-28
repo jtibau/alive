@@ -95,6 +95,8 @@ namespace alive {
 	void App::postFrame() {}
 	void App::contextClose() {}
 
+  void App::exit(){}
+  
 	void App::setModelName(char* modelFileName) {
 		if(mScene) mScene->setModelName(modelFileName);
 	}
