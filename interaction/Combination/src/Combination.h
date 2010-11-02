@@ -24,13 +24,13 @@
 #include <alive/interaction/PullManipulation.h>
 
 namespace alive {
-	namespace poly {
+	namespace interaction {
 
 		/** @addtogroup poly
 		  * @{
 		  */
 	
-		/** @class alive::poly::MyInteraction alive/poly/MyInteraction.h
+		/** @class alive::poly::Combination alive/poly/Combination.h
 		  * @brief A composition of other provided Interaction Methods
 		  *
 		  * We can take the code of ready-made methods to combine them into
@@ -38,7 +38,7 @@ namespace alive {
 		  * If a certain combination works for you, it may also be possible
 		  * to add it to the default methods.
 		  */
-		class MyInteraction : public alive::InteractionMethod {
+		class Combination : public alive::InteractionMethod {
 
 		public:
 			/** @brief Instantiates the sub methods
@@ -46,11 +46,11 @@ namespace alive {
 			  * Tells each sub method which button to use. It might not
 			  * really use the buttonNumber parametter... It's up to you.
 			  */
-			MyInteraction(int buttonNumber = 0);
+			Combination(int buttonNumber = 0);
 
 			/** @brief Destroy sub methods
 			  */
-			~MyInteraction();
+			~Combination();
 
 			/** @brief Store input and init sub methods
 			  */

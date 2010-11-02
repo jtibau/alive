@@ -6,10 +6,7 @@ INCLUDEPATH += $(ALIVE_HOME)/include
 LIBS += -L$(ALIVE_HOME)/lib \
   -lalive \
   -ljuggler \
-  -lWandDirectionDeltaRotation \
-  -lWandDirectionDisplacement \
-  -lWandDirectionRay \
-  -lPullManipulation
+  -lCombination 
 
 #### VR Juggler 3.1.1 ####
 INCLUDEPATH += \
@@ -30,7 +27,7 @@ LIBS += -L$(VJ_BASE_DIR)/lib \
 
 DEFINES += BOOST_ALL_DYN_LINK JUGGLER_DEBUG
 
-#### MOVING's Qt3D ####
+#### MOVING Qt3D ####
 
 INCLUDEPATH += $(MOVING_HOME) $(MOVING_HOME)/Qt3D/include
 LIBS += -L$(MOVING_HOME)/bin/release -lQt3D
@@ -49,8 +46,8 @@ LIBS += -lGL \
 
 #### SOURCES AND HEADERS ####
 
-HEADERS += src/SceneRenderer.h src/MyInteraction.h src/App.h
-SOURCES += src/main.cpp src/SceneRenderer.cpp src/MyInteraction.cpp src/App.cpp
+HEADERS += src/SceneRenderer.h src/App.h
+SOURCES += src/main.cpp src/SceneRenderer.cpp src/App.cpp
 
 #### Project folder layout ####
 

@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS = PullManipulation WandDirectionDeltaRotation WandDirectionDisplacement WandDirectionRay
+SUBDIRS = PullManipulation WandDirectionDeltaRotation WandDirectionDisplacement WandDirectionRay Combination

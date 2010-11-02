@@ -1,27 +1,27 @@
-#include "MyInteraction.h"
+#include "Combination.h"
 
 namespace alive {
-	namespace poly {
-		MyInteraction::MyInteraction(int buttonNumber){
+	namespace interaction {
+		Combination::Combination(int buttonNumber){
 			// My combination of interaction methods:
 			// First button moves in the direction of the wand
 			displacement = new alive::interaction::WandDirectionDisplacement(0);
 			// Second button pulls the selected object
 			pull = new alive::interaction::PullManipulation(1);
 			// Third button reorientates the navigation
-			rotation = new alive::interaction::WandDirectionDeltaRotation(0);
+			rotation = new alive::interaction::WandDirectionDeltaRotation(2);
 			// The ray is always casted, we don't need to press any buttons
 			raycast = new alive::interaction::WandDirectionRay();
 		}
 
-		MyInteraction::~MyInteraction(){
+		Combination::~Combination(){
 			delete displacement;
 			delete pull;
 			delete raycast;
 			delete rotation;
 		}
 
-		void MyInteraction::init(alive::Input* input){
+		void Combination::init(alive::Input* input){
 			// The individual methods don't need to overide this method
 			// When initing call the parent method (or just store the input in mInput
 			alive::InteractionMethod::init(input);
@@ -31,7 +31,7 @@ namespace alive {
 			rotation->init(input);
 			raycast->init(input);
 		}
-		void MyInteraction::update(){
+		void Combination::update(){
 			// have everything update
 			displacement->update();
 			pull->update();

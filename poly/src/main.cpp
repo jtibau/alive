@@ -20,7 +20,8 @@
 
 #include "App.h"
 #include "SceneRenderer.h"
-#include "MyInteraction.h"
+
+#include <alive/interaction/Combination.h>
 
 #include <main/qapplication3d.h>
 
@@ -33,8 +34,8 @@ int main(int argc, char* argv[]){
 	// Since this application does fairly standard stuff,
 	// we don't need to subclass alive:App
 	alive::poly::App* application = new alive::poly::App(
-		new alive::poly::SceneRenderer(),				// Our SceneRenderer
-		new alive::poly::MyInteraction()		// Just a mix of available methods
+		new alive::poly::SceneRenderer(),
+		new alive::interaction::Combination()
 	);
 	
 	// This is the *only* line that ties the project to vrjuggler

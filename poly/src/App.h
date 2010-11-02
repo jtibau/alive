@@ -30,7 +30,10 @@ namespace alive {
     public:
       App(alive::SceneRenderer* scene = NULL, alive::InteractionMethod* interactionMethod = NULL);
 
-      ~App();
+      //~App();
+      
+      void contextPreDraw();
+      void draw();
       
       void exit();
     /*
