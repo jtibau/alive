@@ -20,6 +20,7 @@
 
 #include "App.h"
 #include "SceneRenderer.h"
+#include "ui/UserInterface.h"
 
 #include <alive/interaction/Combination.h>
 
@@ -31,27 +32,33 @@ int main(int argc, char* argv[]){
 
   Qt3D::QApplication3D qt3DApp(argc,argv);
 
-	// Since this application does fairly standard stuff,
-	// we don't need to subclass alive:App
-	alive::poly::App* application = new alive::poly::App(
-		new alive::poly::SceneRenderer(),
-		new alive::interaction::Combination()
-	);
-	
-	// This is the *only* line that ties the project to vrjuggler
-	// Not yet, cause we still have to replace ContexData and the Mutex
-	alive::Kernel* kernel = new alive::juggler::Kernel(application);
-	kernel->start(argc,argv);
-    
+  // Since this application does fairly standard stuff,
+  // we don't need to subclass alive:App
+  alive::poly::App* application = new alive::poly::App(
+      new alive::poly::SceneRenderer(),
+      //    NULL,
+      new alive::interaction::Combination()
+      );
+
+  alive::Kernel* kernel = new alive::juggler::Kernel(application);
+  kernel->start(argc,argv);
+
+  // sleep(4);
+
+
+  UserInterface* ui = new UserInterface(NULL);
+  ui->setApp(application);
+  ui->show();
+  ui->hide();
+
   qt3DApp.setQuitOnLastWindowClosed(false);
   qt3DApp.exec();
-  
-  
+
   std::cout << "Stopping backend kernel\n";
   kernel->stop();
   std::cout << "Backend kernel stopped\n";
-	
-	// clean up
-	delete kernel;
-	return EXIT_SUCCESS;
+
+  // clean up
+  delete kernel;
+  return EXIT_SUCCESS;
 }

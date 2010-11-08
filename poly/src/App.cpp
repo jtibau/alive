@@ -1,34 +1,32 @@
 #include "App.h"
 
 #include <main/qapplication3d.h>
+#include "ui/UserInterface.h"
 
 #include <iostream>
 
 namespace alive{
   namespace poly{
     App::App(alive::SceneRenderer* scene, alive::InteractionMethod* interactionMethod)
-        : alive::App(scene, interactionMethod){
-        
-        Qt3D::qApp3d->setWindowPosition(-1.5,1.2,1);
-        Qt3D::qApp3d->setWindowOrientation(1.0,0.0,0.0);
-        Qt3D::qApp3d->setScaleFactor(1.0/1000.0);
-        Qt3D::qApp3d->hideInteractionRay(true);
-        Qt3D::qApp3d->setCamera(this);
-        Qt3D::qApp3d->setAutoUpdate(false);
-        Qt3D::qApp3d->setEnabled(true);
-        Qt3D::qApp3d->setFocusPolicy(true);
-        Qt3D::qApp3d->setInteractionMode(2);
+      : alive::App(scene, interactionMethod){
+
+      Qt3D::qApp3d->setWindowPosition(-1.5,1.2,1);
+      Qt3D::qApp3d->setWindowOrientation(1.0,0.0,0.0);
+      Qt3D::qApp3d->setScaleFactor(1.0/1000.0);
+      Qt3D::qApp3d->hideInteractionRay(true);
+      Qt3D::qApp3d->setCamera(this);
+      Qt3D::qApp3d->setAutoUpdate(false);
+      Qt3D::qApp3d->setEnabled(true);
+      Qt3D::qApp3d->setFocusPolicy(true);
+      Qt3D::qApp3d->setInteractionMode(2);
     }
-    
-    /*App::~App(){
-      alive::App::~App();
-    }*/
-    
+
     void App::contextPreDraw(){
       alive::App::contextPreDraw();
-      Qt3D::qApp3d->updateTextures();
+
+      //Qt3D::qApp3d->updateTextures();
     }
-    
+
     void App::draw(){
       glClear(GL_DEPTH_BUFFER_BIT);
 
@@ -53,11 +51,10 @@ namespace alive{
       glMatrixMode(GL_MODELVIEW);
       glPopMatrix();
 
-      
       // Drawing the Wand
-      glDisable(GL_LIGHTING);
+      glEnable(GL_DEPTH_TEST);
       glColor3f(0.663f,0.83f,0.51f);
-      glLineWidth(1.);
+      glLineWidth(2.);
 
       glBegin(GL_LINES);
       {
@@ -68,12 +65,9 @@ namespace alive{
         glVertex3f(start[0]+dir[0],start[1]+dir[1],start[2]+dir[2]);
       }
       glEnd();
-
-      glEnable(GL_LIGHTING);
       // Wand Drawn
       
-      
-      Qt3D::qApp3d->drawWindows();
+      //Qt3D::qApp3d->drawWindows();
       
       glPopAttrib();
       glPopAttrib();

@@ -30,7 +30,8 @@ DEFINES += BOOST_ALL_DYN_LINK JUGGLER_DEBUG
 #### MOVING Qt3D ####
 
 INCLUDEPATH += $(MOVING_HOME) $(MOVING_HOME)/Qt3D/include
-LIBS += -L$(MOVING_HOME)/bin/release -lQt3D
+#LIBS += -L$(MOVING_HOME)/bin/release -lQt3D
+LIBS += -L$(MOVING_HOME)/bin/debug -lQt3D
 
 #### OpenGL and OpenSceneGraph ####
 
@@ -49,12 +50,20 @@ LIBS += -lGL \
 HEADERS += src/SceneRenderer.h src/App.h
 SOURCES += src/main.cpp src/SceneRenderer.cpp src/App.cpp
 
+FORMS += src/ui/UserInterface.ui
+HEADERS += src/ui/UserInterface.h
+SOURCES += src/ui/UserInterface.cpp
+
+OTHER_FILES += src/shaders/homography.vert src/shaders/homography.frag src/shaders/homography.txt
+
 #### Project folder layout ####
 
 DEPENDPATH = src
 OBJECTS_DIR = build
 MOC_DIR = build
 DESTDIR = bin
+
+UI_DIR = src/ui
 
 target.path = $${PREFIX}/bin
 INSTALLS = target

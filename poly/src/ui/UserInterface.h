@@ -17,34 +17,23 @@
 
 #pragma once
 
+#include "ui_UserInterface.h"
+
+#include <QMainWindow>
+
 #include <alive/App.h>
 
-#include <QObject>
-#include <main/modelview.h>
-
-
-namespace alive {
-  namespace poly {
-    class App : public QObject, public alive::App, public Qt3D::Modelview  {
-    Q_OBJECT
-    public:
-      App(alive::SceneRenderer* scene = NULL, alive::InteractionMethod* interactionMethod = NULL);
-
-            void draw();
-      
-      void exit();
-
-      void bufferPreDraw(){
-          glClearColor(0.0, 0.0, 0.0, 0.0);
-          glClear(GL_COLOR_BUFFER_BIT);
-      }
-
-      void contextPreDraw();
-      //void draw();
-
-      // Override Qt3D::Modelview
-      // void getModelview(double*);
-
-    };
-  }
-}
+class UserInterface : public QMainWindow, private Ui::MainWindow
+{
+  Q_OBJECT
+  
+  public:
+  UserInterface(QWidget* parent, Qt::WindowFlags flags=0);
+  
+  public Q_SLOTS:
+  void setApp(alive::App* app);
+  void on_pushButton_clicked();
+  
+  private:
+  alive::App* mApp;
+};

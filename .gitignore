@@ -2,3 +2,4 @@ Makefile
 build
 lib
 bin
+example

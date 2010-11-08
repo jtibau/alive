@@ -32,15 +32,15 @@
 
 namespace alive {
 
-	class Input;
+    class Input;
 
-	namespace poly {
+    namespace poly {
 
-		/** @defgroup poly Polygon Renderer
+        /** @defgroup poly Polygon Renderer
 		  * @{
 		  */
 
-		/** @class alive::poly::SceneRenderer alive/poly/SceneRenderer.h
+        /** @class alive::poly::SceneRenderer alive/poly/SceneRenderer.h
 		  * @brief Sample Implementation of the alive::SceneRenderer class
 		  *
 		  * This SceneRenderer and package (poly) implements ALIVE.
@@ -51,32 +51,32 @@ namespace alive {
 		  * vrj::opengl::ContextData. They should be replaced by wrapper
 		  * objects in ALIVE.
 		  */
-		class SceneRenderer : public alive::SceneRenderer {
+        class SceneRenderer : public alive::SceneRenderer {
 
-		public:
+        public:
 
-			/** @brief Default Constructor
+            /** @brief Default Constructor
 			  *
 			  * Sets mFrameNumber to 0 and configures threading on osg
 			  */
-			SceneRenderer() : mFrameNumber(0) {
-				osg::Referenced::setThreadSafeReferenceCounting(true);
-			}
+            SceneRenderer() : mFrameNumber(0) {
+                osg::Referenced::setThreadSafeReferenceCounting(true);
+            }
 
-			/** @brief Initializes the SceneRenderer
+            /** @brief Initializes the SceneRenderer
 			  *
 			  * Creates the structure for the graph and loads the model.
 			  * @note It is possible that model loading (if not modularized) be better done in contextInit
 			  */
-			void init(Input* input);
+            void init(Input* input);
 
-			/** @brief Initializes context specific variables and objects.
+            /** @brief Initializes context specific variables and objects.
 			  *
 			  * Which in this case is the helper class osgUtil::SceneView
 			  */
-			void contextInit();
+            void contextInit();
 
-			/** @brief Updates to the SceneRenderer
+            /** @brief Updates to the SceneRenderer
 			  *
 			  * Updates the scene by:
 			  * - Increasing the frame number
@@ -86,54 +86,56 @@ namespace alive {
 			  *
 			  * @note It also gets the most recent navigation matrix from Input, this should be replaced by signals and slots
 			  */
-			void latePreFrame();
+            void latePreFrame();
 
-			void bufferPreDraw(){}
+            void bufferPreDraw(){}
 
-			/** @brief Rendering code, made context-specific through ContextData
+            /** @brief Rendering code, made context-specific through ContextData
 			  *
 			  * Gets the sceneViewer object for the current context. Gives it the current
 			  * viewport, frustum and view matrix. Tells osg to do some culling and send the draw commands.
 			  */
-			void draw();
+            void draw();
 
 		protected:
 
-			/** A scene viewer object from osg.
+            /** A scene viewer object from osg.
 			  * Encapsuled within a ContextData object, it acts as a smart pointer which always points to the viewer from each context.
 			  */
-			vrj::opengl::ContextData< ::osg::ref_ptr<osgUtil::SceneView> > sceneViewer;
+            vrj::opengl::ContextData< ::osg::ref_ptr<osgUtil::SceneView> > sceneViewer;
 
-			osg::ref_ptr< osg::NodeVisitor > mUpdateVisitor;
-			osg::ref_ptr< osg::FrameStamp >  mFrameStamp;
-
-		
-			/** Used for handling shaders and uniforms */
-			osg::StateSet *rootStateSet;
-			osg::Program *programObject;
-			osg::Shader *vertexObject;
-			osg::Shader *fragmentObject;
-		
-			//
-			// mRootNode
-			//         \-- mNavTrans -- mModelTrans -- mModel
-			//						\-- mHouseTrans -- mHouse
-
-			osg::ref_ptr<osg::Group>           mRootNode;	/**< The root of the scenegraph */
-			osg::ref_ptr<osg::MatrixTransform> mNavTrans;	/**< A transformation node that affects the position/orientation of the whole scene */
-			osg::ref_ptr<osg::MatrixTransform> mModelTrans; /**< Transformation specific to the loaded model */
-			osg::ref_ptr<osg::Node>            mModel;		/**< The node where the model is loaded and placed */
-
-			osg::ref_ptr<osg::MatrixTransform> mHouseTrans;
-			osg::ref_ptr<osg::Node>            mHouse;
+            osg::ref_ptr< osg::NodeVisitor > mUpdateVisitor;
+            osg::ref_ptr< osg::FrameStamp >  mFrameStamp;
 
 
-			int mFrameNumber;
-			
+            /** Used for handling shaders and uniforms */
+            // shaders are only used for doing projector calibration, meanwhile we leave this commented out
+            osg::StateSet   *rootStateSet;
+            osg::Program    *programObject;
+            osg::Shader     *vertexObject;
+            osg::Shader     *fragmentObject;
+            // Esta tabulacion fue sugerencia de Jordi :)
+
+            //
+            // mRootNode
+            //         \-- mNavTrans -- mModelTrans -- mModel
+            //						\-- mHouseTrans -- mHouse
+
+            osg::ref_ptr<osg::Group>           mRootNode;	/**< The root of the scenegraph */
+            osg::ref_ptr<osg::MatrixTransform> mNavTrans;	/**< A transformation node that affects the position/orientation of the whole scene */
+            osg::ref_ptr<osg::MatrixTransform> mModelTrans; /**< Transformation specific to the loaded model */
+            osg::ref_ptr<osg::Node>            mModel;		/**< The node where the model is loaded and placed */
+
+            osg::ref_ptr<osg::MatrixTransform> mHouseTrans;
+            osg::ref_ptr<osg::Node>            mHouse;
+
+
+            int mFrameNumber;
+
 		private:
-			/** A pointer to the selected objects transformation, only to be used internally */
-			osg::ref_ptr<osg::MatrixTransform> mSelectedObjectTrans;
-		};
-		/** @} */
-	}
+            /** A pointer to the selected objects transformation, only to be used internally */
+            osg::ref_ptr<osg::MatrixTransform> mSelectedObjectTrans;
+        };
+        /** @} */
+    }
 }

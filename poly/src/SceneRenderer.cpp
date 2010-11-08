@@ -33,9 +33,9 @@ namespace alive {
 
 	namespace poly {
 
-		
+		// we don't want this right now
 		float* loadHomographyFromFile(std::string file){
-		
+
 		  std::cout << "Archivo Homografia: " << file << std::endl;
 			float homography[16];
 			
@@ -56,9 +56,10 @@ namespace alive {
 			std::cout << "\n\n";
 			return homography;
 		}
-		
+
 
 		void SceneRenderer::init(Input* input){
+
 			// The parent class's init mehtod just stores the input object
 			alive::SceneRenderer::init(input);
 
@@ -78,19 +79,13 @@ namespace alive {
 			mRootNode->addChild(mNavTrans.get());
 
 			mModel = osgDB::readNodeFile("share/data/stand.3DS");
-			//mModel = osgDB::readNodeFile("cessnafire.osg");
 			mModelTrans  = new osg::MatrixTransform();
 			mModelTrans->setName("Model Transformation");	// Used in order to make some nodes moveable
-			//mModelTrans->preMult(osg::Matrix::translate(osg::Vec3f(0.0,0.0,-40.0)));
-			//mModelTrans->preMult(osg::Matrix::rotate(-osg::PI/2,osg::Vec3f(0.0,0.0,1.0)));
-			//mModelTrans->preMult(osg::Matrix::rotate(osg::PI/2,osg::Vec3f(1.0,0.0,0.0)));
 			mModelTrans->addChild(mModel.get());
 			mNavTrans->addChild(mModelTrans.get());
 
-			//mHouse = osgDB::readNodeFile("./data/casa.3DS");
-			mHouse = osgDB::readNodeFile("lz.osg");
+			mHouse = osgDB::readNodeFile("share/data/casa.3DS");
 			mHouseTrans = new osg::MatrixTransform();
-			mHouseTrans->preMult(osg::Matrix::rotate(osg::PI/2.0,osg::Vec3f(1.0,0.0,0.0)));
 			mHouseTrans->addChild(mHouse.get());
 			mNavTrans->addChild(mHouseTrans.get());
 			
@@ -119,12 +114,11 @@ namespace alive {
 			float *homography1 = loadHomographyFromFile( osgDB::findDataFile("share/shaders/poly/homography.txt"));
 			osg::Uniform* uniHomography1 = new osg::Uniform("homographyMatrix",osg::Matrix(homography1));
 			rootStateSet->addUniform(uniHomography1);
-			
-			/*
-			float *homography2 = loadHomographyFromFile( osgDB::findDataFile("shaders/Homography2.txt"));
-			osg::Uniform* uniHomography2 = new osg::Uniform("mHomography2",osg::Matrix(homography2));
-			rootStateSet->addUniform(uniHomography2);
-			*/
+
+			osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,"Texture");
+			texUniform->set(0);
+			rootStateSet->addUniform(texUniform);
+
 		}
 
 		void SceneRenderer::contextInit(){
@@ -177,6 +171,8 @@ namespace alive {
 
 			// And we set our newly configured scene viewer object on to the context specific pointer.
 			(*sceneViewer) = new_sv;
+			
+			std::cout << "Context initted\n";
 		}
 
 		// This convertion methods are not to be used outside this files
@@ -185,9 +181,9 @@ namespace alive {
 			original.invert(original);
 			gmtl::Matrix44f converted;
 			converted.set(original(0,0),original(1,0),original(2,0),original(3,0),
-						  original(0,1),original(1,1),original(2,1),original(3,1),
-						  original(0,2),original(1,2),original(2,2),original(3,2),
-						  original(0,3),original(1,3),original(2,3),original(3,3));
+										original(0,1),original(1,1),original(2,1),original(3,1),
+										original(0,2),original(1,2),original(2,2),original(3,2),
+										original(0,3),original(1,3),original(2,3),original(3,3));
 
 			return converted;
 		}
@@ -221,10 +217,10 @@ namespace alive {
 			mRootNode.get()->getBound();
 
 			/*
-			
+
 			// Selection and Manipulation can only happen if a ray has been casted by a method
 			if(mInput->getRayCasted()){
-				
+
 				// There may be two cases where we don't want to find a new intersection:
 				// - We don't have a manipulation method... therefore we may have no need for selected objects
 				// - Some manips want to keep the same object that was intersected when the button was first pressed.
@@ -238,7 +234,7 @@ namespace alive {
 							new osgUtil::LineSegmentIntersector(start, end);
 					osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
 					mRootNode->accept(intersectVisitor);
-				
+
 					// What to do with the selected object
 					if( intersector->containsIntersections() ){
 						const osgUtil::LineSegmentIntersector::Intersection intersection =
