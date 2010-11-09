@@ -1,4 +1,5 @@
 TEMPLATE = app
+QT += opengl webkit
 CONFIG += console debug
 
 #### ALIVE ####

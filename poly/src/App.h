@@ -43,7 +43,7 @@ namespace alive {
       //void draw();
 
       // Override Qt3D::Modelview
-      // void getModelview(double*);
+      void getModelview(double*);
 
     };
   }

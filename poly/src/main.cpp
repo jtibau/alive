@@ -49,7 +49,7 @@ int main(int argc, char* argv[]){
   UserInterface* ui = new UserInterface(NULL);
   ui->setApp(application);
   ui->show();
-  ui->hide();
+  //ui->hide();
 
   qt3DApp.setQuitOnLastWindowClosed(false);
   qt3DApp.exec();

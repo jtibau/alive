@@ -10,9 +10,9 @@ namespace alive{
     App::App(alive::SceneRenderer* scene, alive::InteractionMethod* interactionMethod)
       : alive::App(scene, interactionMethod){
 
-      Qt3D::qApp3d->setWindowPosition(-1.5,1.2,1);
-      Qt3D::qApp3d->setWindowOrientation(1.0,0.0,0.0);
-      Qt3D::qApp3d->setScaleFactor(1.0/1000.0);
+      Qt3D::qApp3d->setWindowPosition(0,1.8,-1);
+      Qt3D::qApp3d->setWindowOrientation(0.0,0.0,1.0);
+      Qt3D::qApp3d->setScaleFactor(1.0/100.0);
       Qt3D::qApp3d->hideInteractionRay(true);
       Qt3D::qApp3d->setCamera(this);
       Qt3D::qApp3d->setAutoUpdate(false);
@@ -22,9 +22,8 @@ namespace alive{
     }
 
     void App::contextPreDraw(){
+      Qt3D::qApp3d->updateTextures();
       alive::App::contextPreDraw();
-
-      //Qt3D::qApp3d->updateTextures();
     }
 
     void App::draw(){
@@ -67,7 +66,7 @@ namespace alive{
       glEnd();
       // Wand Drawn
       
-      //Qt3D::qApp3d->drawWindows();
+      Qt3D::qApp3d->drawWindows();
       
       glPopAttrib();
       glPopAttrib();
@@ -76,7 +75,14 @@ namespace alive{
     
     void App::exit(){
       qApp->exit();
+      std::cout << "Told qt to exit\n";
     }
+
+		void App::getModelview(double* modelView){
+			for(int i=0; i<4; i++)
+				for(int j=0; j<4; j++)
+					modelView[i*4+j] = (i==j ? 1:0);
+		}
   }
 }
 
