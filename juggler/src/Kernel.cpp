@@ -46,8 +46,8 @@ namespace alive {
 		}
 		
 		void Kernel::stop() {
-		  kernel->waitForKernelStop();
-		  kernel->stop();
+			kernel->stop();
+			kernel->waitForKernelStop();
 		}
 	}
 }

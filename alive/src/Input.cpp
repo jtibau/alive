@@ -18,6 +18,12 @@ namespace alive {
 			return mButtonState[buttonNumber];
 		else return false;
 	}
+	
+	bool Input::getButtonChanged(unsigned int buttonNumber) {
+	  if(buttonNumber < MAX_BUTTONS)
+			return mButtonChanged[buttonNumber];
+		else return false;
+	}
 
 	gmtl::Vec3f Input::getHeadPosition(Time t) {
 		if(t == PREVIOUS) return mPreviousHeadPosition;

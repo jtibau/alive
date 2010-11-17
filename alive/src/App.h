@@ -123,7 +123,7 @@ namespace alive {
 		  */
 		virtual void contextPostDraw();
 
-		/** @brief Just before finishing the frame processes
+		/** @brief Just before finishing the Exitframe processes
 		  */
 		virtual void postFrame();
 

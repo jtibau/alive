@@ -90,6 +90,8 @@ namespace alive {
 		  * If asked for a button number out of range, or an unpressed button, it will return false.
 		  */
 		virtual bool getButtonState(unsigned int buttonNumber);
+		
+		virtual bool getButtonChanged(unsigned int buttonNumber);
 
 		/** @brief Returns a 3D vector with the head position
 		  *
@@ -208,32 +210,33 @@ namespace alive {
 
 	protected:
 
-		gmtl::Vec3f mHeadPosition; /**< Head position */
-		gmtl::Vec3f mHeadDirection; /**< Head direction */
-		gmtl::Vec3f mPreviousHeadPosition; /**< Previous head position */
-		gmtl::Vec3f mPreviousHeadDirection; /**< Previous head direction */
-		gmtl::Vec3f mWandPosition; /**< Wand position */
-		gmtl::Vec3f mWandDirection; /**< Wand direction */
-		gmtl::Vec3f mPreviousWandPosition; /**< Previous Wand Position */
-		gmtl::Vec3f mPreviousWandDirection; /**< Previuos Wand Direction */
+		gmtl::Vec3f       mHeadPosition; /**< Head position */
+		gmtl::Vec3f       mHeadDirection; /**< Head direction */
+		gmtl::Vec3f       mPreviousHeadPosition; /**< Previous head position */
+		gmtl::Vec3f       mPreviousHeadDirection; /**< Previous head direction */
+		gmtl::Vec3f       mWandPosition; /**< Wand position */
+		gmtl::Vec3f       mWandDirection; /**< Wand direction */
+		gmtl::Vec3f       mPreviousWandPosition; /**< Previous Wand Position */
+		gmtl::Vec3f       mPreviousWandDirection; /**< Previuos Wand Direction */
 
-		gmtl::Vec3f mRayStart; /**< Starting point of the casted ray, it is set by a manipulation method */
-		gmtl::Vec3f mRayEnd; /**< End point for the casted ray, set by a manipulation method */
-		bool mRayCasted; /**< The manipulation method must set this flag in order to signal that we should try intersecting the ray with the scene */
+		gmtl::Vec3f       mRayStart; /**< Starting point of the casted ray, it is set by a manipulation method */
+		gmtl::Vec3f       mRayEnd; /**< End point for the casted ray, set by a manipulation method */
+		bool              mRayCasted; /**< The manipulation method must set this flag in order to signal that we should try intersecting the ray with the scene */
 
-		bool mButtonState[MAX_BUTTONS]; /**< State of the buttons */
+		bool              mButtonState[MAX_BUTTONS]; /**< State of the buttons */
+		bool              mButtonChanged[MAX_BUTTONS]; /**< True if there was a state change in the current frame */
 
-		double mCurrentTime; /**< Current timestamp */
-		double mPreviousTime; /**< Previous timestamp */
-		float mTimeDelta; /**< Time passed between now and the previous frame */
+		double            mCurrentTime; /**< Current timestamp */
+		double            mPreviousTime; /**< Previous timestamp */
+		float             mTimeDelta; /**< Time passed between now and the previous frame */
 
-		gmtl::Matrix44f mNavigationMatrix; /**< The user's navigation matrix */
-		gmtl::Matrix44f mSelectedObjectMatrix; /**< Transformation matrix of the interesected/selected object, does not contain the navigation matrix */
-		gmtl::Matrix44f mSelectedTransformation; /**< The transformation that will be applied to the selected object */
+		gmtl::Matrix44f   mNavigationMatrix; /**< The user's navigation matrix */
+		gmtl::Matrix44f   mSelectedObjectMatrix; /**< Transformation matrix of the interesected/selected object, does not contain the navigation matrix */
+		gmtl::Matrix44f   mSelectedTransformation; /**< The transformation that will be applied to the selected object */
 
-		bool mObjectSelectedFlag; /**< The scene must set this flag in order to tell the manipulation method that an object has been intersected */
-		bool mApplyManipulation; /**< The manipulation method tells the scene that a transformation should be applied to the selected object */
-		bool mIntersectionCheck; /**< Flag that indicates if we should be looking for intersections */
+		bool              mObjectSelectedFlag; /**< The scene must set this flag in order to tell the manipulation method that an object has been intersected */
+		bool              mApplyManipulation; /**< The manipulation method tells the scene that a transformation should be applied to the selected object */
+		bool              mIntersectionCheck; /**< Flag that indicates if we should be looking for intersections */
 	};
 	
 	/** @} */

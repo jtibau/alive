@@ -11,6 +11,7 @@ namespace alive {
 				buttonName << "VJButton" << i;
 				mButtonInterface[i].init(buttonName.str());
 				mButtonState[i] = false;
+				mButtonChanged[i] = false;
 				mFirstButtonClick[i] = true;
 			}
 			mCurrentTime = 0;
@@ -45,10 +46,15 @@ namespace alive {
 			// update button data only if the digital interface reports a toggle
 			for(int i=0; i<MAX_BUTTONS; i++){
 				if(!mFirstButtonClick[i]){
-					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_ON )
+				  mButtonChanged[i] = false;
+					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_ON ){
+					  mButtonChanged[i] = true;
 						mButtonState[i] = true;
-					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_OFF )
+					}
+					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_OFF ){
+            mButtonChanged[i] = true;					
 						mButtonState[i] = false;
+					}
 				}
 				else{
 					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_OFF ) mFirstButtonClick[i] = false;

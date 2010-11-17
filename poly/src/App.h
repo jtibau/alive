@@ -30,17 +30,12 @@ namespace alive {
     public:
       App(alive::SceneRenderer* scene = NULL, alive::InteractionMethod* interactionMethod = NULL);
 
-            void draw();
-      
       void exit();
 
-      void bufferPreDraw(){
-          glClearColor(0.0, 0.0, 0.0, 0.0);
-          glClear(GL_COLOR_BUFFER_BIT);
-      }
-
+      void preFrame();
+      void bufferPreDraw();
       void contextPreDraw();
-      //void draw();
+      void draw();
 
       // Override Qt3D::Modelview
       void getModelview(double*);

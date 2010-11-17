@@ -36,14 +36,13 @@ int main(int argc, char* argv[]){
   // we don't need to subclass alive:App
   alive::poly::App* application = new alive::poly::App(
       new alive::poly::SceneRenderer(),
-      //    NULL,
       new alive::interaction::Combination()
       );
 
   alive::Kernel* kernel = new alive::juggler::Kernel(application);
   kernel->start(argc,argv);
 
-  // sleep(4);
+  //sleep(2);
 
 
   UserInterface* ui = new UserInterface(NULL);
