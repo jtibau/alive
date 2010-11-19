@@ -175,7 +175,7 @@ namespace alive {
 			std::cout << "Context initted\n";
 		}
 
-		// This convertion methods are not to be used outside this files
+		// This convertion methods are not to be used outside these files
 		// Outside objects shouldn't even be aware that we use osg
 		gmtl::Matrix44f convertMatrix(osg::Matrix original){
 			original.invert(original);
@@ -212,7 +212,6 @@ namespace alive {
 			mRootNode.get()->accept(*mUpdateVisitor);
 
 			// Update the navigation matrix
-			// should there be another flag here?
 			mNavTrans->setMatrix(convertMatrix(mInput->getNavigationMatrix()));
 			mRootNode.get()->getBound();
 
