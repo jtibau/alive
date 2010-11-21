@@ -7,10 +7,10 @@
 
 #include <iostream>
 
-namespace alive{
+namespace alice{
   namespace poly{
-    App::App(alive::SceneRenderer* scene, alive::InteractionMethod* interactionMethod)
-      : alive::App(scene, interactionMethod){
+    App::App(alice::SceneRenderer* scene, alice::InteractionMethod* interactionMethod)
+      : alice::App(scene, interactionMethod){
 
       Qt3D::qApp3d->setWindowPosition(0,1.8,-1);
       Qt3D::qApp3d->setWindowOrientation(0.0,0.0,1.0);
@@ -24,7 +24,7 @@ namespace alive{
     }
 
     void App::preFrame(){
-      alive::App::preFrame();
+      alice::App::preFrame();
 
 
       Qt3D::trackerEvent::Flags buttonEvent = Qt3D::trackerEvent::noButton;
@@ -60,7 +60,7 @@ namespace alive{
 
     void App::contextPreDraw(){
       Qt3D::qApp3d->updateTextures();
-      alive::App::contextPreDraw();
+      alice::App::contextPreDraw();
     }
 
     void App::draw(){

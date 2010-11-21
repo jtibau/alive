@@ -22,21 +22,21 @@
 #include <vrj/Draw/OpenGL/App.h>
 #include <vrj/Kernel/Kernel.h>
 
-#include <alive/App.h>
-#include "Input.h"
+#include <alice/App.h>
+#include "InputHandler.h"
 
-namespace alive{
+namespace alice{
 	namespace juggler{
 	
 		/** @defgroup juggler VR Juggler Backend
 		  * @{
 		  */
 	
-		/** @class alive::juggler::App alive/juggler/App
-		  * @brief Wrapper class to interface between VR Juggler and our alive::App
+		/** @class alice::juggler::App alice/juggler/App
+		  * @brief Wrapper class to interface between VR Juggler and our alice::App
 		  *
-		  * This class takes an alive::App object and calls its methods at the correct places.
-		  * It also provides the alive::App object with an juggler implementation of Input.
+		  * This class takes an alice::App object and calls its methods at the correct places.
+		  * It also provides the alice::App object with an juggler implementation of InputHandler.
 		  */
 		class App : public vrj::opengl::App{
 
@@ -46,60 +46,60 @@ namespace alive{
 			  *
 			  * Gives the vrjuggler kernel to the parent class.
 			  * Keeps the app pointer and instantiates a concrete implementation
-			  * of the Input class that deals with the vrjuggler framework.
+			  * of the InputHandler class that deals with the vrjuggler framework.
 			  */
-			App(vrj::Kernel* kern, alive::App* app);
+			App(vrj::Kernel* kern, alice::App* app);
 
 			/** @brief Destructor
 			  *
-			  * Since this class instantiates Input, this class also sends the destroy signal.
+			  * Since this class instantiates InputHandler, this class also sends the destroy signal.
 			  */
 			virtual ~App();
 
 			/** @brief Initialization code
 			  *
 			  * Calls vrjuggler's vrj::opengl::App init method.
-			  * Inits the Input object and gives it to mApp.
+			  * Inits the InputHandler object and gives it to mApp.
 			  */
 			virtual void init();
 
-			/** @brief Calls alive::App's contextInit
+			/** @brief Calls alice::App's contextInit
 			  */
 			virtual void contextInit();
 
-			/** @brief Updates the Input object, calls alive::App's preFrame
+			/** @brief Updates the InputHandler object, calls alice::App's preFrame
 			  */
 			virtual void preFrame();
 
-			/** @brief Calls alive::App's latePreFrame
+			/** @brief Calls alice::App's latePreFrame
 			  */
 			virtual void latePreFrame();
 
-			/** @brief Calls alive::App's bufferPreDraw
+			/** @brief Calls alice::App's bufferPreDraw
 			  */
 			virtual void bufferPreDraw();
 
-			/** @brief Calls alive::App's contextPreDraw
+			/** @brief Calls alice::App's contextPreDraw
 			  */
 			virtual void contextPreDraw();
 
-			/** @brief Calls alive::App's draw
+			/** @brief Calls alice::App's draw
 			  */
 			virtual void draw();
 
-			/** @brief Calls alive::App's intraFrame
+			/** @brief Calls alice::App's intraFrame
 			  */
 			virtual void intraFrame();
 
-			/** @brief Calls alive::App's contextPostDraw
+			/** @brief Calls alice::App's contextPostDraw
 			  */
 			virtual void contextPostDraw();
 
-			/** @brief Calls alive::App's postFrame
+			/** @brief Calls alice::App's postFrame
 			  */
 			virtual void postFrame();
 
-			/** @brief Calls alive::App's contextClose
+			/** @brief Calls alice::App's contextClose
 			  */
 			virtual void contextClose();
 			
@@ -111,8 +111,8 @@ namespace alive{
 			virtual float getDrawScaleFactor();
 
 		private:
-			alive::App* mApp; /**< Pointer to the user's App */
-			alive::Input* mInput; /**< Pointer to a juggler Input object */
+			alice::App* mApp; /**< Pointer to the user's App */
+			alice::InputHandler* mInput; /**< Pointer to a juggler InputHandler object */
 		};
 		/** @} */
 	}

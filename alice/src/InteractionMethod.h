@@ -17,21 +17,21 @@
 
 #pragma once
 
-namespace alive {
-	class Input;
+namespace alice {
+	class InputHandler;
 
-	/** @addtogroup alive
+	/** @addtogroup alice
 	  * @{
 	  */
 	
 
-	/** @class alive::InteractionMethod alive/InteractionMethod.h
+	/** @class alice::InteractionMethod alice/InteractionMethod.h
 	  * @brief Interface to any type of Interaction Method
 	  * (navigation, selection, manipulation).
 	  *
 	  * Most of the subclasses' work should get done in update.
 	  * Changes reported to the Scene
-	  * through signals and slots, or alive::Input
+	  * through signals and slots, or alice::InputHandler
 	  */
 	class InteractionMethod {
 
@@ -52,7 +52,7 @@ namespace alive {
 		  *
 		  * @note Most importantly it needs to keep the input pointer
 		  */
-		virtual void init(Input* input);
+		virtual void init(InputHandler* input);
 
 		/** @brief Update code specific to the method
 		  */
@@ -66,7 +66,7 @@ namespace alive {
 
 	protected:
 		unsigned int mButtonNumber; /**< Button id that activates the method */
-		Input* mInput; /**< Pointer to the Input object */
+		InputHandler* mInput; /**< Pointer to the InputHandler object */
 	};
 	/** @} */
 }

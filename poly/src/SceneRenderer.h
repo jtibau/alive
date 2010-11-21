@@ -28,11 +28,11 @@
 
 #include <gmtl/Matrix.h>
 
-#include <alive/SceneRenderer.h>
+#include <alice/SceneRenderer.h>
 
-namespace alive {
+namespace alice {
 
-    class Input;
+    class InputHandler;
 
     namespace poly {
 
@@ -40,18 +40,18 @@ namespace alive {
 		  * @{
 		  */
 
-        /** @class alive::poly::SceneRenderer alive/poly/SceneRenderer.h
-		  * @brief Sample Implementation of the alive::SceneRenderer class
+        /** @class alice::poly::SceneRenderer alice/poly/SceneRenderer.h
+		  * @brief Sample Implementation of the alice::SceneRenderer class
 		  *
-		  * This SceneRenderer and package (poly) implements ALIVE.
+		  * This SceneRenderer and package (poly) implements alice.
 		  * It is a *simple* polygonal renderer based on openscenegraph
 		  *
 		  * @note Two features will be deprecated from this implementation,
 		  * since they make this code vrj-dependant: vpr::Mutex and
 		  * vrj::opengl::ContextData. They should be replaced by wrapper
-		  * objects in ALIVE.
+		  * objects in alice.
 		  */
-        class SceneRenderer : public alive::SceneRenderer {
+        class SceneRenderer : public alice::SceneRenderer {
 
         public:
 
@@ -68,7 +68,7 @@ namespace alive {
 			  * Creates the structure for the graph and loads the model.
 			  * @note It is possible that model loading (if not modularized) be better done in contextInit
 			  */
-            void init(Input* input);
+            void init(InputHandler* input);
 
             /** @brief Initializes context specific variables and objects.
 			  *
@@ -84,7 +84,7 @@ namespace alive {
 			  * - Updates the NodeVisitor mUdateVisitor
 			  * - Tells the scene to calculate the newer bounding boxes
 			  *
-			  * @note It also gets the most recent navigation matrix from Input, this should be replaced by signals and slots
+			  * @note It also gets the most recent navigation matrix from InputHandler, this should be replaced by signals and slots
 			  */
             void latePreFrame();
 

@@ -17,7 +17,7 @@
 
 #include "WandDirectionRay.h"
 
-#include <alive/Input.h>
+#include <alice/InputHandler.h>
 
 #include <gmtl/Vec.h>
 #include <gmtl/VecOps.h>
@@ -26,10 +26,10 @@
 
 #include <gmtl/Generate.h>
 
-namespace alive{
+namespace alice{
 	namespace interaction{
 		WandDirectionRay::WandDirectionRay(int buttonNumber) :
-			alive::InteractionMethod(buttonNumber)
+			alice::InteractionMethod(buttonNumber)
 		{}
 
 		WandDirectionRay::~WandDirectionRay(){}

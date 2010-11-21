@@ -1,17 +1,17 @@
 #include "Combination.h"
 
-namespace alive {
+namespace alice {
 	namespace interaction {
 		Combination::Combination(int buttonNumber){
 			// My combination of interaction methods:
 			// First button moves in the direction of the wand
-			displacement = new alive::interaction::WandDirectionDisplacement(0);
+			displacement = new alice::interaction::WandDirectionDisplacement(0);
 			// Second button pulls the selected object
-			pull = new alive::interaction::PullManipulation(1);
+			pull = new alice::interaction::PullManipulation(1);
 			// Third button reorientates the navigation
-			rotation = new alive::interaction::WandDirectionDeltaRotation(2);
+			rotation = new alice::interaction::WandDirectionDeltaRotation(2);
 			// The ray is always casted, we don't need to press any buttons
-			raycast = new alive::interaction::WandDirectionRay();
+			raycast = new alice::interaction::WandDirectionRay();
 		}
 
 		Combination::~Combination(){
@@ -21,10 +21,10 @@ namespace alive {
 			delete rotation;
 		}
 
-		void Combination::init(alive::Input* input){
+		void Combination::init(alice::InputHandler* input){
 			// The individual methods don't need to overide this method
 			// When initing call the parent method (or just store the input in mInput
-			alive::InteractionMethod::init(input);
+			alice::InteractionMethod::init(input);
 			// And the sub methods also need input of course
 			displacement->init(input);
 			pull->init(input);

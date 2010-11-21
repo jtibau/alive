@@ -15,14 +15,14 @@
  *
  *****************************************************************************/
 
-#include <alive/App.h>
-#include <alive/juggler/Kernel.h>
+#include <alice/App.h>
+#include <alice/juggler/Kernel.h>
 
 #include "App.h"
 #include "SceneRenderer.h"
 #include "ui/UserInterface.h"
 
-#include <alive/interaction/Combination.h>
+#include <alice/interaction/Combination.h>
 
 #include <main/qapplication3d.h>
 
@@ -33,13 +33,13 @@ int main(int argc, char* argv[]){
   Qt3D::QApplication3D qt3DApp(argc,argv);
 
   // Since this application does fairly standard stuff,
-  // we don't need to subclass alive:App
-  alive::poly::App* application = new alive::poly::App(
-      new alive::poly::SceneRenderer(),
-      new alive::interaction::Combination()
+  // we don't need to subclass alice:App
+  alice::poly::App* application = new alice::poly::App(
+      new alice::poly::SceneRenderer(),
+      new alice::interaction::Combination()
       );
 
-  alive::Kernel* kernel = new alive::juggler::Kernel(application);
+  alice::Kernel* kernel = new alice::juggler::Kernel(application);
   kernel->start(argc,argv);
 
   //sleep(2);

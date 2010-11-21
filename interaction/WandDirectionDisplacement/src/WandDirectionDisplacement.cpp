@@ -17,7 +17,7 @@
 
 #include "WandDirectionDisplacement.h"
 
-namespace alive{
+namespace alice{
 	namespace interaction{
 		void WandDirectionDisplacement::update(){
 			// Translate in the direction the wand is pointing.

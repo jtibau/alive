@@ -1,8 +1,8 @@
 #include "Kernel.h"
 
-namespace alive {
+namespace alice {
 
-	Kernel::Kernel(alive::App* userApp){
+	Kernel::Kernel(alice::App* userApp){
 		mUserApp = userApp;
 	}
 

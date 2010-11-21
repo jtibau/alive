@@ -22,10 +22,10 @@
 
 #define MAX_BUTTONS 3
 
-namespace alive {
+namespace alice {
 	class Scene;
 	
-	/** @addtogroup alive
+	/** @addtogroup alice
 	  * @{
 	  */
 	
@@ -33,35 +33,35 @@ namespace alive {
 		CURRENT, PREVIOUS
 	};
 
-	/** @class alive::Input alive/Input.h
+	/** @class alice::InputHandler alice/InputHandler.h
 	  * @brief Abstract the user from dealing with devices
 	  *
-	  * Together with alive::App, this class is integral in creating the abstraction layer
+	  * Together with alice::App, this class is integral in creating the abstraction layer
 	  * for the user. It provides the user with data from devices, displays and the
 	  * running environment.
 	  *
 	  * Subclasses should implement framework specific initialization and update code.
 	  * As well as return correct values for the virtual functions.
 	  */
-	class Input {
+	class InputHandler {
 
 	public:
 
 		/** @brief Default Constructor
 		  *
-		  * Constructors do very few things in ALIVE, since most initialization happens
+		  * Constructors do very few things in ALICE, since most initialization happens
 		  * in the init method.
 		  *
 		  * @note The user would most likely not use it, since the App for each framework wrapper
-		  *	i.e. alive::juggler::App does the instantiation and passes the object to the user's App.
+		  *	i.e. alice::juggler::App does the instantiation and passes the object to the user's App.
 		  */
-		Input();
+		InputHandler();
 
 		/** @brief Default Destructor
 		  *
-		  * @note As with the default constructor, the App object handles destruction of Input for you.
+		  * @note As with the default constructor, the App object handles destruction of InputHandler for you.
 		  */
-		virtual ~Input();
+		virtual ~InputHandler();
 
 		/** @brief Framework initialization code
 		  */

@@ -1,12 +1,12 @@
 #include "InteractionMethod.h"
 
-namespace alive {
+namespace alice {
 	InteractionMethod::InteractionMethod(unsigned int buttonNumber) :
 		mButtonNumber(buttonNumber){}
 
 	InteractionMethod::~InteractionMethod(){}
 
-	void InteractionMethod::init(Input* input){ mInput = input; }
+	void InteractionMethod::init(InputHandler* input){ mInput = input; }
 
 	void InteractionMethod::draw(){}
 }

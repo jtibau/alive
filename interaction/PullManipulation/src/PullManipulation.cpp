@@ -17,7 +17,7 @@
 
 #include "PullManipulation.h"
 
-#include <alive/Input.h>
+#include <alice/InputHandler.h>
 
 #include <gmtl/Vec.h>
 #include <gmtl/VecOps.h>
@@ -27,10 +27,10 @@
 #include <gmtl/Generate.h>
 #include <gmtl/Xforms.h>
 
-namespace alive{
+namespace alice{
 	namespace interaction{
-		void PullManipulation::init(alive::Input* input){
-			alive::InteractionMethod::init(input);
+		void PullManipulation::init(alice::InputHandler* input){
+			alice::InteractionMethod::init(input);
 			mInput->setIntersectionCheck(true);
 		}
 		void PullManipulation::update(){

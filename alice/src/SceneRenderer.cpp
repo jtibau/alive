@@ -1,10 +1,10 @@
 #include "SceneRenderer.h"
 
-namespace alive {
+namespace alice {
 	SceneRenderer::SceneRenderer() {}
 	SceneRenderer::~SceneRenderer() {}
 
-	void SceneRenderer::init(Input* input) { mInput = input; }
+	void SceneRenderer::init(InputHandler* input) { mInput = input; }
 
 	void SceneRenderer::setModelName(char* modelFileName) { mFileToLoad = modelFileName; }
 }

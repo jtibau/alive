@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-namespace alive {
+namespace alice {
 	namespace juggler {
-		App::App(vrj::Kernel* kern, alive::App* app)
+		App::App(vrj::Kernel* kern, alice::App* app)
 			: vrj::opengl::App(kern) {
 			mApp = app;
-			mInput = new alive::juggler::Input();
+			mInput = new alice::juggler::InputHandler();
 		}
 
 		App::~App(){

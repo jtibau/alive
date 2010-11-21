@@ -5,10 +5,10 @@ CONFIG += debug
 
 INCLUDEPATH +=  $(VJ_BASE_DIR)/include/gmtl-0.6.0 \
 
-#### ALIVE headers and the abstract library ####
+#### ALICE headers and the abstract library ####
 
-INCLUDEPATH += $(ALIVE_HOME)/include
-LIBS += -L$(ALIVE_HOME)/lib -lalive \
+INCLUDEPATH += $(ALICE_HOME)/include
+LIBS += -L$(ALICE_HOME)/lib -lalice \
   -lWandDirectionDeltaRotation \
   -lWandDirectionDisplacement \
   -lWandDirectionRay \
@@ -26,6 +26,6 @@ OBJECTS_DIR = build
 DESTDIR = lib
 target.path = $${PREFIX}/lib
 headers.files = $$HEADERS
-headers.path = $${PREFIX}/include/alive/interaction
+headers.path = $${PREFIX}/include/alice/interaction
 INSTALLS = target headers 
 

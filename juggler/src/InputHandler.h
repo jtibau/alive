@@ -19,8 +19,8 @@
 
 #include <vrj/vrjConfig.h>
 
-#include <alive/Input.h>
-#include <alive/Scene.h>
+#include <alice/InputHandler.h>
+//#include <alice/SceneRenderer.h>
 
 #include <gadget/Type/PositionInterface.h>
 #include <gadget/Type/DigitalInterface.h>
@@ -36,19 +36,19 @@
 
 #include <iostream>
 
-namespace alive {
+namespace alice {
 	namespace juggler {
 
 		/** @addtogroup juggler
 		  * @{
 		  */
 	
-		/** @class alive::juggler::Input alive/juggler/Input.h
-		  * @brief VR Juggler implementation of the abstract alive::Input
+		/** @class alice::juggler::InputHandler alice/juggler/InputHandler.h
+		  * @brief VR Juggler implementation of the abstract alice::InputHandler
 		  *
-		  * @note alive::Input (father) is better documented, read it.
+		  * @note alice::InputHandler (father) is better documented, read it.
 		  */
-		class Input : public alive::Input {
+		class InputHandler : public alice::InputHandler {
 
 		public:
 

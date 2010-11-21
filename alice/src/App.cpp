@@ -2,8 +2,8 @@
 
 #include <gmtl/VecOps.h>
 
-namespace alive {
-	App::App(alive::SceneRenderer* SceneRenderer, alive::InteractionMethod* interactionMethod) {
+namespace alice {
+	App::App(alice::SceneRenderer* SceneRenderer, alice::InteractionMethod* interactionMethod) {
 		mSceneRenderer = SceneRenderer;
 		mInteractionMethod = interactionMethod;
 	}
@@ -13,7 +13,7 @@ namespace alive {
 		if(mInteractionMethod) delete mInteractionMethod;
 	}
 
-	void App::init(alive::Input* input) {
+	void App::init(alice::InputHandler* input) {
 		mInput = input;
 
 		if(mSceneRenderer) mSceneRenderer->init(mInput);

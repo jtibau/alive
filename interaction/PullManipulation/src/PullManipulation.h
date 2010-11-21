@@ -17,25 +17,25 @@
 
 #pragma once
 
-#include <alive/InteractionMethod.h>
+#include <alice/InteractionMethod.h>
 
-namespace alive {
+namespace alice {
 	namespace interaction {
 	
 		/** @addtogroup interaction
 		  * @{
 		  */
 
-		/** @class alive::interaction::PullManipulation alive/interaction/PullManipulation.h
+		/** @class alice::interaction::PullManipulation alice/interaction/PullManipulation.h
 		  * @brief Pulls the selected object towards the wand
 		  */
-		class PullManipulation : public alive::InteractionMethod {
+		class PullManipulation : public alice::InteractionMethod {
 
 		public:
 			/** @brief Constructor
 			  */
 			PullManipulation(int buttonNumber = 0) :
-				alive::InteractionMethod(buttonNumber)
+				alice::InteractionMethod(buttonNumber)
 			{}
 
 			/** @brief inits the method
@@ -43,7 +43,7 @@ namespace alive {
 			  * Tells the scene that it should be checking intersections and
 			  * calls the parent init.
 			  */
-			void init(alive::Input* input);
+			void init(alice::InputHandler* input);
 
 			/** @brief Update code, handles what to do with each button press and
 			  * changes the navigation matrix according to the method.

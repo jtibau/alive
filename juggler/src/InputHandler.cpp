@@ -1,9 +1,9 @@
-#include "Input.h"
+#include "InputHandler.h"
 
-namespace alive {
+namespace alice {
 	namespace juggler {
 
-		void Input::init(){
+		void InputHandler::init(){
 			mWand.init("VJWand");
 			mHead.init("VJHead");
 			for(int i=0; i<MAX_BUTTONS; i++){
@@ -18,7 +18,7 @@ namespace alive {
 			mObjectSelectedFlag = false;
 		}
 
-		void Input::update(){
+		void InputHandler::update(){
 			mPreviousTime = mCurrentTime;
 			mCurrentTime = mHead->getTimeStamp().secd();
 			mTimeDelta = (float)(mCurrentTime - mPreviousTime);
@@ -62,19 +62,19 @@ namespace alive {
 			}
 		}
 
-		unsigned int Input::getCurrentContext(){
+		unsigned int InputHandler::getCurrentContext(){
 			return vrj::opengl::DrawManager::instance()->getCurrentContext();
 		}
 
-		void Input::lockMutex(){
+		void InputHandler::lockMutex(){
 			mGuard = new vpr::Guard<vpr::Mutex>(mLock);
 		}
 
-		void Input::releaseMutex(){
+		void InputHandler::releaseMutex(){
 			delete mGuard;
 		}
 
-		const int* Input::getViewport(){
+		const int* InputHandler::getViewport(){
 			vrj::opengl::DrawManager* gl_manager = vrj::opengl::DrawManager::instance();
 			vprASSERT(gl_manager != NULL);
 			vrj::opengl::UserData* user_data = gl_manager->currentUserData();
@@ -94,7 +94,7 @@ namespace alive {
 			return v;
 		}
 
-		const float* Input::getViewMatrix(){
+		const float* InputHandler::getViewMatrix(){
 			vrj::opengl::DrawManager* gl_manager = vrj::opengl::DrawManager::instance();
 			vprASSERT(gl_manager != NULL);
 			vrj::opengl::UserData* user_data = gl_manager->currentUserData();
@@ -103,7 +103,7 @@ namespace alive {
 			return project->getViewMatrix().mData;
 		}
 
-		const float* Input::getFrustum(){
+		const float* InputHandler::getFrustum(){
 			vrj::opengl::DrawManager* gl_manager = vrj::opengl::DrawManager::instance();
 			vprASSERT(gl_manager != NULL);
 			vrj::opengl::UserData* user_data = gl_manager->currentUserData();

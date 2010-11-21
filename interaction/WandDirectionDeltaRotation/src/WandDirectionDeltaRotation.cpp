@@ -17,7 +17,7 @@
 
 #include "WandDirectionDeltaRotation.h"
 
-#include <alive/Input.h>
+#include <alice/InputHandler.h>
 
 #include <gmtl/Vec.h>
 #include <gmtl/VecOps.h>
@@ -26,17 +26,17 @@
 
 #include <gmtl/Generate.h>
 
-namespace alive{
+namespace alice{
 	namespace interaction{
 		WandDirectionDeltaRotation::WandDirectionDeltaRotation(int buttonNumber) :
-				alive::InteractionMethod(buttonNumber)
+				alice::InteractionMethod(buttonNumber)
 		{}
 
 		void WandDirectionDeltaRotation::update(){
 			// lot of math on these transformations
 			if( mInput->getButtonState(mButtonNumber) ){
 				// Both vectors go from the head's to the wand's position
-				gmtl::Vec3f v1 = mInput->getWandPosition(alive::PREVIOUS) - mInput->getHeadPosition(alive::PREVIOUS);
+				gmtl::Vec3f v1 = mInput->getWandPosition(alice::PREVIOUS) - mInput->getHeadPosition(alice::PREVIOUS);
 				gmtl::Vec3f v2 = mInput->getWandPosition() - mInput->getHeadPosition();
 
 				// Don't do anything if the wand/head haven't moved at all

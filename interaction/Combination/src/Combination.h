@@ -17,20 +17,20 @@
 
 #pragma once
 
-#include <alive/InteractionMethod.h>
-#include <alive/interaction/WandDirectionDeltaRotation.h>
-#include <alive/interaction/WandDirectionDisplacement.h>
-#include <alive/interaction/WandDirectionRay.h>
-#include <alive/interaction/PullManipulation.h>
+#include <alice/InteractionMethod.h>
+#include <alice/interaction/WandDirectionDeltaRotation.h>
+#include <alice/interaction/WandDirectionDisplacement.h>
+#include <alice/interaction/WandDirectionRay.h>
+#include <alice/interaction/PullManipulation.h>
 
-namespace alive {
+namespace alice {
 	namespace interaction {
 
 		/** @addtogroup poly
 		  * @{
 		  */
 	
-		/** @class alive::poly::Combination alive/poly/Combination.h
+		/** @class alice::poly::Combination alice/poly/Combination.h
 		  * @brief A composition of other provided Interaction Methods
 		  *
 		  * We can take the code of ready-made methods to combine them into
@@ -38,7 +38,7 @@ namespace alive {
 		  * If a certain combination works for you, it may also be possible
 		  * to add it to the default methods.
 		  */
-		class Combination : public alive::InteractionMethod {
+		class Combination : public alice::InteractionMethod {
 
 		public:
 			/** @brief Instantiates the sub methods
@@ -54,7 +54,7 @@ namespace alive {
 
 			/** @brief Store input and init sub methods
 			  */
-			void init(alive::Input* input);
+			void init(alice::InputHandler* input);
 
 			/** @brief Updates the sub methods
 			  */
@@ -62,16 +62,16 @@ namespace alive {
 			
 		private:
 			/** @brief The ray caster method object */
-			alive::InteractionMethod *raycast;
+			alice::InteractionMethod *raycast;
 			
 			/** @brief The scene translation method object */
-			alive::InteractionMethod *displacement;
+			alice::InteractionMethod *displacement;
 			
 			/** @brief The reorientation method object */
-			alive::InteractionMethod *rotation;
+			alice::InteractionMethod *rotation;
 			
 			/** @brief The manipulation method object */
-			alive::InteractionMethod *pull;
+			alice::InteractionMethod *pull;
 		};
 		/** @} */
 	}

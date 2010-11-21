@@ -10,7 +10,7 @@ UserInterface::UserInterface(QWidget* parent, Qt::WindowFlags flags)
 	setupUi(this);
 }
 
-void UserInterface::setApp(alive::App* app){ mApp = app; }
+void UserInterface::setApp(alice::App* app){ mApp = app; }
 void UserInterface::on_pushButton_clicked(){
 	std::cout << "Exit\n";
 	mApp->exit();

@@ -21,7 +21,7 @@
 
 #include <QMainWindow>
 
-#include <alive/App.h>
+#include <alice/App.h>
 
 class UserInterface : public QMainWindow, private Ui::MainWindow
 {
@@ -31,9 +31,9 @@ class UserInterface : public QMainWindow, private Ui::MainWindow
   UserInterface(QWidget* parent, Qt::WindowFlags flags=0);
   
   public Q_SLOTS:
-  void setApp(alive::App* app);
+  void setApp(alice::App* app);
   void on_pushButton_clicked();
   
   private:
-  alive::App* mApp;
+  alice::App* mApp;
 };

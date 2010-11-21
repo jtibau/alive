@@ -17,18 +17,18 @@
 
 #pragma once
 
-#include <alive/App.h>
+#include <alice/App.h>
 
 #include <QObject>
 #include <main/modelview.h>
 
 
-namespace alive {
+namespace alice {
   namespace poly {
-    class App : public QObject, public alive::App, public Qt3D::Modelview  {
+    class App : public QObject, public alice::App, public Qt3D::Modelview  {
     Q_OBJECT
     public:
-      App(alive::SceneRenderer* scene = NULL, alive::InteractionMethod* interactionMethod = NULL);
+      App(alice::SceneRenderer* scene = NULL, alice::InteractionMethod* interactionMethod = NULL);
 
       void exit();
 

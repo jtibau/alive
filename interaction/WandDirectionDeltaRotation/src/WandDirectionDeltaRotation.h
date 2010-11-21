@@ -17,21 +17,21 @@
 
 #pragma once
 
-#include <alive/InteractionMethod.h>
+#include <alice/InteractionMethod.h>
 
-namespace alive {
+namespace alice {
 	namespace interaction {
 
 		/** @addtogroup interaction
 		  * @{
 		  */
 	
-		/** @class alive::interaction::WandDirectionDeltaRotation alive/interaction/WandDirectionDeltaRotation.h
+		/** @class alice::interaction::WandDirectionDeltaRotation alice/interaction/WandDirectionDeltaRotation.h
 		  * @brief A very basic reorientation type.
 		  * 
 		  * Rotates to the angle formed between the delta formed by moving the wand around the head
 		  */
-		class WandDirectionDeltaRotation : public alive::InteractionMethod {
+		class WandDirectionDeltaRotation : public alice::InteractionMethod {
 
 		public:
 			/** @brief Constructor

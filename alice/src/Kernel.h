@@ -17,15 +17,15 @@
 
 #pragma once
 
-namespace alive {
+namespace alice {
 	class App;
 	
-	/** @addtogroup alive
+	/** @addtogroup alice
 	  * @{
 	  */
 	
 
-	/** @class alive::Kernel alive/Kernel.h
+	/** @class alice::Kernel alice/Kernel.h
 	  * @brief Simplifies the startup process, so the main can be more abstracted from
 	  *	framework specific calls
 	  */
@@ -34,7 +34,7 @@ namespace alive {
 		/** @brief Instantiates any possible objects and sotres a pointer to the 
 		  * 	user's App
 		  */
-		Kernel(alive::App* userApp = 0);
+		Kernel(alice::App* userApp = 0);
 
 		/** @brief Deletes any objects instantiated on constructor
 		  */
@@ -50,10 +50,10 @@ namespace alive {
 	protected:
 		/** @brief The user's App
 		  * 
-		  * Could be a sub-class, but might as well be the alive::App fed with
+		  * Could be a sub-class, but might as well be the alice::App fed with
 		  * your own Scene and InteractionMethods
 		  */
-		alive::App* mUserApp;
+		alice::App* mUserApp;
 	};
 	/** @} */
 }

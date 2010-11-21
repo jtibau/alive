@@ -1,13 +1,13 @@
 #include "Kernel.h"
 
-namespace alive {
+namespace alice {
 	namespace juggler {
 
-		Kernel::Kernel(alive::App* userApp) :
-			alive::Kernel(userApp)
+		Kernel::Kernel(alice::App* userApp) :
+			alice::Kernel(userApp)
 		{
 			kernel = vrj::Kernel::instance();	// Get the kernel
-			app = new alive::juggler::App(kernel, mUserApp); // Instantiate the app
+			app = new alice::juggler::App(kernel, mUserApp); // Instantiate the app
 		}
 
 		/** @brief Deletes the juggler app.

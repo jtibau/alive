@@ -2,10 +2,10 @@ TEMPLATE = app
 QT += opengl webkit
 CONFIG += console debug
 
-#### ALIVE ####
-INCLUDEPATH += $(ALIVE_HOME)/include
-LIBS += -L$(ALIVE_HOME)/lib \
-  -lalive \
+#### ALICE ####
+INCLUDEPATH += $(ALICE_HOME)/include
+LIBS += -L$(ALICE_HOME)/lib \
+  -lalice \
   -ljuggler \
   -lCombination 
 

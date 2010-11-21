@@ -1,10 +1,10 @@
 TEMPLATE = lib
 CONFIG += debug
 
-#### ALIVE ####
+#### ALICE ####
 
-INCLUDEPATH += $(ALIVE_HOME)/include
-LIBS += -L$(ALIVE_HOME)/lib -lalive
+INCLUDEPATH += $(ALICE_HOME)/include
+LIBS += -L$(ALICE_HOME)/lib -lalice
 
 #### VR Juggler 3.1.1 ####
 
@@ -25,8 +25,8 @@ DEFINES += BOOST_ALL_DYN_LINK JUGGLER_DEBUG
 
 #### SOURCES AND HEADERS ####
 
-HEADERS = src/App.h src/Input.h src/Kernel.h
-SOURCES = src/App.cpp src/Input.cpp src/Kernel.cpp
+HEADERS = src/App.h src/InputHandler.h src/Kernel.h
+SOURCES = src/App.cpp src/InputHandler.cpp src/Kernel.cpp
 
 #### Project folder layout ####
 
@@ -35,6 +35,6 @@ OBJECTS_DIR = build
 DESTDIR = lib
 target.path = $${PREFIX}/lib
 headers.files = $$HEADERS
-headers.path = $${PREFIX}/include/alive/juggler
+headers.path = $${PREFIX}/include/alice/juggler
 INSTALLS = target headers 
 

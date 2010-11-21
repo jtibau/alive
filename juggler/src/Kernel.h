@@ -19,30 +19,30 @@
 
 #include <vrj/Kernel/Kernel.h>
 
-#include <alive/Kernel.h>
-#include <alive/App.h>
-#include <alive/Scene.h>
-#include <alive/InteractionMethod.h>
+#include <alice/Kernel.h>
+#include <alice/App.h>
+//#include <alice/SceneRenderer.h>
+#include <alice/InteractionMethod.h>
 
 #include "App.h"
 
-namespace alive {
+namespace alice {
 	namespace juggler {
 
 		/** @addtogroup juggler
 		  * @{
 		  */
 	
-		/** @class alive::juggler::Kernel alive/juggler/Kernel.h
+		/** @class alice::juggler::Kernel alice/juggler/Kernel.h
 		  * @brief Encapsulates what goes on the main function for a VR Juggler App
 		  */
-		class Kernel : public alive::Kernel {
+		class Kernel : public alice::Kernel {
 
 		public: 
 
-			/** @brief Takes the user's App and instantiates an alive::juggler::App with it.
+			/** @brief Takes the user's App and instantiates an alice::juggler::App with it.
 			  */
-			Kernel(alive::App* userApp = 0);
+			Kernel(alice::App* userApp = 0);
 
 			/** @brief Deletes the juggler app.
 			  *
@@ -63,7 +63,7 @@ namespace alive {
 		private:
 
 			vrj::Kernel* kernel; /**< The VR Juggler kernel */
-			alive::juggler::App* app; /**< The alive::juggler::App wrapper object */
+			alice::juggler::App* app; /**< The alice::juggler::App wrapper object */
 		};
 		/** @} */
 	}

@@ -22,16 +22,16 @@
 #include <GL/glu.h>
 
 #include "SceneRenderer.h"
-#include "Input.h"
+#include "InputHandler.h"
 #include "InteractionMethod.h"
 
-namespace alive {
+namespace alice {
 
-	/** @defgroup alive ALIVE Abstract Classes
+	/** @defgroup alice ALICE Abstract Classes
 	  * @{
 	  */
 	  
-	/** @class alive::App alive/App.h
+	/** @class alice::App alice/App.h
 	  * @brief The Application class in the library
 	  *
 	  * It is designed as an interface class, so wrapper classes in the form
@@ -74,8 +74,8 @@ namespace alive {
 		  *	can take a NULL InteractionMethod, if you only want to look at
 		  *	the SceneRenderer and are not interested in interacting with it.
 		  */
-		App(alive::SceneRenderer* SceneRenderer = NULL,
-			alive::InteractionMethod* interactionMethod = NULL);
+		App(alice::SceneRenderer* SceneRenderer = NULL,
+			alice::InteractionMethod* interactionMethod = NULL);
 		
 		/** @brief Destructor
 		  *
@@ -88,7 +88,7 @@ namespace alive {
 		  * Execute any initialization needed before the grahpics API is started.
 		  * Initializes the members SceneRenderer and InteractionMethod
 		  */
-		virtual void init(alive::Input* input);
+		virtual void init(alice::InputHandler* input);
 
 		/** @brief Calls mSceneRenderer->contextInit()
 		  */
@@ -140,7 +140,7 @@ namespace alive {
 	protected:
 
 		SceneRenderer* mSceneRenderer;	/**< The object that contains the rendering code */
-		Input* mInput;	/**< Input Handler */
+		InputHandler* mInput;	/**< Input Handler */
 		InteractionMethod* mInteractionMethod;	/**< The App's InteractionMethod */
 	};
 	/** @} */

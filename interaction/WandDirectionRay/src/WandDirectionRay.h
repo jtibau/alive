@@ -17,20 +17,20 @@
 
 #pragma once
 
-#include <alive/InteractionMethod.h>
+#include <alice/InteractionMethod.h>
 
-namespace alive {
+namespace alice {
 	namespace interaction {
 		/** @addtogroup interaction
 		  * @{
 		  */
 
-		/** @class alive::interaction::WandDirectionRay alive/interaction/WandDirectionRay.h
+		/** @class alice::interaction::WandDirectionRay alice/interaction/WandDirectionRay.h
 		  * @brief A very basic ray casting technique.
 		  *
 		  * Sets the casted ray to be in the direction of the wand
 		  */
-		class WandDirectionRay : public alive::InteractionMethod {
+		class WandDirectionRay : public alice::InteractionMethod {
 
 		public:
 

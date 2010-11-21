@@ -27,9 +27,9 @@
 #include <iostream>
 #include <fstream>
 
-#include <alive/Input.h>
+#include <alice/InputHandler.h>
 
-namespace alive {
+namespace alice {
 
 	namespace poly {
 
@@ -58,10 +58,10 @@ namespace alive {
 		}
 
 
-		void SceneRenderer::init(Input* input){
+		void SceneRenderer::init(InputHandler* input){
 
 			// The parent class's init mehtod just stores the input object
-			alive::SceneRenderer::init(input);
+			alice::SceneRenderer::init(input);
 
 			// The code here is independent of context, it is purely related to
 			// the object database. Nothing is loaded into the gl contexts.

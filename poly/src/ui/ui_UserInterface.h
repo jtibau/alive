@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'UserInterface.ui'
 **
-** Created: Tue Nov 9 11:48:39 2010
+** Created: Sun Nov 21 21:03:55 2010
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -17,7 +17,6 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QMainWindow>
 #include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 
@@ -28,22 +27,17 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
-    QSpacerItem *verticalSpacer;
     QPushButton *pushButton;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(200, 100);
+        MainWindow->resize(277, 156);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer);
-
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
 

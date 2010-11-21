@@ -19,19 +19,19 @@
 
 #include <gmtl/Matrix.h>
 
-namespace alive {
-	class Input;
+namespace alice {
+	class InputHandler;
 	
-	/** @addtogroup alive
+	/** @addtogroup alice
 	  * @{
 	  */
 	
 
-	/** @class alive::SceneRenderer alive/SceneRenderer.h
+	/** @class alice::SceneRenderer alice/SceneRenderer.h
 	  * @brief The abstract SceneRenderer class
 	  *
 	  * Subclasses will hold all of the rendering code for the application.
-	  * @note Basiccally alive::App calls mSceneRenderer methods of the same name.
+	  * @note Basiccally alice::App calls mSceneRenderer methods of the same name.
 	  */
 	class SceneRenderer {
 
@@ -50,7 +50,7 @@ namespace alive {
 		  * This call happens before entering a specific OpenGL context.
 		  * Don't load any textures, lists or opengl ids here.
 		  */
-		virtual void init(Input* input);
+		virtual void init(InputHandler* input);
 
 		/** @brief Initialization code that requires an OpenGL context
 		  *
@@ -88,7 +88,7 @@ namespace alive {
 
 	protected:
 
-		Input* mInput; /**< Pointer to the Input object */
+		InputHandler* mInput; /**< Pointer to the InputHandler object */
 		char* mFileToLoad; /**< The filename of the model to be loaded */
 	};
 	
