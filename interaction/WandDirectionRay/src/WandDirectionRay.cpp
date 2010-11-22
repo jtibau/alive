@@ -37,13 +37,11 @@ namespace alice{
 		void WandDirectionRay::update(){
 			gmtl::Vec3f start = mInput->getWandPosition();
 			// The wand direction is a unit vector, so this ray is 4 meters long :)
-			gmtl::Vec3f dir = mInput->getWandDirection() *4.0f;
+			gmtl::Vec3f dir = mInput->getWandDirection() *0.5f;
 			gmtl::Vec3f end = start + dir;
 
 			mInput->setRayStart( start );
 			mInput->setRayEnd( end );
-			
-			mInput->setRayCasted(true);
 		}
 	}
 }

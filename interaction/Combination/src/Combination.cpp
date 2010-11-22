@@ -5,9 +5,7 @@ namespace alice {
 		Combination::Combination(int buttonNumber){
 			// My combination of interaction methods:
 			// First button moves in the direction of the wand
-			displacement = new alice::interaction::WandDirectionDisplacement(0);
-			// Second button pulls the selected object
-			pull = new alice::interaction::PullManipulation(1);
+			displacement = new alice::interaction::WandDirectionDisplacement(1);
 			// Third button reorientates the navigation
 			rotation = new alice::interaction::WandDirectionDeltaRotation(2);
 			// The ray is always casted, we don't need to press any buttons
@@ -16,7 +14,6 @@ namespace alice {
 
 		Combination::~Combination(){
 			delete displacement;
-			delete pull;
 			delete raycast;
 			delete rotation;
 		}
@@ -27,14 +24,12 @@ namespace alice {
 			alice::InteractionMethod::init(input);
 			// And the sub methods also need input of course
 			displacement->init(input);
-			pull->init(input);
 			rotation->init(input);
 			raycast->init(input);
 		}
 		void Combination::update(){
 			// have everything update
 			displacement->update();
-			pull->update();
 			rotation->update();
 			raycast->update();
 		}

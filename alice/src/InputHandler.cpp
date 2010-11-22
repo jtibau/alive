@@ -49,31 +49,4 @@ namespace alice {
 	void InputHandler::setRayStart(gmtl::Vec3f rayStart){ mRayStart = rayStart; }
 	gmtl::Vec3f InputHandler::getRayEnd(){ return mRayEnd; }
 	void InputHandler::setRayEnd(gmtl::Vec3f rayEnd){ mRayEnd = rayEnd; }
-	
-	bool InputHandler::getRayCasted() { return mRayCasted; }
-	void InputHandler::setRayCasted(bool rayCasted) { mRayCasted = rayCasted; }
-
-	gmtl::Matrix44f InputHandler::getNavigationMatrix(){
-		return mNavigationMatrix;
-	}
-
-	void InputHandler::setNavigationMatrix(gmtl::Matrix44f navigationMatrix){
-		mNavigationMatrix = navigationMatrix;
-	}
-
-	gmtl::Matrix44f InputHandler::getSelectedTransformation(){ return mSelectedTransformation; }
-	void InputHandler::setSelectedTransformation( gmtl::Matrix44f selectedTransformation ){ mSelectedTransformation = selectedTransformation; }
-
-	gmtl::Matrix44f InputHandler::getSelectedObjectMatrix(){ return mSelectedObjectMatrix; }
-	void InputHandler::setSelectedObjectMatrix( gmtl::Matrix44f selectedObjectMatrix ){ mSelectedObjectMatrix = selectedObjectMatrix; }
-
-	bool InputHandler::getObjectSelectedFlag(){ return mObjectSelectedFlag; }
-	void InputHandler::setObjectSelectedFlag(bool objectSelectedFlag){ mObjectSelectedFlag = objectSelectedFlag; }
-
-	bool InputHandler::getApplyManipulation(){ return mApplyManipulation; }
-	void InputHandler::setApplyManipulation(bool applyManipulation){ mApplyManipulation = applyManipulation; }
-	
-	bool InputHandler::getIntersectionCheck() { return mIntersectionCheck; }
-	void InputHandler::setIntersectionCheck(bool intersectionCheck) { mIntersectionCheck = intersectionCheck; }
-
 }

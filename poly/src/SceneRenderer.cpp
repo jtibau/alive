@@ -24,6 +24,9 @@
 #include <osgUtil/IntersectionVisitor>
 #include <osgUtil/LineSegmentIntersector>
 
+#include <osg/MatrixTransform>
+#include <osg/CopyOp>
+
 #include <iostream>
 #include <fstream>
 
@@ -37,7 +40,7 @@ namespace alice {
 		float* loadHomographyFromFile(std::string file){
 
 		  std::cout << "Archivo Homografia: " << file << std::endl;
-			float homography[16];
+			float* homography = new float[16];
 			
 			std::string line;
 			std::ifstream data(file.c_str());
@@ -212,9 +215,76 @@ namespace alice {
 			mRootNode.get()->accept(*mUpdateVisitor);
 
 			// Update the navigation matrix
-			mNavTrans->setMatrix(convertMatrix(mInput->getNavigationMatrix()));
-			mRootNode.get()->getBound();
+			if(mInput->applyNavigation()){
+				mNavTrans->setMatrix(convertMatrix(mInput->navigationMatrix()));
+				mRootNode.get()->getBound();
+			}
 
+
+			if( mInput->applySelectionTest() ){
+				// Intersection check
+				gmtl::Vec3f s = mInput->getRayStart();
+				gmtl::Vec3f e = mInput->getRayEnd();
+				osg::Vec3d start(s[0],s[1],s[2]);
+				osg::Vec3d end(e[0],e[1],e[2]);
+				osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector =
+						new osgUtil::LineSegmentIntersector(start, end);
+				osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
+				mRootNode->accept(intersectVisitor);
+
+				// What to do with the selected object
+				if( intersector->containsIntersections() ){
+					osgUtil::LineSegmentIntersector::Intersection intersection =
+							intersector->getFirstIntersection();
+
+					// We remember our graph structure again
+					// mRootNode
+					//         \-- mNavTrans -- mModelTrans -- mModel
+					//						\-- mHouseTrans -- mHouse
+					// The intersection will give us the bottommost node in the graph
+					// Although not in our graph representation, the node is actually
+					// a son of mModel, the Mesh.
+					// So, in the npath vector, the last element is the mesh. The third
+					// to last is the Transformation node we want to modify:
+					// -- mModelTrans -- mModel -- MESH   -
+					//       size-3      size-2   size-1 size
+
+					//osg::MatrixTransform* transf = osg::CopyOp::operator()(npath[npath.size()-3]->asTransform()->asMatrixTransform());
+					//osg::ref_ptr<osg::MatrixTransform> transf = new osg::MatrixTransform(npath[npath.size()-3]->asTransform()->asMatrixTransform());
+
+					std::cout << "Checking NodePath: " << intersection.nodePath[intersection.nodePath.size()-4] << std::endl;
+					std::cout << "NodePath Size: " << intersection.nodePath.size() << std::endl;
+					std::cout << "NodePath as Transform: " << intersection.nodePath[intersection.nodePath.size()-4]->asTransform() << std::endl;
+					std::cout << "NodePath as MatrixTransform: " << intersection.nodePath[intersection.nodePath.size()-4]->asTransform()->asMatrixTransform() << std::endl;
+					std::cout << "NodePath Name: " << intersection.nodePath[intersection.nodePath.size()-4]->asTransform()->asMatrixTransform()->getName() << std::endl;
+					std::cout << "NodePath Checked: " << intersection.nodePath[intersection.nodePath.size()-4] << std::endl;
+					// Since we might be intersecting the walls/floor of the house
+					// We check if this node we are intersecting is actually the model
+
+					if(intersection.nodePath[intersection.nodePath.size()-4]->asTransform()->asMatrixTransform()->getName() == "Model Transformation"){
+						std::cout << "Manipulable Object Intersected" << std::endl;
+
+						// If we are, we want to let the interaction methods about it
+						mInput->objectSelected(true);
+
+						// We also need to let them now about the intersected objects whereabouts
+						osg::Matrix osg_transf = intersection.nodePath[intersection.nodePath.size()-4]->asTransform()->asMatrixTransform()->getMatrix();
+						gmtl::Matrix44f  gmtl_transf = convertMatrix(osg_transf);
+						//gmtl::Matrix44f  gmtl_transf = convertMatrix(npath[npath.size()-3]->asTransform()->asMatrixTransform()->getMatrix());
+						mInput->selectedObjectMatrix(gmtl_transf);
+
+						std::cout << "Object Intersected" << std::endl;
+					}
+					else {
+						// If, while moving the wand, you switch from pointing to the model to pointing a wall...
+						mInput->objectSelected(false);
+					}
+				}
+				else{
+					// If the user stops intersecting anything
+					mInput->objectSelected(false);
+				}
+			}
 			/*
 
 			// Selection and Manipulation can only happen if a ray has been casted by a method

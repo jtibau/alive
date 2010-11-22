@@ -22,7 +22,7 @@ namespace alice{
 		void WandDirectionDisplacement::update(){
 			// Translate in the direction the wand is pointing.
 			if ( mInput->getButtonState(mButtonNumber) ){
-				gmtl::Matrix44f navigationMatrix = mInput->getNavigationMatrix();
+				gmtl::Matrix44f navigationMatrix = mInput->navigationMatrix();
 				gmtl::Vec3f translation =  mInput->getWandDirection() * mInput->getTimeDelta();
 				translation *= 3;	// move faster/slower
 				translation[1] = 0.0f;	// comment out if you wanna fly!
@@ -30,7 +30,8 @@ namespace alice{
 				gmtl::Matrix44f trans_matrix = gmtl::makeTrans<gmtl::Matrix44f>(translation);
 
 				gmtl::postMult(navigationMatrix, trans_matrix);
-				mInput->setNavigationMatrix(navigationMatrix);
+				mInput->navigationMatrix(navigationMatrix);
+				mInput->applyNavigation(true);
 			}		
 		}
 	}

@@ -75,13 +75,14 @@ namespace alice{
 					float y_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[1];
 					float z_rot = 0; // (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[2];
 
-					gmtl::Matrix44f navigationMatrix = mInput->getNavigationMatrix();
+					gmtl::Matrix44f navigationMatrix = mInput->navigationMatrix();
 					
 					gmtl::postMult(navigationMatrix, gmtl::makeTrans<gmtl::Matrix44f>(mInput->getHeadPosition()));
 					gmtl::postMult(navigationMatrix, gmtl::makeRot<gmtl::Matrix44f>(gmtl::EulerAngleXYZf(x_rot,y_rot,z_rot)));
 					gmtl::postMult(navigationMatrix, gmtl::makeTrans<gmtl::Matrix44f>(-mInput->getHeadPosition()));
 
-					mInput->setNavigationMatrix(navigationMatrix);
+					mInput->navigationMatrix(navigationMatrix);
+					mInput->applyNavigation(true);
 				}
 			}
 		}

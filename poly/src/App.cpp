@@ -50,7 +50,7 @@ namespace alice{
                                                          dir[0], dir[1], dir[2]);
 
       bool interactedWithWindows = Qt3D::qApp3d->sendEventTracker(event);
-
+      mInput->applySelectionTest(!interactedWithWindows);
     }
 
     void App::bufferPreDraw(){

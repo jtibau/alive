@@ -69,9 +69,6 @@ namespace alice {
 			
 			/** @brief The reorientation method object */
 			alice::InteractionMethod *rotation;
-			
-			/** @brief The manipulation method object */
-			alice::InteractionMethod *pull;
 		};
 		/** @} */
 	}
