@@ -257,6 +257,7 @@ namespace alice {
 
 					mSelectedObjectTrans = intersection.nodePath[2]->asTransform()->asMatrixTransform();
 
+					std::cout << "Reference Count: " << mSelectedObjectTrans->referenceCount() << std::endl;
 					// Since we might be intersecting the walls/floor of the house
 					// We check if this node we are intersecting is actually a selectable
 
