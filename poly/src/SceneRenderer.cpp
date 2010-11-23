@@ -81,15 +81,16 @@ namespace alice {
 			mNavTrans = new osg::MatrixTransform();
 			mRootNode->addChild(mNavTrans.get());
 
-			mModel = osgDB::readNodeFile("share/data/stand.3DS");
+			//mModel = osgDB::readNodeFile("share/data/stand.3DS");
 			mModelTrans  = new osg::MatrixTransform();
 			mModelTrans->setName("Model Transformation");	// Used in order to make some nodes moveable
-			mModelTrans->addChild(mModel.get());
+			mModelTrans->addChild(osgDB::readNodeFile("share/data/stand.3DS"));
 			mNavTrans->addChild(mModelTrans.get());
 
-			mHouse = osgDB::readNodeFile("share/data/casa.3DS");
+			//mHouse = osgDB::readNodeFile("share/data/casa.3DS");
 			mHouseTrans = new osg::MatrixTransform();
-			mHouseTrans->addChild(mHouse.get());
+			mHouseTrans->setName("World Transformation");
+			mHouseTrans->addChild(osgDB::readNodeFile("share/data/casa.3DS"));
 			mNavTrans->addChild(mHouseTrans.get());
 			
 			// Shader stuff
@@ -249,31 +250,26 @@ namespace alice {
 					// -- mModelTrans -- mModel -- MESH   -
 					//       size-3      size-2   size-1 size
 
-					//osg::MatrixTransform* transf = osg::CopyOp::operator()(npath[npath.size()-3]->asTransform()->asMatrixTransform());
-					//osg::ref_ptr<osg::MatrixTransform> transf = new osg::MatrixTransform(npath[npath.size()-3]->asTransform()->asMatrixTransform());
+					/*
+					osg::Node* tempNode = intersection.nodePath[2];
+					mSelectedObjectTrans = tempNode->asTransform()->asMatrixTransform();
+					*/
 
-					std::cout << "Checking NodePath: " << intersection.nodePath[intersection.nodePath.size()-4] << std::endl;
-					std::cout << "NodePath Size: " << intersection.nodePath.size() << std::endl;
-					std::cout << "NodePath as Transform: " << intersection.nodePath[intersection.nodePath.size()-4]->asTransform() << std::endl;
-					std::cout << "NodePath as MatrixTransform: " << intersection.nodePath[intersection.nodePath.size()-4]->asTransform()->asMatrixTransform() << std::endl;
-					std::cout << "NodePath Name: " << intersection.nodePath[intersection.nodePath.size()-4]->asTransform()->asMatrixTransform()->getName() << std::endl;
-					std::cout << "NodePath Checked: " << intersection.nodePath[intersection.nodePath.size()-4] << std::endl;
+					mSelectedObjectTrans = intersection.nodePath[2]->asTransform()->asMatrixTransform();
+
 					// Since we might be intersecting the walls/floor of the house
-					// We check if this node we are intersecting is actually the model
+					// We check if this node we are intersecting is actually a selectable
 
-					if(intersection.nodePath[intersection.nodePath.size()-4]->asTransform()->asMatrixTransform()->getName() == "Model Transformation"){
-						std::cout << "Manipulable Object Intersected" << std::endl;
-
+					std::cout << "Object Intersected: " << mSelectedObjectTrans->getName() << std::endl;
+					if(mSelectedObjectTrans->getName() == "Model Transformation"){
 						// If we are, we want to let the interaction methods about it
 						mInput->objectSelected(true);
 
 						// We also need to let them now about the intersected objects whereabouts
-						osg::Matrix osg_transf = intersection.nodePath[intersection.nodePath.size()-4]->asTransform()->asMatrixTransform()->getMatrix();
+						osg::Matrix osg_transf = mSelectedObjectTrans->getMatrix();
 						gmtl::Matrix44f  gmtl_transf = convertMatrix(osg_transf);
 						//gmtl::Matrix44f  gmtl_transf = convertMatrix(npath[npath.size()-3]->asTransform()->asMatrixTransform()->getMatrix());
 						mInput->selectedObjectMatrix(gmtl_transf);
-
-						std::cout << "Object Intersected" << std::endl;
 					}
 					else {
 						// If, while moving the wand, you switch from pointing to the model to pointing a wall...
