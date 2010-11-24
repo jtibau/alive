@@ -239,25 +239,20 @@ namespace alice {
 							intersector->getFirstIntersection();
 
 					// We remember our graph structure again
-					// mRootNode
-					//         \-- mNavTrans -- mModelTrans -- mModel
-					//						\-- mHouseTrans -- mHouse
-					// The intersection will give us the bottommost node in the graph
-					// Although not in our graph representation, the node is actually
-					// a son of mModel, the Mesh.
-					// So, in the npath vector, the last element is the mesh. The third
-					// to last is the Transformation node we want to modify:
-					// -- mModelTrans -- mModel -- MESH   -
-					//       size-3      size-2   size-1 size
+					// 0						1						 2							3
+					// mRootNode -- mNavTrans -- mModelTrans -- mModel
+					//											\	-- mHouseTrans -- mHouse
+					// The intersectors nodePath's third level is one of the
+					// MatrixTransform nodes, that's the node we need to keep
 
-					/*
-					osg::Node* tempNode = intersection.nodePath[2];
-					mSelectedObjectTrans = tempNode->asTransform()->asMatrixTransform();
-					*/
 
+					/////////NOTE TO SELF! WAS DOING OPERATIONS ON SELECTEDOBJECT POINTER BEFORE BEING SURE THERE WAS SOMETHING ELSE THAN NULL...
+					//ref_ptr made sure the object didn't say null, everything compiles nicely... but no object is there to address at runtime :(
+					if(mInput->objectSelected())
+						std::cout << "Reference Count: " << mSelectedObjectTrans->referenceCount() << std::endl;
 					mSelectedObjectTrans = intersection.nodePath[2]->asTransform()->asMatrixTransform();
-
 					std::cout << "Reference Count: " << mSelectedObjectTrans->referenceCount() << std::endl;
+
 					// Since we might be intersecting the walls/floor of the house
 					// We check if this node we are intersecting is actually a selectable
 
