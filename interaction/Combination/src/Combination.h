@@ -21,7 +21,7 @@
 #include <alice/interaction/WandDirectionDeltaRotation.h>
 #include <alice/interaction/WandDirectionDisplacement.h>
 #include <alice/interaction/WandDirectionRay.h>
-#include <alice/interaction/PullManipulation.h>
+#include <alice/interaction/HandBasicManipulation.h>
 
 namespace alice {
 	namespace interaction {
@@ -69,6 +69,8 @@ namespace alice {
 			
 			/** @brief The reorientation method object */
 			alice::InteractionMethod *rotation;
+
+			alice::InteractionMethod *manipulation;
 		};
 		/** @} */
 	}

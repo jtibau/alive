@@ -1,5 +1,7 @@
 #include "InputHandler.h"
 
+#include <iostream>
+
 namespace alice {
 	namespace juggler {
 
@@ -46,19 +48,14 @@ namespace alice {
 			// update button data only if the digital interface reports a toggle
 			for(int i=0; i<MAX_BUTTONS; i++){
 				if(!mFirstButtonClick[i]){
-				  mButtonChanged[i] = false;
-					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_ON ){
-					  mButtonChanged[i] = true;
-						mButtonState[i] = true;
-					}
-					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_OFF ){
-            mButtonChanged[i] = true;					
-						mButtonState[i] = false;
-					}
+					mButtonChanged[i] = false;
+					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_ON )
+						mButtonChanged[i] = mButtonState[i] = true;
+					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_OFF )
+						mButtonChanged[i] = !(mButtonState[i] = false);	// ;)
 				}
-				else{
-					if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_OFF ) mFirstButtonClick[i] = false;
-				}
+				else if( mButtonInterface[i]->getData() == gadget::Digital::TOGGLE_OFF )
+					mFirstButtonClick[i] = false;
 			}
 		}
 
@@ -76,7 +73,9 @@ namespace alice {
 
 		const int* InputHandler::getViewport(){
 			vrj::opengl::DrawManager* gl_manager = vrj::opengl::DrawManager::instance();
+
 			vprASSERT(gl_manager != NULL);
+
 			vrj::opengl::UserData* user_data = gl_manager->currentUserData();
 
 			float vp_ox, vp_oy, vp_sx, vp_sy;   // The float vrj sizes of the view ports

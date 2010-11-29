@@ -12,8 +12,8 @@ LIBS += -L$(ALICE_HOME)/lib -lalice
 
 #### HEADERS AND SOURCES ####
 
-HEADERS = src/PullManipulation.h
-SOURCES = src/PullManipulation.cpp
+HEADERS = src/HandBasicManipulation.h
+SOURCES = src/HandBasicManipulation.cpp
 
 #### Project folder layout ####
 

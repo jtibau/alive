@@ -35,29 +35,20 @@ int main(int argc, char* argv[]){
   // Since this application does fairly standard stuff,
   // we don't need to subclass alice:App
   alice::poly::App* application = new alice::poly::App(
-      new alice::poly::SceneRenderer(),
-      new alice::interaction::Combination()
-      );
+    new alice::poly::SceneRenderer(),
+    new alice::interaction::Combination()
+  );
 
   alice::Kernel* kernel = new alice::juggler::Kernel(application);
   kernel->start(argc,argv);
 
-  //sleep(2);
-
-
   UserInterface* ui = new UserInterface(NULL);
   ui->setApp(application);
   ui->show();
-  //ui->hide();
 
-  qt3DApp.setQuitOnLastWindowClosed(false);
   qt3DApp.exec();
-
-  std::cout << "Stopping backend kernel\n";
   kernel->stop();
-  std::cout << "Backend kernel stopped\n";
 
-  // clean up
   delete kernel;
   return EXIT_SUCCESS;
 }

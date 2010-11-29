@@ -174,9 +174,6 @@ namespace alice {
 		virtual void navigationMatrix(gmtl::Matrix44f  matrix){mNavigationMatrix = matrix;}
 		virtual gmtl::Matrix44f navigationMatrix(){return mNavigationMatrix;}
 
-		virtual void selectedObjectMatrix(gmtl::Matrix44f matrix){mSelectedObjectMatrix = matrix;}
-		virtual gmtl::Matrix44f selectedObjectMatrix(){return mSelectedObjectMatrix;}
-
 		virtual void selectedObjectTransformation(gmtl::Matrix44f  matrix){mSelectedTransformation = matrix;}
 		virtual gmtl::Matrix44f selectedObjectTransformation(){return mSelectedTransformation;}
 

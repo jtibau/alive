@@ -48,7 +48,8 @@ LIBS += -lGL \
 
 #### SOURCES AND HEADERS ####
 
-HEADERS += src/SceneRenderer.h src/App.h
+HEADERS += src/SceneRenderer.h src/App.h \
+    src/Utils.h
 SOURCES += src/main.cpp src/SceneRenderer.cpp src/App.cpp
 
 FORMS += src/ui/UserInterface.ui

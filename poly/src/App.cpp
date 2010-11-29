@@ -5,6 +5,8 @@
 
 #include "ui/UserInterface.h"
 
+#include <gmtl/VecOps.h>
+
 #include <iostream>
 
 namespace alice{
@@ -12,50 +14,52 @@ namespace alice{
     App::App(alice::SceneRenderer* scene, alice::InteractionMethod* interactionMethod)
       : alice::App(scene, interactionMethod){
 
-      Qt3D::qApp3d->setWindowPosition(0,1.8,-1);
-      Qt3D::qApp3d->setWindowOrientation(0.0,0.0,1.0);
-      Qt3D::qApp3d->setScaleFactor(1.0/100.0);
+      Qt3D::qApp3d->setWindowPosition(2,3,-1);
+      Qt3D::qApp3d->setWindowOrientation(0,0,1);
+      Qt3D::qApp3d->setScaleFactor(1.0/150.0);
       Qt3D::qApp3d->hideInteractionRay(true);
       Qt3D::qApp3d->setCamera(this);
       Qt3D::qApp3d->setAutoUpdate(false);
       Qt3D::qApp3d->setEnabled(true);
-      Qt3D::qApp3d->setFocusPolicy(false);
+      Qt3D::qApp3d->setFocusPolicy(true);
       Qt3D::qApp3d->setInteractionMode(2);
     }
 
     void App::preFrame(){
       alice::App::preFrame();
 
+      ////// QT3D Block //////
+
+      int leftButtonID = 0;   // Left Click on a mouse with standalone.jconf, may differ on other VR systems
 
       Qt3D::trackerEvent::Flags buttonEvent = Qt3D::trackerEvent::noButton;
       Qt3D::trackerEvent::Flags stateEvent = Qt3D::trackerEvent::deviceMove;
 
-      // Button0
-      if( mInput->getButtonChanged(0) ){
+      if( mInput->getButtonChanged(leftButtonID) ){    //Handle button toggle
         buttonEvent = Qt3D::trackerEvent::leftButton;
-        if( mInput->getButtonState(0) ) stateEvent = Qt3D::trackerEvent::buttonPressed;
-        else stateEvent = Qt3D::trackerEvent::buttonReleased;
+        if( mInput->getButtonState(leftButtonID) ) stateEvent = Qt3D::trackerEvent::buttonPressed;
+        else                            stateEvent = Qt3D::trackerEvent::buttonReleased;
       }
-      else if( mInput->getButtonState(0) ){
+      else if( mInput->getButtonState(leftButtonID) ){ //Not toggled but pressed
+        buttonEvent = Qt3D::trackerEvent::leftButton;
         stateEvent = Qt3D::trackerEvent::deviceMove;
-        buttonEvent = Qt3D::trackerEvent::leftButton;
       }
 
-      gmtl::Vec3f pos = mInput->getWandPosition();
-      gmtl::Vec3f dir = mInput->getWandDirection();
+      gmtl::Vec3f pos	= mInput->getRayStart();
+      gmtl::Vec3f dir	= mInput->getRayEnd() - pos;
 
-
-      Qt3D::trackerEvent* event = new Qt3D::trackerEvent(buttonEvent, stateEvent,
-                                                         pos[0], pos[1], pos[2],
-                                                         dir[0], dir[1], dir[2]);
-
+      Qt3D::trackerEvent* event = new Qt3D::trackerEvent(buttonEvent, stateEvent, pos[0], pos[1], pos[2], dir[0], dir[1], dir[2]);
       bool interactedWithWindows = Qt3D::qApp3d->sendEventTracker(event);
-      mInput->applySelectionTest(!interactedWithWindows);
+
+      ////// QT3D Block Ends //////
+
+      //Signal OSG to check intersection with scene objects if no qt3d interaction
+      if(!mInput->applyManipulation()) mInput->applySelectionTest(!interactedWithWindows);
     }
 
     void App::bufferPreDraw(){
-        glClearColor(0.0, 0.0, 0.0, 0.0);
-        glClear(GL_COLOR_BUFFER_BIT);
+      glClearColor(0.0, 0.0, 0.0, 0.0);
+      glClear(GL_COLOR_BUFFER_BIT);
     }
 
     void App::contextPreDraw(){
@@ -94,11 +98,11 @@ namespace alice{
 
       glBegin(GL_LINES);
       {
-	      gmtl::Vec3f start = mInput->getWandPosition();
-	      gmtl::Vec3f dir = mInput->getWandDirection();
+        gmtl::Vec3f start	= mInput->getRayStart();
+        gmtl::Vec3f end		= mInput->getRayEnd();
 
 	      glVertex3f(start[0],start[1],start[2]);
-        glVertex3f(start[0]+dir[0],start[1]+dir[1],start[2]+dir[2]);
+				glVertex3f(end[0],end[1],end[2]);
       }
       glEnd();
       // Wand Drawn
@@ -111,15 +115,13 @@ namespace alice{
     }
     
     void App::exit(){
-      //qApp->closeAllWindows();
-      //qApp->quit();
       qApp->exit();
     }
 
 		void App::getModelview(double* modelView){
 			for(int i=0; i<4; i++)
 				for(int j=0; j<4; j++)
-					modelView[i*4+j] = (i==j ? 1:0);
+					modelView[i*4+j] = (i==j ? 1:0);	//identity
 		}
   }
 }

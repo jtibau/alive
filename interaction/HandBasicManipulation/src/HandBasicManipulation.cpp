@@ -15,7 +15,7 @@
  *
  *****************************************************************************/
 
-#include "PullManipulation.h"
+#include "HandBasicManipulation.h"
 
 #include <alice/InputHandler.h>
 
@@ -29,28 +29,33 @@
 
 namespace alice{
 	namespace interaction{
-		void PullManipulation::init(alice::InputHandler* input){
+		HandBasicManipulation::HandBasicManipulation(int buttonNumber) :
+			alice::InteractionMethod(buttonNumber)
+		{}
+
+		HandBasicManipulation::~HandBasicManipulation(){}
+
+		void HandBasicManipulation::init(alice::InputHandler *input){
 			alice::InteractionMethod::init(input);
-			mInput->setIntersectionCheck(true);
+			mInput->applySelectionTest(true);
 		}
-		void PullManipulation::update(){
-			if( mInput->getButtonState(mButtonNumber) && mInput->getObjectSelectedFlag() ){
-				gmtl::Matrix44f objectMatrix = mInput->getSelectedObjectMatrix();
-				gmtl::Matrix44f nav = mInput->getNavigationMatrix();
 
-				gmtl::Vec3f translation =  mInput->getWandDirection();
-				translation = nav * translation;
-				translation *= 4 * mInput->getTimeDelta();	// move faster/slower
-				translation[1] = 0.0f;	// comment out if you wanna fly!
-				// Post multiply the delta translation
-				gmtl::Matrix44f trans_matrix = objectMatrix * gmtl::makeTrans<gmtl::Matrix44f>(translation);
-
-				mInput->setSelectedTransformation(trans_matrix);
-				mInput->setApplyManipulation(true);
-			}
-			else {
-				mInput->setApplyManipulation(false);
+		void HandBasicManipulation::update(){
+			if(mInput->objectSelected()){
+				if(mInput->getButtonChanged(mButtonNumber)){
+					mInput->applyManipulation( mInput->getButtonState(mButtonNumber) );
+					mInput->applySelectionTest( !mInput->getButtonState(mButtonNumber) );
+				}
+			    
+			  if(mInput->getButtonState(mButtonNumber)){
+			    gmtl::Matrix44f transf = mInput->selectedObjectTransformation();
+					//gmtl::Vec3f displacement = mInput->getWandPosition() - mInput->getWandPosition(alice::PREVIOUS);
+					gmtl::Vec3f displacement = mInput->getWandPosition(alice::PREVIOUS) - mInput->getWandPosition() ;
+					gmtl::postMult(transf, gmtl::makeTrans<gmtl::Matrix44f>(displacement));
+					mInput->selectedObjectTransformation(transf);
+			  }
 			}
 		}
 	}
 }
+

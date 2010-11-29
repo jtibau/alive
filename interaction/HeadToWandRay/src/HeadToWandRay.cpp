@@ -15,7 +15,7 @@
  *
  *****************************************************************************/
 
-#include "WandDirectionRay.h"
+#include "HeadToWandRay.h"
 
 #include <alice/InputHandler.h>
 
@@ -24,15 +24,15 @@
 
 namespace alice{
 	namespace interaction{
-		WandDirectionRay::WandDirectionRay(int buttonNumber) :
+		HeadToWandRay::HeadToWandRay(int buttonNumber) :
 			alice::InteractionMethod(buttonNumber)
 		{}
 
-		WandDirectionRay::~WandDirectionRay(){}
+		HeadToWandRay::~HeadToWandRay(){}
 
-		void WandDirectionRay::update(){
-			mInput->setRayStart( mInput->getWandPosition() );
-			mInput->setRayEnd( mInput->getWandPosition() + mInput->getWandDirection() );
+		void HeadToWandRay::update(){
+			mInput->setRayStart( mInput->getHeadPosition() );
+			mInput->setRayEnd( mInput->getWandPosition() );
 		}
 	}
 }

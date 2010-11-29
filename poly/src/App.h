@@ -28,7 +28,8 @@ namespace alice {
     class App : public QObject, public alice::App, public Qt3D::Modelview  {
     Q_OBJECT
     public:
-      App(alice::SceneRenderer* scene = NULL, alice::InteractionMethod* interactionMethod = NULL);
+      App(alice::SceneRenderer* scene = NULL,
+        alice::InteractionMethod* interactionMethod = NULL);
 
       void exit();
 
@@ -39,7 +40,6 @@ namespace alice {
 
       // Override Qt3D::Modelview
       void getModelview(double*);
-
     };
   }
 }

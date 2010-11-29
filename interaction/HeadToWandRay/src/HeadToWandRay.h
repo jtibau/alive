@@ -21,32 +21,31 @@
 
 namespace alice {
 	namespace interaction {
-	
 		/** @addtogroup interaction
 		  * @{
 		  */
 
-		/** @class alice::interaction::PullManipulation alice/interaction/PullManipulation.h
-		  * @brief Pulls the selected object towards the wand
+		/** @class alice::interaction::WandDirectionRay alice/interaction/WandDirectionRay.h
+		  * @brief A very basic ray casting technique.
+		  *
+		  * Sets the casted ray to be in the direction of the wand
 		  */
-		class PullManipulation : public alice::InteractionMethod {
+		class HeadToWandRay : public alice::InteractionMethod {
 
 		public:
-			/** @brief Constructor
-			  */
-			PullManipulation(int buttonNumber = 0) :
-				alice::InteractionMethod(buttonNumber)
-			{}
 
-			/** @brief inits the method
+			/** @brief Constructor, calls parent and stores the button number
+			  */
+			HeadToWandRay(int buttonNumber = 0);
+
+			/** @brief Destructor
+			  */
+			~HeadToWandRay();
+
+			/** @brief Sets the casted ray's start and end vectors
 			  *
-			  * Tells the scene that it should be checking intersections and
-			  * calls the parent init.
-			  */
-			void init(alice::InputHandler* input);
-
-			/** @brief Update code, handles what to do with each button press and
-			  * changes the navigation matrix according to the method.
+			  * This method's ray starts at the wand position and stretches in the
+			  * direction of the wand by 4 meters.
 			  */
 			void update();
 		};

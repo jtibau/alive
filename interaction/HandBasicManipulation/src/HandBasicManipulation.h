@@ -15,25 +15,39 @@
  *
  *****************************************************************************/
 
-#include "WandDirectionRay.h"
+#pragma once
 
-#include <alice/InputHandler.h>
+#include <alice/InteractionMethod.h>
 
-#include <gmtl/Vec.h>
-#include <gmtl/VecOps.h>
+namespace alice {
+	namespace interaction {
+		/** @addtogroup interaction
+		  * @{
+		  */
 
-namespace alice{
-	namespace interaction{
-		WandDirectionRay::WandDirectionRay(int buttonNumber) :
-			alice::InteractionMethod(buttonNumber)
-		{}
+		/** @class alice::interaction::HandBasicManipulation alice/interaction/HandBasicManipulation.h
+		  * @brief Moves the selected object according to the wand's movement
+		  *
+		  */
+		class HandBasicManipulation : public alice::InteractionMethod {
 
-		WandDirectionRay::~WandDirectionRay(){}
+		public:
 
-		void WandDirectionRay::update(){
-			mInput->setRayStart( mInput->getWandPosition() );
-			mInput->setRayEnd( mInput->getWandPosition() + mInput->getWandDirection() );
-		}
+			/** @brief Constructor, calls parent and stores the button number
+			  */
+			HandBasicManipulation(int buttonNumber = 0);
+
+			/** @brief Destructor
+			  */
+			~HandBasicManipulation();
+
+			void init(alice::InputHandler *input);
+
+			/** @brief Moves the selected object according to the wand's movement
+			  *
+			  */
+			void update();
+		};
+		/** @} */
 	}
 }
-

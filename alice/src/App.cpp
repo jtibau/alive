@@ -65,26 +65,6 @@ namespace alice {
 		glMatrixMode(GL_MODELVIEW);
 		glPopMatrix();
 
-/*
-		// Drawing the Wand
-		glDisable(GL_LIGHTING);
-		glColor3f(0.663f,0.83f,0.51f);
-		glLineWidth(1.);
-
-		glBegin(GL_LINES);
-		{
-			gmtl::Vec3f start = mInput->getWandPosition();
-			gmtl::Vec3f end = mInput->getWandPosition();
-			end += mInput->getWandDirection();
-
-			glVertex3f(start[0],start[1],start[2]);
-			glVertex3f(end[0],end[1],end[2]);
-		}
-		glEnd();
-
-		glEnable(GL_LIGHTING);
-		// Wand Drawn
-*/
 		glPopAttrib();
 		glPopAttrib();
 		glPopAttrib();

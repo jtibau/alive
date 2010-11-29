@@ -8,16 +8,12 @@ INCLUDEPATH +=  $(VJ_BASE_DIR)/include/gmtl-0.6.0 \
 #### ALICE headers and the abstract library ####
 
 INCLUDEPATH += $(ALICE_HOME)/include
-LIBS += -L$(ALICE_HOME)/lib -lalice \
-  -lWandDirectionDeltaRotation \
-  -lWandDirectionDisplacement \
-  -lWandDirectionRay \
-  -lHandBasicManipulation
+LIBS += -L$(ALICE_HOME)/lib -lalice
 
 #### HEADERS AND SOURCES ####
 
-HEADERS = src/Combination.h
-SOURCES = src/Combination.cpp
+HEADERS = src/HeadToWandRay.h
+SOURCES = src/HeadToWandRay.cpp
 
 #### Project folder layout ####
 
