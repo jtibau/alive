@@ -137,10 +137,11 @@ namespace alice {
 		  */
 		virtual void setModelName(char* modelFileName);
 
+		InputHandler* mInput;	/**< Input Handler */
 	protected:
 
 		SceneRenderer* mSceneRenderer;	/**< The object that contains the rendering code */
-		InputHandler* mInput;	/**< Input Handler */
+		//InputHandler* mInput;	/**< Input Handler */
 		InteractionMethod* mInteractionMethod;	/**< The App's InteractionMethod */
 	};
 	/** @} */

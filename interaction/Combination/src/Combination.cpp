@@ -5,7 +5,7 @@ namespace alice {
 		Combination::Combination(int buttonNumber){
 			// My combination of interaction methods:
 			// First button moves in the direction of the wand
-			displacement = new alice::interaction::WandDirectionDisplacement(3);
+                        displacement = new alice::interaction::WandDirectionDisplacement(2);
 			// Third button reorientates the navigation
 			rotation = new alice::interaction::WandDirectionDeltaRotation(2);
 			// The ray is always casted, we don't need to press any buttons

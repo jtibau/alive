@@ -32,7 +32,9 @@ class UserInterface : public QMainWindow, private Ui::MainWindow
   
   public Q_SLOTS:
   void setApp(alice::App* app);
-  void on_pushButton_clicked();
+  void on_exitButton_clicked();
+
+  void on_addButton_clicked();
   
   private:
   alice::App* mApp;

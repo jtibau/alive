@@ -45,11 +45,11 @@ namespace alice {
 			mModelTrans  = new osg::MatrixTransform();
 			// Only transformations with this name are selectable
 			mModelTrans->setName("Model Transformation");
-			mModelTrans->addChild(osgDB::readNodeFile("share/data/stand.3DS"));
+			mModelTrans->addChild(osgDB::readNodeFile("share/data/models/operario/stand.3DS"));
 			
 			mHouseTrans = new osg::MatrixTransform();
 			mHouseTrans->setName("World Transformation");
-			mHouseTrans->addChild(osgDB::readNodeFile("share/data/casa.3DS"));
+			mHouseTrans->addChild(osgDB::readNodeFile("share/data/models/casa/casa.3DS"));
 			
 			// This is the structure of the scene graph
 			// mRootNode -- mNavTrans -- mModelTrans -- mModel
@@ -180,8 +180,8 @@ namespace alice {
 				sv->setProjectionMatrixAsFrustum(frustum[0], frustum[1], frustum[2], frustum[3], frustum[4], frustum[5]);
 				sv->setViewMatrix(osg::Matrix(mInput->getViewMatrix()));
 
-				sv->cull();
-				sv->draw();
+                                sv->cull();
+                                sv->draw();
 			}
 		}
 	}

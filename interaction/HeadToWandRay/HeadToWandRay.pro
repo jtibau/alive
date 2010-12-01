@@ -3,7 +3,7 @@ CONFIG += debug
 
 #### generic math library - taken from VR Juggler for ease of parameter passing ####
 
-INCLUDEPATH +=  $(VJ_BASE_DIR)/include/gmtl-0.6.0 \
+INCLUDEPATH +=  $(VJ_BASE_DIR)/include/gmtl-0.6.1 \
 
 #### ALICE headers and the abstract library ####
 
