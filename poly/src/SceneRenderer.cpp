@@ -51,23 +51,19 @@ namespace alice {
 
             std::string line;
             std::ifstream file(mSceneConfigurationFile.c_str());
-            while(std::getline(file,line,',')){
-                if(!line.empty()){
-                    std::cout << "Loading Model: " << line << std::endl;
-                    //osg::MatrixTransform* newModel;
-                    mModelTrans = new osg::MatrixTransform();
-                    mModelTrans->addChild(osgDB::readNodeFile(line));
-                    std::getline(file,line);
-                    if(line == "Model"){
-                        mModelTrans->setName("Model Transformation");
-                        std::cout << "Model Type: Model" << std::endl;
-                    }
-                    else if(line == "World"){
-                        mModelTrans->setName("World Transformation");
-                        std::cout << "Model Type: World" << std::endl;
-                    }
-                    mNavTrans->addChild(mModelTrans.get());
-                }
+            while(std::getline(file,line,',') && !line.empty()){
+                osg::MatrixTransform* newModel = new osg::MatrixTransform();
+                newModel->addChild(osgDB::readNodeFile(line));
+
+                std::getline(file,line,',');
+                if(line == "Model")         newModel->setName("Model Transformation");
+                else if(line == "World")    newModel->setName("World Transformation");
+
+
+
+
+                mNavTrans->addChild(newModel);
+                std::getline(file,line);
             }
 
             // Shader stuff
