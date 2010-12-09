@@ -25,6 +25,7 @@
 #include <osg/MatrixTransform>
 
 #include <iostream>
+#include <sstream>
 #include <string>
 
 #include <alice/InputHandler.h>
@@ -53,14 +54,23 @@ namespace alice {
             std::ifstream file(mSceneConfigurationFile.c_str());
             while(std::getline(file,line,',') && !line.empty()){
                 osg::MatrixTransform* newModel = new osg::MatrixTransform();
+                std::cout << "Loading Model: " << line << std::endl;
                 newModel->addChild(osgDB::readNodeFile(line));
 
                 std::getline(file,line,',');
                 if(line == "Model")         newModel->setName("Model Transformation");
                 else if(line == "World")    newModel->setName("World Transformation");
 
+                float translation[3];
+                for(int i=0; i<3; i++){
+                    std::getline(file,line,',');
+                    std::istringstream iss(line);
+                    iss >> translation[i];
+                }
 
-
+                osg::Matrix translationMatrix;
+                translationMatrix.makeTranslate(translation[0],translation[1],translation[2]);
+                newModel->setMatrix(translationMatrix);
 
                 mNavTrans->addChild(newModel);
                 std::getline(file,line);
