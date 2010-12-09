@@ -28,34 +28,38 @@
 #include <gmtl/Xforms.h>
 
 namespace alice{
-	namespace interaction{
-		HandBasicManipulation::HandBasicManipulation(int buttonNumber) :
-			alice::InteractionMethod(buttonNumber)
-		{}
+    namespace interaction{
+        HandBasicManipulation::HandBasicManipulation(int buttonNumber) :
+                alice::InteractionMethod(buttonNumber)
+        {}
 
-		HandBasicManipulation::~HandBasicManipulation(){}
+        HandBasicManipulation::~HandBasicManipulation(){}
 
-		void HandBasicManipulation::init(alice::InputHandler *input){
-			alice::InteractionMethod::init(input);
-			mInput->applySelectionTest(true);
-		}
+        void HandBasicManipulation::init(alice::InputHandler *input){
+            alice::InteractionMethod::init(input);
+            mInput->applySelectionTest(true);
+        }
 
-		void HandBasicManipulation::update(){
-			if(mInput->objectSelected()){
-				if(mInput->getButtonChanged(mButtonNumber)){
-					mInput->applyManipulation( mInput->getButtonState(mButtonNumber) );
-					mInput->applySelectionTest( !mInput->getButtonState(mButtonNumber) );
-				}
-			    
-			  if(mInput->getButtonState(mButtonNumber)){
-			    gmtl::Matrix44f transf = mInput->selectedObjectTransformation();
-					//gmtl::Vec3f displacement = mInput->getWandPosition() - mInput->getWandPosition(alice::PREVIOUS);
-					gmtl::Vec3f displacement = mInput->getWandPosition(alice::PREVIOUS) - mInput->getWandPosition() ;
-					gmtl::postMult(transf, gmtl::makeTrans<gmtl::Matrix44f>(displacement));
-					mInput->selectedObjectTransformation(transf);
-			  }
-			}
-		}
-	}
+        void HandBasicManipulation::update(){
+            if(mInput->objectSelected()){
+                if(mInput->getButtonChanged(mButtonNumber)){
+                    mInput->applyManipulation( mInput->getButtonState(mButtonNumber) );
+                    mInput->applySelectionTest( !mInput->getButtonState(mButtonNumber) );
+                }
+
+                if(mInput->getButtonState(mButtonNumber)){
+                    gmtl::Vec3f displacement = mInput->getWandPosition(alice::PREVIOUS) - mInput->getWandPosition();
+                    gmtl::EulerAngleXYZf rot = gmtl::makeRot<gmtl::EulerAngleXYZf>(mInput->navigationMatrix());
+                    gmtl::Matrix44f navigationRotation = gmtl::makeRot<gmtl::Matrix44f>(rot);
+
+                    gmtl::Matrix44f translation = navigationRotation * gmtl::makeTrans<gmtl::Matrix44f>(displacement) * gmtl::makeInvert(navigationRotation);
+
+                    gmtl::Matrix44f transf = translation * mInput->selectedObjectTransformation();
+
+                    mInput->selectedObjectTransformation(transf);
+                }
+            }
+        }
+    }
 }
 

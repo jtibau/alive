@@ -20,7 +20,6 @@
 #include <vrj/vrjConfig.h>
 
 #include <alice/InputHandler.h>
-//#include <alice/SceneRenderer.h>
 
 #include <gadget/Type/PositionInterface.h>
 #include <gadget/Type/DigitalInterface.h>

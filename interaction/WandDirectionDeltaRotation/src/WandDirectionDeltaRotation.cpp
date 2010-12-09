@@ -71,7 +71,7 @@ namespace alice{
 
 					gmtl::Matrix44f transfMat = im1 * m2 * m1;
 
-					float x_rot = 0; // (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[0];
+                                        float x_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[0];
 					float y_rot = (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[1];
 					float z_rot = 0; // (gmtl::makeRot<gmtl::EulerAngleXYZf>(transfMat))[2];
 

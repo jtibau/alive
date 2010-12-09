@@ -28,6 +28,7 @@ class UserInterface : public QMainWindow, private Ui::MainWindow
   Q_OBJECT
   
   public:
+
   UserInterface(QWidget* parent, Qt::WindowFlags flags=0);
   
   public Q_SLOTS:
@@ -35,7 +36,13 @@ class UserInterface : public QMainWindow, private Ui::MainWindow
   void on_exitButton_clicked();
 
   void on_addButton_clicked();
+  void on_removeButton_clicked();
   
+  void on_cameraListWidget_itemClicked();
+
   private:
+
   alice::App* mApp;
+  int camN;
+
 };

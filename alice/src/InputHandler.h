@@ -20,7 +20,7 @@
 #include <gmtl/Vec.h>
 #include <gmtl/Matrix.h>
 
-#define MAX_BUTTONS 3
+#define MAX_BUTTONS 10
 
 namespace alice {
 	class Scene;
