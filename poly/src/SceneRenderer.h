@@ -30,6 +30,8 @@
 #include <osgDB/FileUtils>
 #include <fstream>
 
+#include <string>
+
 #include <vrj/Draw/OpenGL/ContextData.h>
 
 namespace alice {
@@ -64,6 +66,12 @@ namespace alice {
 			SceneRenderer() : mFrameNumber(0) {
 				osg::Referenced::setThreadSafeReferenceCounting(true);
 			}
+
+      SceneRenderer(std::string sceneConfigurationFile){
+          mFrameNumber = 0;
+          osg::Referenced::setThreadSafeReferenceCounting(true);
+          mSceneConfigurationFile = sceneConfigurationFile;
+      }
 
 			/** @brief Initializes the SceneRenderer
 			  *
@@ -130,6 +138,8 @@ namespace alice {
 
 			/** A pointer to the selected objects transformation, only to be used internally */
 			osg::ref_ptr<osg::MatrixTransform> mSelectedObjectTransformation;
+
+      std::string mSceneConfigurationFile;
 		};
 		/** @} */
 	}

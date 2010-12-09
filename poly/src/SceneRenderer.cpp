@@ -25,6 +25,7 @@
 #include <osg/MatrixTransform>
 
 #include <iostream>
+#include <string>
 
 #include <alice/InputHandler.h>
 
@@ -32,157 +33,166 @@
 
 namespace alice {
 
-	namespace poly {
+    namespace poly {
 
-		void SceneRenderer::init(InputHandler* input){
-			// The parent class's init mehtod just stores the input object
-			alice::SceneRenderer::init(input);
+        void SceneRenderer::init(InputHandler* input){
+            // The parent class's init mehtod just stores the input object
+            alice::SceneRenderer::init(input);
 
-			mUpdateVisitor = new osgUtil::UpdateVisitor();
-			mFrameStamp    = new osg::FrameStamp();
-			mUpdateVisitor->setFrameStamp(mFrameStamp.get());
+            mUpdateVisitor = new osgUtil::UpdateVisitor();
+            mFrameStamp    = new osg::FrameStamp();
+            mUpdateVisitor->setFrameStamp(mFrameStamp.get());
 
-			mModelTrans  = new osg::MatrixTransform();
-			// Only transformations with this name are selectable
-			mModelTrans->setName("Model Transformation");
-			mModelTrans->addChild(osgDB::readNodeFile("share/data/models/operario/stand.3DS"));
-			
-			mHouseTrans = new osg::MatrixTransform();
-			mHouseTrans->setName("World Transformation");
-			mHouseTrans->addChild(osgDB::readNodeFile("share/data/models/casa/casa.3DS"));
-			
-			// This is the structure of the scene graph
-			// mRootNode -- mNavTrans -- mModelTrans -- mModel
-			//						           \-- mHouseTrans -- mHouse
-			mNavTrans = new osg::MatrixTransform();
-			mNavTrans->addChild(mModelTrans.get());
-      mNavTrans->addChild(mHouseTrans.get());
-      mRootNode = new osg::Group();
-			mRootNode->addChild(mNavTrans.get());
-			
-			// Shader stuff
-			programObject = new osg::Program();
-			
-			vertexObject = new osg::Shader(osg::Shader::VERTEX);
-			vertexObject->loadShaderSourceFromFile(
-					osgDB::findDataFile("share/shaders/poly/homography.vert"));
-		  programObject->addShader(vertexObject);
+            // This is the structure of the scene graph
+            // mRootNode -- mNavTrans -- mModelTrans -- mModel
+            mRootNode = new osg::Group();
+            mNavTrans = new osg::MatrixTransform();
+            mRootNode->addChild(mNavTrans.get());
 
-			fragmentObject = new osg::Shader(osg::Shader::FRAGMENT);
-			fragmentObject->loadShaderSourceFromFile(
-					osgDB::findDataFile("share/shaders/poly/homography.frag"));
-			programObject->addShader(fragmentObject);
+            std::string line;
+            std::ifstream file(mSceneConfigurationFile.c_str());
+            while(std::getline(file,line,',')){
+                if(!line.empty()){
+                    std::cout << "Loading Model: " << line << std::endl;
+                    //osg::MatrixTransform* newModel;
+                    mModelTrans = new osg::MatrixTransform();
+                    mModelTrans->addChild(osgDB::readNodeFile(line));
+                    std::getline(file,line);
+                    if(line == "Model"){
+                        mModelTrans->setName("Model Transformation");
+                        std::cout << "Model Type: Model" << std::endl;
+                    }
+                    else if(line == "World"){
+                        mModelTrans->setName("World Transformation");
+                        std::cout << "Model Type: World" << std::endl;
+                    }
+                    mNavTrans->addChild(mModelTrans.get());
+                }
+            }
+
+            // Shader stuff
+            programObject = new osg::Program();
+
+            vertexObject = new osg::Shader(osg::Shader::VERTEX);
+            vertexObject->loadShaderSourceFromFile(
+                    osgDB::findDataFile("share/shaders/poly/homography.vert"));
+            programObject->addShader(vertexObject);
+
+            fragmentObject = new osg::Shader(osg::Shader::FRAGMENT);
+            fragmentObject->loadShaderSourceFromFile(
+                    osgDB::findDataFile("share/shaders/poly/homography.frag"));
+            programObject->addShader(fragmentObject);
 
 
-			rootStateSet = mRootNode->getOrCreateStateSet();
+            rootStateSet = mRootNode->getOrCreateStateSet();
 
-			rootStateSet->setAttributeAndModes(programObject, osg::StateAttribute::ON);
-			rootStateSet->addUniform(new osg::Uniform("homographyMatrix", osg::Matrix(
-					utils::loadHomographyFromFile(osgDB::findDataFile("share/shaders/poly/homography.txt")))));
+            rootStateSet->setAttributeAndModes(programObject, osg::StateAttribute::ON);
+            rootStateSet->addUniform(new osg::Uniform("homographyMatrix", osg::Matrix(
+                    utils::loadHomographyFromFile(osgDB::findDataFile("share/shaders/poly/homography.txt")))));
 
-			osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,"Texture");
-			texUniform->set(0);
-			rootStateSet->addUniform(texUniform);
-		}
+            osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,"Texture");
+            texUniform->set(0);
+            rootStateSet->addUniform(texUniform);
+        }
 
-		void SceneRenderer::contextInit(){
-			const unsigned int unique_context_id = mInput->getCurrentContext();
+        void SceneRenderer::contextInit(){
+            const unsigned int unique_context_id = mInput->getCurrentContext();
 
-			// This is the object that will be in charged of rendering everything
-			osg::ref_ptr<osgUtil::SceneView> sv(new osgUtil::SceneView);
-			
-			sv->setDefaults(osgUtil::SceneView::STANDARD_SETTINGS);
+            // This is the object that will be in charged of rendering everything
+            osg::ref_ptr<osgUtil::SceneView> sv(new osgUtil::SceneView);
 
-			sv->setFrameStamp(mFrameStamp.get());	// Need to do this before init
+            sv->setDefaults(osgUtil::SceneView::STANDARD_SETTINGS);
 
-			sv->init();
-			sv->setClearColor(osg::Vec4( 0.5f, 0.8f, 1.0f, 1.0f ));
+            sv->setFrameStamp(mFrameStamp.get());	// Need to do this before init
 
-			sv->setDrawBufferValue(GL_NONE);	// Needed for stereo to work
+            sv->init();
+            sv->setClearColor(osg::Vec4( 0.5f, 0.8f, 1.0f, 1.0f ));
 
-			// Set the light
-			sv->getLight()->setAmbient(osg::Vec4(0.3f,0.3f,0.3f,1.0f));
-			sv->getLight()->setDiffuse(osg::Vec4(0.9f,0.9f,0.9f,1.0f));
-			sv->getLight()->setSpecular(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-			sv->getLight()->setPosition(osg::Vec4(0.0f,2.0f,0.0f,1.0f));
+            sv->setDrawBufferValue(GL_NONE);	// Needed for stereo to work
 
-			// We tell it its context id
-			sv->getState()->setContextID(unique_context_id);
+            // Set the light
+            sv->getLight()->setAmbient(osg::Vec4(0.3f,0.3f,0.3f,1.0f));
+            sv->getLight()->setDiffuse(osg::Vec4(0.9f,0.9f,0.9f,1.0f));
+            sv->getLight()->setSpecular(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
+            sv->getLight()->setPosition(osg::Vec4(0.0f,2.0f,0.0f,1.0f));
 
-			// Add the tree to the scene viewer and set properties
-			mInput->lockMutex();
-			sv->setSceneData(mRootNode.get());
-			mInput->releaseMutex();
+            // We tell it its context id
+            sv->getState()->setContextID(unique_context_id);
 
-			// Set the configured scene viewer object to the context specific pointer.
-			(*sceneViewer) = sv;
-		}
+            // Add the tree to the scene viewer and set properties
+            mInput->lockMutex();
+            sv->setSceneData(mRootNode.get());
+            mInput->releaseMutex();
 
-		void SceneRenderer::latePreFrame(){
-			// Time updates
-			mFrameStamp->setFrameNumber(++mFrameNumber);
-			mFrameStamp->setReferenceTime(mInput->getCurrentTimeStamp());
-			mFrameStamp->setSimulationTime(mInput->getCurrentTimeStamp());
+            // Set the configured scene viewer object to the context specific pointer.
+            (*sceneViewer) = sv;
+        }
 
-			mUpdateVisitor->setTraversalNumber(mFrameNumber);
-			mRootNode->accept(*mUpdateVisitor);
+        void SceneRenderer::latePreFrame(){
+            // Time updates
+            mFrameStamp->setFrameNumber(++mFrameNumber);
+            mFrameStamp->setReferenceTime(mInput->getCurrentTimeStamp());
+            mFrameStamp->setSimulationTime(mInput->getCurrentTimeStamp());
 
-			// Update the navigation matrix
-			if(mInput->applyNavigation()){
-				mNavTrans->setMatrix(utils::convertMatrix(mInput->navigationMatrix()));
-				mRootNode->getBound();
-			}
+            mUpdateVisitor->setTraversalNumber(mFrameNumber);
+            mRootNode->accept(*mUpdateVisitor);
 
-      // Intersection check
-			if( mInput->applySelectionTest() ){
-				//std::cout << "Intersecting\n";
-				gmtl::Vec3f s = mInput->getRayStart();
-				gmtl::Vec3f e = mInput->getRayEnd();
-				osg::Vec3d start(s[0],s[1],s[2]);
-				osg::Vec3d end(e[0],e[1],e[2]);
-				osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector =
-						new osgUtil::LineSegmentIntersector(start, end);
-				osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
-				mRootNode->accept(intersectVisitor);
+            // Update the navigation matrix
+            if(mInput->applyNavigation()){
+                mNavTrans->setMatrix(utils::convertMatrix(mInput->navigationMatrix()));
+                mRootNode->getBound();
+            }
 
-				// What to do with the selected object
-				if( intersector->containsIntersections() ){
-					osgUtil::LineSegmentIntersector::Intersection intersection = intersector->getFirstIntersection();
-					// 0						1						 2							3
-					// mRootNode -- mNavTrans --  mModelTrans -- mModel
-					if(intersection.nodePath[2]->asTransform()->asMatrixTransform()->getName() == "Model Transformation"){
-						mSelectedObjectTransformation = intersection.nodePath[2]->asTransform()->asMatrixTransform();
-						mInput->selectedObjectTransformation(utils::convertMatrix(mSelectedObjectTransformation->getMatrix()));
-						mInput->objectSelected(true);						//we intersected something manipulable
-					} else mInput->objectSelected(false);			//intersecting a non-manipulable object
-				}	else mInput->objectSelected(false);				//not intersecting anything
-			}
+            // Intersection check
+            if( mInput->applySelectionTest() ){
+                //std::cout << "Intersecting\n";
+                gmtl::Vec3f s = mInput->getRayStart();
+                gmtl::Vec3f e = mInput->getRayEnd();
+                osg::Vec3d start(s[0],s[1],s[2]);
+                osg::Vec3d end(e[0],e[1],e[2]);
+                osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector =
+                        new osgUtil::LineSegmentIntersector(start, end);
+                osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
+                mRootNode->accept(intersectVisitor);
 
-			// The manipulation method needs to let us know if there is any manipulation to do
-			if(mInput->applyManipulation()){
-				//std::cout << "Manipulating\n";
-				mSelectedObjectTransformation->setMatrix(utils::convertMatrix( mInput->selectedObjectTransformation() ));
-				mRootNode->getBound();
-			}
+                // What to do with the selected object
+                if( intersector->containsIntersections() ){
+                    osgUtil::LineSegmentIntersector::Intersection intersection = intersector->getFirstIntersection();
+                    // 0						1						 2							3
+                    // mRootNode -- mNavTrans --  mModelTrans -- mModel
+                    if(intersection.nodePath[2]->asTransform()->asMatrixTransform()->getName() == "Model Transformation"){
+                        mSelectedObjectTransformation = intersection.nodePath[2]->asTransform()->asMatrixTransform();
+                        mInput->selectedObjectTransformation(utils::convertMatrix(mSelectedObjectTransformation->getMatrix()));
+                        mInput->objectSelected(true);						//we intersected something manipulable
+                    } else mInput->objectSelected(false);			//intersecting a non-manipulable object
+                }	else mInput->objectSelected(false);				//not intersecting anything
+            }
 
-		}
+            // The manipulation method needs to let us know if there is any manipulation to do
+            if(mInput->applyManipulation()){
+                //std::cout << "Manipulating\n";
+                mSelectedObjectTransformation->setMatrix(utils::convertMatrix( mInput->selectedObjectTransformation() ));
+                mRootNode->getBound();
+            }
 
-		void SceneRenderer::draw() {
-			osg::ref_ptr<osgUtil::SceneView> sv;
-			sv = (*sceneViewer);	// Get context specific scene viewer
+        }
 
-			if(sv.get() != NULL){
-				sv->setComputeNearFarMode(osgUtil::CullVisitor::DO_NOT_COMPUTE_NEAR_FAR);
+        void SceneRenderer::draw() {
+            osg::ref_ptr<osgUtil::SceneView> sv;
+            sv = (*sceneViewer);	// Get context specific scene viewer
 
-				const int* viewport = mInput->getViewport();
-				sv->setViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
-				const float* frustum = mInput->getFrustum();
-				sv->setProjectionMatrixAsFrustum(frustum[0], frustum[1], frustum[2], frustum[3], frustum[4], frustum[5]);
-				sv->setViewMatrix(osg::Matrix(mInput->getViewMatrix()));
+            if(sv.get() != NULL){
+                sv->setComputeNearFarMode(osgUtil::CullVisitor::DO_NOT_COMPUTE_NEAR_FAR);
 
-                                sv->cull();
-                                sv->draw();
-			}
-		}
-	}
+                const int* viewport = mInput->getViewport();
+                sv->setViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
+                const float* frustum = mInput->getFrustum();
+                sv->setProjectionMatrixAsFrustum(frustum[0], frustum[1], frustum[2], frustum[3], frustum[4], frustum[5]);
+                sv->setViewMatrix(osg::Matrix(mInput->getViewMatrix()));
+
+                sv->cull();
+                sv->draw();
+            }
+        }
+    }
 }

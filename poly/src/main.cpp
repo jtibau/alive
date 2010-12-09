@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
   // Since this application does fairly standard stuff,
   // we don't need to subclass alice:App
   alice::poly::App* application = new alice::poly::App(
-    new alice::poly::SceneRenderer(),
+    new alice::poly::SceneRenderer("/home/jtibau/Desktop/scene.alice"),
     new alice::interaction::Combination()
   );
 
