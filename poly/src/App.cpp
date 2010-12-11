@@ -1,7 +1,7 @@
 #include "App.h"
 
-#include <Qt3D/include/main/qapplication3d.h>
-#include <Qt3D/include/main/trackerEvent.h>
+#include <main/qapplication3d.h>
+#include <main/trackerEvent.h>
 
 #include "ui/UserInterface.h"
 

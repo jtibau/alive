@@ -7,7 +7,7 @@
 
 #include <QMatrix4x4>
 
-#include <Qt3D/include/main/qapplication3d.h>
+#include <main/qapplication3d.h>
 
 #include <iostream>
 
