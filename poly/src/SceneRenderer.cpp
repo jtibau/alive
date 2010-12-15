@@ -81,12 +81,12 @@ namespace alice {
 
             vertexObject = new osg::Shader(osg::Shader::VERTEX);
             vertexObject->loadShaderSourceFromFile(
-                    osgDB::findDataFile("share/shaders/poly/homography.vert"));
+                    osgDB::findDataFile("src/alive/poly/src/shaders/homography.vert"));
             programObject->addShader(vertexObject);
 
             fragmentObject = new osg::Shader(osg::Shader::FRAGMENT);
             fragmentObject->loadShaderSourceFromFile(
-                    osgDB::findDataFile("share/shaders/poly/homography.frag"));
+                    osgDB::findDataFile("src/alive/poly/src/shaders/homography.frag"));
             programObject->addShader(fragmentObject);
 
 
@@ -94,7 +94,7 @@ namespace alice {
 
             rootStateSet->setAttributeAndModes(programObject, osg::StateAttribute::ON);
             rootStateSet->addUniform(new osg::Uniform("homographyMatrix", osg::Matrix(
-                    utils::loadHomographyFromFile(osgDB::findDataFile("share/shaders/poly/homography.txt")))));
+                    utils::loadHomographyFromFile(osgDB::findDataFile("src/alive/poly/src/shaders/homography.txt")))));
 
             osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,"Texture");
             texUniform->set(0);
