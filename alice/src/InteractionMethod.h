@@ -58,12 +58,6 @@ namespace alice {
 		  */
 		virtual void update() = 0;
 
-		/** @brief Optional place to place opengl code.
-		  *
-		  * @note Does nothing for the moment
-		  */
-		virtual void draw();
-
 	protected:
 		unsigned int mButtonNumber; /**< Button id that activates the method */
 		InputHandler* mInput; /**< Pointer to the InputHandler object */

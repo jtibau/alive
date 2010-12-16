@@ -23,17 +23,19 @@
 #include <gmtl/VecOps.h>
 
 namespace alice{
-	namespace interaction{
-		WandDirectionRay::WandDirectionRay(int buttonNumber) :
-			alice::InteractionMethod(buttonNumber)
-		{}
+    namespace interaction{
+        WandDirectionRay::WandDirectionRay(int buttonNumber) :
+                alice::InteractionMethod(buttonNumber)
+        {}
 
-		WandDirectionRay::~WandDirectionRay(){}
+        WandDirectionRay::~WandDirectionRay(){}
 
-		void WandDirectionRay::update(){
-			mInput->setRayStart( mInput->getWandPosition() );
-			mInput->setRayEnd( mInput->getWandPosition() + mInput->getWandDirection() );
-		}
-	}
+        void WandDirectionRay::update(){
+            mInput->setRayStart( mInput->getWandPosition() );
+            gmtl::Vec3f direction = mInput->getWandDirection();
+            direction *= 4;
+            mInput->setRayEnd( mInput->getWandPosition() + direction );
+        }
+    }
 }
 

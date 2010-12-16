@@ -32,8 +32,6 @@ namespace alice {
 				std::exit(EXIT_FAILURE);
 			}
 
-			mUserApp->setModelName(argv[1]);
-
 			kernel->init(argc, argv);
 
 			// Load any config files specified on the command line

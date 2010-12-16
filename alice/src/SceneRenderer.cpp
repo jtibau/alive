@@ -5,6 +5,4 @@ namespace alice {
 	SceneRenderer::~SceneRenderer() {}
 
 	void SceneRenderer::init(InputHandler* input) { mInput = input; }
-
-	void SceneRenderer::setModelName(char* modelFileName) { mFileToLoad = modelFileName; }
 }

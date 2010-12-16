@@ -7,6 +7,4 @@ namespace alice {
 	InteractionMethod::~InteractionMethod(){}
 
 	void InteractionMethod::init(InputHandler* input){ mInput = input; }
-
-	void InteractionMethod::draw(){}
 }

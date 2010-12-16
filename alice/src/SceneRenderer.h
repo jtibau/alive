@@ -17,8 +17,6 @@
 
 #pragma once
 
-#include <gmtl/Matrix.h>
-
 namespace alice {
 	class InputHandler;
 	
@@ -82,14 +80,9 @@ namespace alice {
 		  */
 		virtual void draw() = 0;
 
-		/** @brief Stores the model's file name until an appropriate time to load (contextInit).
-		  */
-		virtual void setModelName(char* modelFileName);
-
 	protected:
 
-		InputHandler* mInput; /**< Pointer to the InputHandler object */
-		char* mFileToLoad; /**< The filename of the model to be loaded */
+    InputHandler* mInput; /**< Pointer to the InputHandler object */
 	};
 	
 	/** @} */

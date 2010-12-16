@@ -24,6 +24,9 @@
 #include <osg/Matrix>
 #include <osg/MatrixTransform>
 
+#include <gmtl/Matrix.h>
+#include <gmtl/Vec.h>
+
 #include <osgUtil/SceneView>
 #include <osgUtil/UpdateVisitor>
 
@@ -36,15 +39,15 @@
 
 namespace alice {
 
-  class InputHandler;
+    class InputHandler;
 
-  namespace poly {
+    namespace poly {
 
-		/** @defgroup poly Polygon Renderer
+        /** @defgroup poly Polygon Renderer
 		  * @{
 		  */
 
-		/** @class alice::poly::SceneRenderer alice/poly/SceneRenderer.h
+        /** @class alice::poly::SceneRenderer alice/poly/SceneRenderer.h
 		  * @brief Sample Implementation of the alice::SceneRenderer class
 		  *
 		  * This SceneRenderer and package (poly) implements alice.
@@ -55,38 +58,38 @@ namespace alice {
 		  * vrj::opengl::ContextData. They should be replaced by wrapper
 		  * objects in alice.
 		  */
-		class SceneRenderer : public alice::SceneRenderer {
+        class SceneRenderer : public alice::SceneRenderer {
 
-		public:
+        public:
 
-			/** @brief Default Constructor
+            /** @brief Default Constructor
 			  *
 			  * Sets mFrameNumber to 0 and configures threading on osg
 			  */
-			SceneRenderer() : mFrameNumber(0) {
-				osg::Referenced::setThreadSafeReferenceCounting(true);
-			}
+            SceneRenderer() : mFrameNumber(0) {
+                osg::Referenced::setThreadSafeReferenceCounting(true);
+            }
 
-      SceneRenderer(std::string sceneConfigurationFile){
-          mFrameNumber = 0;
-          osg::Referenced::setThreadSafeReferenceCounting(true);
-          mSceneConfigurationFile = sceneConfigurationFile;
-      }
+            SceneRenderer(std::string sceneConfigurationFile){
+                mFrameNumber = 0;
+                osg::Referenced::setThreadSafeReferenceCounting(true);
+                mSceneConfigurationFile = sceneConfigurationFile;
+            }
 
-			/** @brief Initializes the SceneRenderer
+            /** @brief Initializes the SceneRenderer
 			  *
 			  * Creates the structure for the graph and loads the model.
 			  * @note It is possible that model loading (if not modularized) be better done in contextInit
 			  */
-			void init(InputHandler* input);
+            void init(InputHandler* input);
 
-			/** @brief Initializes context specific variables and objects.
+            /** @brief Initializes context specific variables and objects.
 			  *
 			  * Which in this case is the helper class osgUtil::SceneView
 			  */
-			void contextInit();
+            void contextInit();
 
-			/** @brief Updates to the SceneRenderer
+            /** @brief Updates to the SceneRenderer
 			  *
 			  * Updates the scene by:
 			  * - Increasing the frame number
@@ -96,51 +99,79 @@ namespace alice {
 			  *
 			  * @note It also gets the most recent navigation matrix from InputHandler, this should be replaced by signals and slots
 			  */
-			void latePreFrame();
+            void latePreFrame();
 
-			void bufferPreDraw(){}
+            void bufferPreDraw(){}
 
-			/** @brief Rendering code, made context-specific through ContextData
+            /** @brief Rendering code, made context-specific through ContextData
 			  *
 			  * Gets the sceneViewer object for the current context. Gives it the current
 			  * viewport, frustum and view matrix. Tells osg to do some culling and send the draw commands.
 			  */
-			void draw();
+            void draw();
 
-			//Convertion methods
+            //Convertion methods
+        protected:
 
-		protected:
+            gmtl::Matrix44f convertMatrix(osg::Matrix original){
+                original.invert(original);
+                gmtl::Matrix44f converted;
+                converted.set(original(0,0),original(1,0),original(2,0),original(3,0),
+                              original(0,1),original(1,1),original(2,1),original(3,1),
+                              original(0,2),original(1,2),original(2,2),original(3,2),
+                              original(0,3),original(1,3),original(2,3),original(3,3));
+                return converted;
+            }
 
-			/** A scene viewer object from osg.
+            osg::Matrix convertMatrix(gmtl::Matrix44f original){
+                osg::Matrix converted(original.getData());
+                converted.invert(converted);
+                return converted;
+            }
+
+            gmtl::Vec3f convertVector(osg::Vec3f original){
+                return gmtl::Vec3f(original.x(),original.y(),original.z());
+            }
+            osg::Vec3f convertVector(gmtl::Vec3f original){
+                return osg::Vec3f(original[0],original[1],original[2]);
+            }
+
+            float* loadHomographyFromFile(std::string file){
+                float* homography = new float[16];
+
+                std::string line;
+                std::ifstream data(file.c_str());
+
+                for(int i=0; i<16; i++){
+                    std::getline(data,line,':');
+                    std::istringstream iss(line);
+                    iss >> std::dec >> homography[i];
+                }
+                return homography;
+            }
+
+        protected:
+
+            /** A scene viewer object from osg.
 			  * Encapsuled within a ContextData object, a smart pointer which the viewer for each context.
 			  */
-			vrj::opengl::ContextData< osg::ref_ptr<osgUtil::SceneView> > sceneViewer;
+            vrj::opengl::ContextData< osg::ref_ptr<osgUtil::SceneView> > sceneViewer;
 
-			osg::ref_ptr< osg::NodeVisitor > mUpdateVisitor;
-			osg::ref_ptr< osg::FrameStamp >  mFrameStamp;
+            osg::ref_ptr< osg::NodeVisitor > mUpdateVisitor;
+            osg::ref_ptr< osg::FrameStamp >  mFrameStamp;
 
-			int mFrameNumber;
+            int mFrameNumber;
 
-			/** Used for handling shaders and uniforms */
-			osg::StateSet   *rootStateSet;
-			osg::Program    *programObject;
-			osg::Shader     *vertexObject;
-			osg::Shader     *fragmentObject;
+            // mRootNode -- mNavTrans -- mModelTrans1 -- mModel1
+            //                       \-- mModelTrans2 -- mModel2
+            osg::ref_ptr<osg::Group>           mRootNode;     /**< The root of the scenegraph */
+            osg::ref_ptr<osg::MatrixTransform> mNavTrans;     /**< A transformation node that affects the position/orientation of the whole scene */
 
-			// mRootNode -- mNavTrans -- mModelTrans -- mModel
-			//					             \-- mHouseTrans -- mHouse
-			osg::ref_ptr<osg::Group>           mRootNode;     /**< The root of the scenegraph */
-			osg::ref_ptr<osg::MatrixTransform> mNavTrans;     /**< A transformation node that affects the position/orientation of the whole scene */
-			osg::ref_ptr<osg::MatrixTransform> mModelTrans;   /**< Transformation specific to the loaded model */
-			osg::ref_ptr<osg::Node>            mModel;        /**< The node where the model is loaded and placed */
-			osg::ref_ptr<osg::MatrixTransform> mHouseTrans;		/**< Transformation specific to the world model */
-			osg::ref_ptr<osg::Node>            mHouse;				/**< The node where the world/house model is loaded */
+            /** A pointer to the selected objects transformation, only to be used internally */
+            osg::ref_ptr<osg::MatrixTransform> mSelectedObjectTransformation;
 
-			/** A pointer to the selected objects transformation, only to be used internally */
-			osg::ref_ptr<osg::MatrixTransform> mSelectedObjectTransformation;
-
-      std::string mSceneConfigurationFile;
-		};
-		/** @} */
-	}
+            std::string mSceneConfigurationFile;
+        };
+        /** @} */
+    }
 }

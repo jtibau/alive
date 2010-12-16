@@ -30,8 +30,6 @@
 
 #include <alice/InputHandler.h>
 
-#include "Utils.h"
-
 namespace alice {
 
     namespace poly {
@@ -75,30 +73,6 @@ namespace alice {
                 mNavTrans->addChild(newModel);
                 std::getline(file,line);
             }
-
-            // Shader stuff
-            programObject = new osg::Program();
-
-            vertexObject = new osg::Shader(osg::Shader::VERTEX);
-            vertexObject->loadShaderSourceFromFile(
-                    osgDB::findDataFile("src/alive/poly/src/shaders/homography.vert"));
-            programObject->addShader(vertexObject);
-
-            fragmentObject = new osg::Shader(osg::Shader::FRAGMENT);
-            fragmentObject->loadShaderSourceFromFile(
-                    osgDB::findDataFile("src/alive/poly/src/shaders/homography.frag"));
-            programObject->addShader(fragmentObject);
-
-
-            rootStateSet = mRootNode->getOrCreateStateSet();
-
-            rootStateSet->setAttributeAndModes(programObject, osg::StateAttribute::ON);
-            rootStateSet->addUniform(new osg::Uniform("homographyMatrix", osg::Matrix(
-                    utils::loadHomographyFromFile(osgDB::findDataFile("src/alive/poly/src/shaders/homography.txt")))));
-
-            osg::Uniform* texUniform = new osg::Uniform(osg::Uniform::SAMPLER_2D,"Texture");
-            texUniform->set(0);
-            rootStateSet->addUniform(texUniform);
         }
 
         void SceneRenderer::contextInit(){
@@ -145,17 +119,14 @@ namespace alice {
 
             // Update the navigation matrix
             if(mInput->applyNavigation()){
-                mNavTrans->setMatrix(utils::convertMatrix(mInput->navigationMatrix()));
+                mNavTrans->setMatrix(convertMatrix(mInput->navigationMatrix()));
                 mRootNode->getBound();
             }
 
             // Intersection check
             if( mInput->applySelectionTest() ){
-                //std::cout << "Intersecting\n";
-                gmtl::Vec3f s = mInput->getRayStart();
-                gmtl::Vec3f e = mInput->getRayEnd();
-                osg::Vec3d start(s[0],s[1],s[2]);
-                osg::Vec3d end(e[0],e[1],e[2]);
+                osg::Vec3d start = convertVector(mInput->getRayStart());
+                osg::Vec3d end = convertVector(mInput->getRayEnd());
                 osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector =
                         new osgUtil::LineSegmentIntersector(start, end);
                 osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
@@ -168,7 +139,7 @@ namespace alice {
                     // mRootNode -- mNavTrans --  mModelTrans -- mModel
                     if(intersection.nodePath[2]->asTransform()->asMatrixTransform()->getName() == "Model Transformation"){
                         mSelectedObjectTransformation = intersection.nodePath[2]->asTransform()->asMatrixTransform();
-                        mInput->selectedObjectTransformation(utils::convertMatrix(mSelectedObjectTransformation->getMatrix()));
+                        mInput->selectedObjectTransformation(convertMatrix(mSelectedObjectTransformation->getMatrix()));
                         mInput->objectSelected(true);						//we intersected something manipulable
                     } else mInput->objectSelected(false);			//intersecting a non-manipulable object
                 }	else mInput->objectSelected(false);				//not intersecting anything
@@ -177,7 +148,7 @@ namespace alice {
             // The manipulation method needs to let us know if there is any manipulation to do
             if(mInput->applyManipulation()){
                 //std::cout << "Manipulating\n";
-                mSelectedObjectTransformation->setMatrix(utils::convertMatrix( mInput->selectedObjectTransformation() ));
+                mSelectedObjectTransformation->setMatrix(convertMatrix( mInput->selectedObjectTransformation() ));
                 mRootNode->getBound();
             }
 

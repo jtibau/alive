@@ -22,7 +22,7 @@
 
 #include <string>
 
-#define MAX_BUTTONS 10
+#define MAX_BUTTONS 12
 
 namespace alice {
     class Scene;
@@ -200,7 +200,7 @@ namespace alice {
         double            mPreviousTime;								/**< Previous timestamp */
         float             mTimeDelta;										/**< Time passed between now and the previous frame */
 
-        std::string            mSceneConfigurationFile;      /**< String holding the configuration file for the scene. A csv file with model filenames and transformations */
+        std::string       mSceneConfigurationFile;      /**< String holding the configuration file for the scene. A csv file with model filenames and transformations */
 
         bool							mSelectionTestFlag;						/**< Flag that indicates if we should be looking for intersections */
         bool							mObjectSelectedFlag;					/**< The scene must set this flag in order to tell the manipulation method that an object has been intersected */

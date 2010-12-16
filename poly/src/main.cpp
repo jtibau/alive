@@ -20,9 +20,8 @@
 
 #include "App.h"
 #include "SceneRenderer.h"
+#include "MyInteraction.h"
 #include "ui/UserInterface.h"
-
-#include <alice/interaction/Combination.h>
 
 #include <main/qapplication3d.h>
 
@@ -35,8 +34,8 @@ int main(int argc, char* argv[]){
   // Since this application does fairly standard stuff,
   // we don't need to subclass alice:App
   alice::poly::App* application = new alice::poly::App(
-    new alice::poly::SceneRenderer("/home/jtibau/Desktop/scene.alice"),
-    new alice::interaction::Combination()
+    new alice::poly::SceneRenderer(argv[1]),
+    new alice::poly::MyInteraction()
   );
 
   alice::Kernel* kernel = new alice::juggler::Kernel(application);

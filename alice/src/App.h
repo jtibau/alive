@@ -133,15 +133,11 @@ namespace alice {
 		
 		virtual void exit();
 
-		/** @brief Gives mSceneRenderer the file name of the file to load
-		  */
-		virtual void setModelName(char* modelFileName);
-
 		InputHandler* mInput;	/**< Input Handler */
+
 	protected:
 
 		SceneRenderer* mSceneRenderer;	/**< The object that contains the rendering code */
-		//InputHandler* mInput;	/**< Input Handler */
 		InteractionMethod* mInteractionMethod;	/**< The App's InteractionMethod */
 	};
 	/** @} */

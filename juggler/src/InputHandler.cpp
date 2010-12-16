@@ -84,7 +84,7 @@ namespace alice {
 			user_data->getGlWindow()->getOriginSize(w_ox, w_oy, w_width, w_height);
 
 			// compute unsigned versions of the viewport info (for passing to glViewport)
-			int v[4];
+      int* v = new int[4];
 			v[0] = static_cast<int>(vp_ox * static_cast<float>(w_width));
 			v[1] = static_cast<int>(vp_oy * static_cast<float>(w_height));
 			v[2] = static_cast<int>(vp_sx * static_cast<float>(w_width));
@@ -110,7 +110,7 @@ namespace alice {
 			vrj::ProjectionPtr project = user_data->getProjection();
 			vrj::Frustum frustum = project->getFrustum();
 
-			float f[6];
+      float* f = new float[6];
 			f[0] = frustum[vrj::Frustum::VJ_LEFT];
 			f[1] = frustum[vrj::Frustum::VJ_RIGHT];
 			f[2] = frustum[vrj::Frustum::VJ_BOTTOM];

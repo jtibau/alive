@@ -7,7 +7,11 @@ INCLUDEPATH += $(ALICE_HOME)/include
 LIBS += -L$(ALICE_HOME)/lib \
   -lalice \
   -ljuggler \
-  -lCombination 
+  -lWandDirectionDeltaRotation \
+  -lWandDirectionDisplacement \
+  -lWandDirectionRay \
+  -lHandBasicManipulation \
+  -lHeadToWandRay
 
 #### VR Juggler 3.1.1 ####
 INCLUDEPATH += \
@@ -48,14 +52,12 @@ LIBS += -lGL \
 #### SOURCES AND HEADERS ####
 
 HEADERS += src/SceneRenderer.h src/App.h \
-    src/Utils.h
+    src/MyInteraction.h
 SOURCES += src/main.cpp src/SceneRenderer.cpp src/App.cpp
 
 FORMS += src/ui/UserInterface.ui
 HEADERS += src/ui/UserInterface.h
 SOURCES += src/ui/UserInterface.cpp
-
-OTHER_FILES += src/shaders/homography.vert src/shaders/homography.frag src/shaders/homography.txt
 
 #### Project folder layout ####
 

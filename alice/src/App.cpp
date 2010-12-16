@@ -76,8 +76,4 @@ namespace alice {
 	void App::contextClose() {}
 
   void App::exit(){}
-  
-	void App::setModelName(char* modelFileName) {
-		if(mSceneRenderer) mSceneRenderer->setModelName(modelFileName);
-	}
 }

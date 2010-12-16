@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS = WandDirectionDeltaRotation WandDirectionDisplacement WandDirectionRay HeadToWandRay HandBasicManipulation Combination
+SUBDIRS = WandDirectionDeltaRotation WandDirectionDisplacement WandDirectionRay HeadToWandRay HandBasicManipulation 
