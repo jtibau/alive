@@ -136,20 +136,6 @@ namespace alice {
                 return osg::Vec3f(original[0],original[1],original[2]);
             }
 
-            float* loadHomographyFromFile(std::string file){
-                float* homography = new float[16];
-
-                std::string line;
-                std::ifstream data(file.c_str());
-
-                for(int i=0; i<16; i++){
-                    std::getline(data,line,':');
-                    std::istringstream iss(line);
-                    iss >> std::dec >> homography[i];
-                }
-                return homography;
-            }
-
         protected:
 
             /** A scene viewer object from osg.
