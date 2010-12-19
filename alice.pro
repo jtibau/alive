@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS = alice juggler interaction poly
+SUBDIRS = alice juggler

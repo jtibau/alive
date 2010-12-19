@@ -14,7 +14,7 @@ namespace alice{
         App::App(alice::SceneRenderer* scene, alice::InteractionMethod* interactionMethod)
             : alice::App(scene, interactionMethod){
 
-            Qt3D::qApp3d->setWindowPosition(2,3,-1);
+            Qt3D::qApp3d->setWindowPosition(0,0.5,5);
             Qt3D::qApp3d->setWindowOrientation(0,0,1);
             Qt3D::qApp3d->setScaleFactor(1.0/150.0);
             Qt3D::qApp3d->hideInteractionRay(true);

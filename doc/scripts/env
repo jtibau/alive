@@ -1,11 +1,12 @@
-export VJ_BASE_DIR=~/Share/juggler
-export ALIVE_HOME=~/Share/alive
+export WORKSPACE=~/Workspace
+export VJ_BASE_DIR=$WORKSPACE
+export ALICE_HOME=$WORKSPACE
+export OSG_FILE_PATH=~/Models
 
-export ACLOCAL_FLAGS="-I $VJ_BASE_DIR/share/aclocal/"
-export FLAGPOLL_PATH=$VJ_BASE_DIR/share/flagpoll:$VJ_BASE_DIR/lib64/flagpoll:$VJ_BASE_DIR/juggler/lib64/debug/flagpoll
-export PATH="$VJ_BASE_DIR/bin:$PATH"
+export PATH="$WORKSPACE/bin:$PATH"
+export LD_LIBRARY_PATH=$WORKSPACE/lib:$WORKSPACE/lib64
 
+export ACLOCAL_FLAGS="-I $WORKSPACE/share/aclocal/"
+export FLAGPOLL_PATH=$WORKSPACE/share/flagpoll:$WORKSPACE/lib64/flagpoll:$WORKSPACE/lib64/debug/flagpoll
 export JDK_HOME=/usr
-export LD_LIBRARY_PATH=$VJ_BASE_DIR/lib:$VJ_BASE_DIR/lib64:$ALIVE_HOME/lib
 
-export OSG_FILE_PATH=~/Share/data
