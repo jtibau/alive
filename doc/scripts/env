@@ -9,4 +9,3 @@ export LD_LIBRARY_PATH=$WORKSPACE/lib:$WORKSPACE/lib64
 export ACLOCAL_FLAGS="-I $WORKSPACE/share/aclocal/"
 export FLAGPOLL_PATH=$WORKSPACE/share/flagpoll:$WORKSPACE/lib64/flagpoll:$WORKSPACE/lib64/debug/flagpoll
 export JDK_HOME=/usr
-

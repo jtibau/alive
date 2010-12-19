@@ -26,21 +26,6 @@ latest version (3.0 beta, or svn preferably).
 If you want to compile and run the polygon renderer that implements
 ALIVE, you also need the latest version of OpenSceneGraph.
 
-LICENSE
-
-This library is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this library.  If not, see <http://www.gnu.org/licenses/>.
-
 CONTACT
 
 Feel free to contact me (Javier Tibau) with comments, questions,
