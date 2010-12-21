@@ -86,7 +86,7 @@ namespace alice {
             sv->setFrameStamp(mFrameStamp.get());	// Need to do this before init
 
             sv->init();
-            sv->setClearColor(osg::Vec4( 0.5f, 0.8f, 1.0f, 1.0f ));
+            sv->setClearColor(osg::Vec4( 0, 0, 0, 0 ));
 
             sv->setDrawBufferValue(GL_NONE);	// Needed for stereo to work
 

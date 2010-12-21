@@ -108,7 +108,7 @@ namespace alice{
             // Wand Drawn
 
             Qt3D::qApp3d->drawWindows();
-
+            
             glPopAttrib();
             glPopAttrib();
             glPopAttrib();
