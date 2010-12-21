@@ -40,6 +40,9 @@ namespace alice {
 
             mUpdateVisitor = new osgUtil::UpdateVisitor();
             mFrameStamp    = new osg::FrameStamp();
+
+
+
             mUpdateVisitor->setFrameStamp(mFrameStamp.get());
 
             // This is the structure of the scene graph
@@ -51,44 +54,52 @@ namespace alice {
             std::string line;
             std::ifstream file(mSceneConfigurationFile.c_str());
             while(std::getline(file,line,',') && !line.empty()){
-                osg::MatrixTransform* newModel = new osg::MatrixTransform();
-                std::cout << "Loading Model: " << line << std::endl;
-                newModel->addChild(osgDB::readNodeFile(line));
+		osg::MatrixTransform* model = new osg::MatrixTransform();
+                osg::MatrixTransform* scale = new osg::MatrixTransform();
+                osg::MatrixTransform* rotation = new osg::MatrixTransform();
+                osg::MatrixTransform* translation = new osg::MatrixTransform();
+		// navigation -> model -> scale -> rotation -> translation -> mesh
+		mNavTrans->addChild(scale);
+		scale->addChild(rotation);
+		rotation->addChild(translation);
+		translation->addChild(model);
+                model->addChild(osgDB::readNodeFile(line));
 
-                std::getline(file,line,',');
-                if(line == "Model")         newModel->setName("Model Transformation");
-                else if(line == "World")    newModel->setName("World Transformation");
+		// Conf file reading... probably must be done elsewhere now :(
+                std::getline(file,line,','); //first item is the filename, second one is the model type
+                if(line == "Model")         model->setName("Model Transformation");
+                else if(line == "World")    model->setName("World Transformation");
 
-                float translation[3];
+                float t[3]; // the rest is the translation vector
                 for(int i=0; i<3; i++){
                     std::getline(file,line,',');
                     std::istringstream iss(line);
-                    iss >> translation[i];
+		    iss >> t[i];
                 }
+		translation->setMatrix(osg::Matrix::translate(t[0],t[1],t[2]));
 
-                osg::Matrix translationMatrix;
-                translationMatrix.makeTranslate(translation[0],translation[1],translation[2]);
-                newModel->setMatrix(translationMatrix);
-
-                mNavTrans->addChild(newModel);
-                std::getline(file,line);
+		float s[3];
+		for(int i=0; i<3; i++){
+                    std::getline(file,line,',');
+                    std::istringstream iss(line);
+		    iss >> s[i];
+                }
+		scale->setMatrix(osg::Matrix::scale(s[0],s[1],s[2]));
+		std::getline(file,line); // fetch one more time to reach the end of line.
             }
         }
 
         void SceneRenderer::contextInit(){
             const unsigned int unique_context_id = mInput->getCurrentContext();
-
             // This is the object that will be in charged of rendering everything
             osg::ref_ptr<osgUtil::SceneView> sv(new osgUtil::SceneView);
-
             sv->setDefaults(osgUtil::SceneView::STANDARD_SETTINGS);
 
-            sv->setFrameStamp(mFrameStamp.get());	// Need to do this before init
+            sv->setFrameStamp(mFrameStamp.get()); // Need to do this before init
 
             sv->init();
             sv->setClearColor(osg::Vec4( 0, 0, 0, 0 ));
-
-            sv->setDrawBufferValue(GL_NONE);	// Needed for stereo to work
+            sv->setDrawBufferValue(GL_NONE); // Needed for stereo to work
 
             // Set the light
             sv->getLight()->setAmbient(osg::Vec4(0.3f,0.3f,0.3f,1.0f));
@@ -122,7 +133,7 @@ namespace alice {
                 mNavTrans->setMatrix(convertMatrix(mInput->navigationMatrix()));
                 mRootNode->getBound();
             }
-
+/*
             // Intersection check
             if( mInput->applySelectionTest() ){
                 osg::Vec3d start = convertVector(mInput->getRayStart());
@@ -135,8 +146,7 @@ namespace alice {
                 // What to do with the selected object
                 if( intersector->containsIntersections() ){
                     osgUtil::LineSegmentIntersector::Intersection intersection = intersector->getFirstIntersection();
-                    // 0						1						 2							3
-                    // mRootNode -- mNavTrans --  mModelTrans -- mModel
+                    // mRootNode -- mNavTrans -- mModel -- scaleTrans -- rotationTrans -- translationTrans -- mModel
                     if(intersection.nodePath[2]->asTransform()->asMatrixTransform()->getName() == "Model Transformation"){
                         mSelectedObjectTransformation = intersection.nodePath[2]->asTransform()->asMatrixTransform();
                         mInput->selectedObjectTransformation(convertMatrix(mSelectedObjectTransformation->getMatrix()));
@@ -151,6 +161,7 @@ namespace alice {
                 mSelectedObjectTransformation->setMatrix(convertMatrix( mInput->selectedObjectTransformation() ));
                 mRootNode->getBound();
             }
+*/
 
         }
 
