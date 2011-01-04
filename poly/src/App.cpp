@@ -91,7 +91,11 @@ namespace alice{
             glMatrixMode(GL_MODELVIEW);
             glPopMatrix();
 
-            // Drawing the Wand
+            glPopAttrib();
+            glPopAttrib();
+            glPopAttrib();
+            
+	    // Drawing the Wand
             glEnable(GL_DEPTH_TEST);
             glColor3f(0.663f,0.83f,0.51f);
             glLineWidth(2.);
@@ -108,10 +112,7 @@ namespace alice{
             // Wand Drawn
 
             Qt3D::qApp3d->drawWindows();
-            
-            glPopAttrib();
-            glPopAttrib();
-            glPopAttrib();
+ 
         }
 
         void App::exit(){
