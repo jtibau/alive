@@ -32,7 +32,7 @@ void UserInterface::setApp(alice::App* app){ mApp = app; }
 void UserInterface::on_exitButton_clicked(){ mApp->exit(); }
 
 void UserInterface::on_addButton_clicked(){
-    gmtl::Matrix44f nav = mApp->mInput->navigationMatrix();
+    gmtl::Matrix44f nav = mApp->getInputHandler()->navigationMatrix();
     const float* navData =  nav.getData();
 
     qreal values[16];
@@ -64,5 +64,5 @@ void UserInterface::on_cameraListWidget_itemClicked(){
     restoredNavigation.set(matValues);
     gmtl::transpose(restoredNavigation);
 
-    mApp->mInput->navigationMatrix(restoredNavigation);
+    mApp->getInputHandler()->navigationMatrix(restoredNavigation);
 }

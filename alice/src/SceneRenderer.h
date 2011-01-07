@@ -7,7 +7,6 @@ namespace alice {
 	  * @{
 	  */
 	
-
 	/** @class alice::SceneRenderer alice/SceneRenderer.h
 	  * @brief The abstract SceneRenderer class
 	  *
@@ -65,7 +64,7 @@ namespace alice {
 
 	protected:
 
-    InputHandler* mInput; /**< Pointer to the InputHandler object */
+	    InputHandler* mInput; /**< Pointer to the InputHandler object */
 	};
 	
 	/** @} */

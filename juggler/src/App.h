@@ -46,44 +46,34 @@ namespace alice{
 			  */
 			virtual void init();
 
-			/** @brief Calls alice::App's contextInit
-			  */
+			/** @brief Calls alice::App's contextInit */
 			virtual void contextInit();
 
-			/** @brief Updates the InputHandler object, calls alice::App's preFrame
-			  */
+			/** @brief Updates the InputHandler object, calls alice::App's preFrame */
 			virtual void preFrame();
 
-			/** @brief Calls alice::App's latePreFrame
-			  */
+			/** @brief Calls alice::App's latePreFrame */
 			virtual void latePreFrame();
 
-			/** @brief Calls alice::App's bufferPreDraw
-			  */
+			/** @brief Calls alice::App's bufferPreDraw */
 			virtual void bufferPreDraw();
 
-			/** @brief Calls alice::App's contextPreDraw
-			  */
+			/** @brief Calls alice::App's contextPreDraw */
 			virtual void contextPreDraw();
 
-			/** @brief Calls alice::App's draw
-			  */
+			/** @brief Calls alice::App's draw */
 			virtual void draw();
 
-			/** @brief Calls alice::App's intraFrame
-			  */
+			/** @brief Calls alice::App's intraFrame */
 			virtual void intraFrame();
 
-			/** @brief Calls alice::App's contextPostDraw
-			  */
+			/** @brief Calls alice::App's contextPostDraw */
 			virtual void contextPostDraw();
 
-			/** @brief Calls alice::App's postFrame
-			  */
+			/** @brief Calls alice::App's postFrame */
 			virtual void postFrame();
 
-			/** @brief Calls alice::App's contextClose
-			  */
+			/** @brief Calls alice::App's contextClose */
 			virtual void contextClose();
 			
 			virtual void exit();
@@ -94,8 +84,8 @@ namespace alice{
 			virtual float getDrawScaleFactor();
 
 		private:
-			alice::App* mApp; /**< Pointer to the user's App */
-			alice::InputHandler* mInput; /**< Pointer to a juggler InputHandler object */
+			alice::App* mApp;				/**< Pointer to the user's App */
+			alice::InputHandler* mInput;	/**< Pointer to a juggler InputHandler object */
 		};
 		/** @} */
 	}

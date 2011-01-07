@@ -37,13 +37,12 @@ namespace alice {
 		  */
 		virtual void init(InputHandler* input);
 
-		/** @brief Update code specific to the method
-		  */
+		/** @brief Update code specific to the method */
 		virtual void update() = 0;
 
 	protected:
-		unsigned int mButtonNumber; /**< Button id that activates the method */
-		InputHandler* mInput; /**< Pointer to the InputHandler object */
+		unsigned int mButtonNumber;		/**< Button id that activates the method */
+		InputHandler* mInput;			/**< Pointer to the InputHandler object */
 	};
 	/** @} */
 }

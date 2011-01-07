@@ -75,5 +75,7 @@ namespace alice {
 	void App::postFrame() {}
 	void App::contextClose() {}
 
-  void App::exit(){}
+	InputHandler* App::getInputHandler(){ return mInput; }
+
+	void App::exit(){}
 }

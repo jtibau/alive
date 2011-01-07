@@ -110,18 +110,23 @@ namespace alice {
 		  */
 		virtual void postFrame();
 
-		/** @brief Closing the context, on App exit
+		/** @brief Closes the context, on App exit.
 		  */
 		virtual void contextClose();
 		
+		/** @brief Exits the application.
+		  */
 		virtual void exit();
 
-		InputHandler* mInput;	/**< Input Handler */
+		/** @brief Grants access to the application's InputHandler object.
+		  */
+		virtual InputHandler* getInputHandler();
 
 	protected:
 
-		SceneRenderer* mSceneRenderer;	/**< The object that contains the rendering code */
-		InteractionMethod* mInteractionMethod;	/**< The App's InteractionMethod */
+		InputHandler*		mInput;			/**< Input Handler */
+		SceneRenderer*		mSceneRenderer;		/**< The object that contains the rendering code */
+		InteractionMethod*	mInteractionMethod;	/**< The App's InteractionMethod */
 	};
 	/** @} */
 }

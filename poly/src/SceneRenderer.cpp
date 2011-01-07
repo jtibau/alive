@@ -63,6 +63,7 @@ namespace alice {
 		scale->addChild(rotation);
 		rotation->addChild(translation);
 		translation->addChild(model);
+		std::cout << "Opening: " << line << std::endl;
                 model->addChild(osgDB::readNodeFile(line));
 
 		// Conf file reading... probably must be done elsewhere now :(

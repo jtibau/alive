@@ -4,7 +4,6 @@
 
 #include <alice/Kernel.h>
 #include <alice/App.h>
-//#include <alice/SceneRenderer.h>
 #include <alice/InteractionMethod.h>
 
 #include "App.h"
@@ -23,8 +22,7 @@ namespace alice {
 
 		public: 
 
-			/** @brief Takes the user's App and instantiates an alice::juggler::App with it.
-			  */
+			/** @brief Takes the user's App and instantiates an alice::juggler::App with it. */
 			Kernel(alice::App* userApp = 0);
 
 			/** @brief Deletes the juggler app.
@@ -41,12 +39,13 @@ namespace alice {
 			  */
 			void start(int argc, char* argv[]);
 			
+			/** @brief Stops the Application */
 			void stop();
 
 		private:
 
-			vrj::Kernel* kernel; /**< The VR Juggler kernel */
-			alice::juggler::App* app; /**< The alice::juggler::App wrapper object */
+			vrj::Kernel* kernel;		/**< The VR Juggler kernel */
+			alice::juggler::App* app;	/**< The alice::juggler::App wrapper object */
 		};
 		/** @} */
 	}

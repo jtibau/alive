@@ -34,43 +34,40 @@ namespace alice {
 
 		public:
 
-			/** @brief Initializes the devices according to VR Juggler requirements
-			  */
+			/** @brief Initializes the devices according to VR Juggler requirements */
 			void init();
 
-			/** @brief Updates device state
-			  */
+			/** @brief Updates device state */
 			void update();
 
-			/** @brief Returns the OpenGL context
-			  */
+			/** @brief Returns the OpenGL context */
 			unsigned int getCurrentContext();
 
+			/** @brief Locks the mutex */
 			void lockMutex();
+
+			/** @brief Releases the mutex lock */
 			void releaseMutex();
 
-			/** @brief Returns the OpenGL Viewport
-			  */
+			/** @brief Returns the OpenGL Viewport */
 			const int* getViewport();
 
-			/** @brief Returns the OpenGL View Matrix
-			  */
+			/** @brief Returns the OpenGL View Matrix */
 			const float* getViewMatrix();
 
-			/** @brief Returns the OpenGL Frustum
-			  */
+			/** @brief Returns the OpenGL Frustum */
 			const float* getFrustum();
 
 		private:
 
-			gadget::PositionInterface  mWand; /**< The VRJuggler pointer to the Wand */
-			gadget::PositionInterface  mHead; /**< The VRJuggler pointer to the Head */
-			gadget::DigitalInterface   mButtonInterface[MAX_BUTTONS]; /**< The VRJuggler pointers to the buttons */
+			gadget::PositionInterface  mWand;							/**< The VRJuggler pointer to the Wand */
+			gadget::PositionInterface  mHead;							/**< The VRJuggler pointer to the Head */
+			gadget::DigitalInterface   mButtonInterface[MAX_BUTTONS];	/**< The VRJuggler pointers to the buttons */
 
-			bool mFirstButtonClick[MAX_BUTTONS]; /**< A hack, to handle a current bug with the VRPN driver in vrj SS*/
+			bool mFirstButtonClick[MAX_BUTTONS];						/**< A hack, to handle a current bug with the VRPN driver in vrj SS*/
 
-			vpr::Guard<vpr::Mutex> *mGuard;
-			vpr::Mutex mLock;
+			vpr::Guard<vpr::Mutex> *mGuard;								/**< Used to handle VR Juggler's mutex objects */
+			vpr::Mutex mLock;											/**< VR Juggler's mutex lock object */
 		};
 		/** @} */
 	}
