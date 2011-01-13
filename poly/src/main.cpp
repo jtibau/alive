@@ -1,53 +1,41 @@
-/******************************************************************************
- *
- *	This library is free software: you can redistribute it and/or modify
- *	it under the terms of the GNU General Public License as published by
- *	the Free Software Foundation, either version 3 of the License, or
- *	(at your option) any later version.
- *
- *	This library is distributed in the hope that it will be useful,
- *	but WITHOUT ANY WARRANTY; without even the implied warranty of
- *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *	GNU General Public License for more details.
- *
- *	You should have received a copy of the GNU General Public License
- *	along with this library.  If not, see <http://www.gnu.org/licenses/>.
- *
- *****************************************************************************/
+#include <alice/juggler/Kernel.h>	// Currently the only kernel for Alice, we use VR Juggler
 
-#include <alice/App.h>
-#include <alice/juggler/Kernel.h>
+#include <main/qapplication3d.h>	// The Qt3D header
 
-#include "App.h"
-#include "SceneRenderer.h"
-#include "MyInteraction.h"
-#include "ui/UserInterface.h"
+#include "App.h"					// Our own App class
+#include "SceneRenderer.h"			// Our SceneRenderer
+#include "MyInteraction.h"			// The Interaction of our choice
+#include "ui/UserInterface.h"		// Our user interfaces
 
-#include <main/qapplication3d.h>
-
-#include <iostream>
-
+// App usage:
+//	appName SceneConfigurationFile VRJugglerConfigurationFile(s)
 int main(int argc, char* argv[]){
+	// Qt3D must be instantiated first of all
+	Qt3D::QApplication3D qt3DApp(argc,argv);
 
-  Qt3D::QApplication3D qt3DApp(argc,argv);
+	// The poly App subclass is needed in order to handle qt3d stuff
+	alice::App* application = new alice::poly::App(
+		new alice::poly::SceneRenderer(argv[1]),	// We give our own SceneRendererObject
+		new alice::poly::MyInteraction()			// Our prefferred interaction method for this application
+	);
 
-  // Since this application does fairly standard stuff,
-  // we don't need to subclass alice:App
-  alice::poly::App* application = new alice::poly::App(
-    new alice::poly::SceneRenderer(argv[1]),
-    new alice::poly::MyInteraction()
-  );
+	// Instantiate alice's kernel. In this case a VR Juggler kernel
+	alice::Kernel* kernel = new alice::juggler::Kernel(application);
+	// Start the kernel, give it all the cl args to parse
+	kernel->start(argc,argv);
 
-  alice::Kernel* kernel = new alice::juggler::Kernel(application);
-  kernel->start(argc,argv);
+	// Instantiate and show our qt windows
+	UserInterface* ui = new UserInterface(NULL);
+	ui->setApp(application);
+	ui->show();
 
-  UserInterface* ui = new UserInterface(NULL);
-  ui->setApp(application);
-  ui->show();
+	// Start the qt thread
+	qt3DApp.exec();
+	
+	// When the qt thread exits it will return control to this thread
+	kernel->stop();
 
-  qt3DApp.exec();
-  kernel->stop();
-
-  delete kernel;
-  return EXIT_SUCCESS;
+	// Delete the kernel and return an success message to the cl
+	delete kernel;
+	return EXIT_SUCCESS;
 }

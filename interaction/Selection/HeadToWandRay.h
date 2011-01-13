@@ -11,10 +11,10 @@ namespace alice {
 			* @{
 			*/
 
-		/** @class alice::interaction::WandDirectionRay alice/interaction/WandDirectionRay.h
+		/** @class alice::interaction::HeadToWandRay alice/interaction/HeadToWandRay.h
 			* @brief A very basic ray casting technique.
 			*
-			* Sets the casted ray to be in the direction of the wand
+			* Sets the casted ray to start at the head and point towards the wand.
 			*/
 		class HeadToWandRay : public alice::InteractionMethod {
 

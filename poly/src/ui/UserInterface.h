@@ -3,29 +3,41 @@
 #include "ui_UserInterface.h"
 
 #include <QMainWindow>
-
 #include <alice/App.h>
 
-class UserInterface : public QMainWindow, private Ui::MainWindow
-{
-  Q_OBJECT
-  
-  public:
+/** @class UserInterface UserInterface.h
+  * @brief Provides the connection between the Qt UI layer and our application.
+  */
+class UserInterface : public QMainWindow, private Ui::MainWindow {
+Q_OBJECT
 
-  UserInterface(QWidget* parent, Qt::WindowFlags flags=0);
-  
-  public Q_SLOTS:
-  void setApp(alice::App* app);
-  void on_exitButton_clicked();
+public:
 
-  void on_addButton_clicked();
-  void on_removeButton_clicked();
-  
-  void on_cameraListWidget_itemClicked();
+	/** @brief Default constructor of a Qt widget.
+	  *
+	  * Initializes components of the UI.
+	  */
+	UserInterface(QWidget* parent, Qt::WindowFlags flags=0);
 
-  private:
+public Q_SLOTS:
 
-  alice::App* mApp;
-  int camN;
+	/** @brief Stores a pointer to the application object. */
+	void setApp(alice::App* app);
 
+	/** @brief Tells the app to exit. */
+	void on_exitButton_clicked();
+
+	/** @brief Adds the current navigation matrix to the list. */
+	void on_addButton_clicked();
+
+	/** @brief Removes the currently selected nav matrix of the list. */
+	void on_removeButton_clicked();
+
+	/** @brief Upon clicking on a listed item from the camera list, changes the nav matrix to it. */
+	void on_cameraListWidget_itemClicked();
+
+private:
+
+	alice::App* mApp;	/**< Pointer to the application object. */
+	int camN;			/**< Number of next cam. Used to vary the name of the next cam on the list. */
 };

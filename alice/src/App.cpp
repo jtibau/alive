@@ -41,34 +41,7 @@ namespace alice {
 
 	void App::contextPreDraw() {}
 
-	void App::draw() {
-		glClear(GL_DEPTH_BUFFER_BIT);
-
-		// Users have reported problems with OpenGL reporting stack underflow
-		// problems when the texture attribute bit is pushed here, so we push all
-		// attributes *except* GL_TEXTURE_BIT.
-		glPushAttrib(GL_ALL_ATTRIB_BITS & ~GL_TEXTURE_BIT);
-		glPushAttrib(GL_TRANSFORM_BIT);
-		glPushAttrib(GL_VIEWPORT_BIT);
-
-		glMatrixMode(GL_MODELVIEW);
-		glPushMatrix();
-
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
-
-		if(mSceneRenderer) mSceneRenderer->draw();
-
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
-
-		glMatrixMode(GL_MODELVIEW);
-		glPopMatrix();
-
-		glPopAttrib();
-		glPopAttrib();
-		glPopAttrib();
-	}
+	void App::draw() {}
 
 	void App::intraFrame() {}
 	void App::contextPostDraw() {}
