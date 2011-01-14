@@ -200,7 +200,12 @@ namespace alice {
 		/** @brief Gets the current selected object's scaling matrix */
 		virtual gmtl::Matrix44f selectedObjectScalingMatrix(){ return mSelectedScale; }
 
-		protected:
+		/** @brief Signal the Scene to center the models */
+		virtual void centerModels(bool flag){ mCenterFlag = flag; }
+		/** @brief Query if we should center the models */
+		virtual bool centerModels(){ return mCenterFlag; }
+
+	protected:
 
 		gmtl::Vec3f			mHeadPosition;					/**< Head position */
 		gmtl::Vec3f			mHeadDirection;					/**< Head direction */
@@ -234,6 +239,7 @@ namespace alice {
 		bool				mManipulationFlag;				/**< The manipulation method tells the scene that a transformation should be applied to the selected object */
 		bool				mScalingFlag;					/**< A scaling manipulation method alerts the scene that a scaling has to be applied to the selected object */
 		bool				mNavigationFlag;				/**< Apply Navigation */
+		bool				mCenterFlag;					/**< Indicates scene to center models */
 
 		gmtl::Vec3f			mRayStart;						/**< Starting point of the casted ray, it is set by a manipulation method */
 		gmtl::Vec3f			mRayEnd;						/**< End point for the casted ray, set by a manipulation method */

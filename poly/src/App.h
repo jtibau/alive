@@ -42,7 +42,7 @@ namespace alice {
 			/** @brief Ask the scene to draw itself. Also draws the ray and qt3d windows. */
 			void draw();
 
-			// Override Qt3D::Modelview
+			/** @brief Override Qt3D::Modelview */
 			void getModelview(double*);
 		};
 		/** @}

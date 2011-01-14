@@ -28,7 +28,7 @@ UserInterface::UserInterface(QWidget* parent, Qt::WindowFlags flags)
     cameraListWidget->addItem(start);
 }
 
-void UserInterface::setApp(alice::App* app){ mApp = app; }
+void UserInterface::setApp(alice::poly::App* app){ mApp = app; }
 void UserInterface::on_exitButton_clicked(){ mApp->exit(); }
 
 void UserInterface::on_addButton_clicked(){
@@ -65,4 +65,8 @@ void UserInterface::on_cameraListWidget_itemClicked(){
     gmtl::transpose(restoredNavigation);
 
     mApp->getInputHandler()->navigationMatrix(restoredNavigation);
+}
+
+void UserInterface::on_centerButton_clicked(){
+	mApp->getInputHandler()->centerModels(true);
 }

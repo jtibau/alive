@@ -14,7 +14,7 @@ int main(int argc, char* argv[]){
 	Qt3D::QApplication3D qt3DApp(argc,argv);
 
 	// The poly App subclass is needed in order to handle qt3d stuff
-	alice::App* application = new alice::poly::App(
+	alice::poly::App* application = new alice::poly::App(
 		new alice::poly::SceneRenderer(argv[1]),	// We give our own SceneRendererObject
 		new alice::poly::MyInteraction()			// Our prefferred interaction method for this application
 	);

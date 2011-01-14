@@ -121,7 +121,7 @@ namespace alice {
 		/** @brief Grants access to the application's InputHandler object.
 		  */
 		virtual InputHandler* getInputHandler();
-
+		
 	protected:
 
 		InputHandler*		mInput;			/**< Input Handler */

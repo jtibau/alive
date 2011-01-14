@@ -17,6 +17,7 @@ namespace alice {
 			}
 			mCurrentTime = 0;
 			mObjectSelectedFlag = false;
+			mCenterFlag = false;
 		}
 
 		void InputHandler::update(){

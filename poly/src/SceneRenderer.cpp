@@ -71,9 +71,6 @@ namespace alice {
 				scale->setMatrix(osg::Matrix::scale(s[0],s[1],s[2]));
 				std::getline(file,line); // fetch one more time to reach the end of line.
 			}
-			osg::BoundingSphere bs = mRootNode->getBound();
-			osg::Vec3 center = bs.center();
-			std::cout << "BoundingSphere Radius: " << bs.radius() <<" Center: X(" << center[0] << ") Y(" << center[1] << ") Z(" << center[2] <<")\n";
 		}
 
 		void SceneRenderer::contextInit(){
@@ -115,6 +112,20 @@ namespace alice {
 			mUpdateVisitor->setTraversalNumber(mFrameNumber);
 			mRootNode->accept(*mUpdateVisitor);
 
+			// center the scene
+			if(mInput->centerModels()){
+				osg::BoundingSphere bs = mRootNode->getBound();
+				osg::Vec3 center = bs.center();
+				std::cout << "BoundingSphere Radius: " << bs.radius() <<" Center: X(" << center[0] << ") Y(" << center[1] << ") Z(" << center[2] <<")\n";
+
+				osg::Matrix currentNav = mNavTrans->getMatrix();
+				osg::Matrix offset = osg::Matrix::translate(-center[0],-center[1],-center[2]);
+
+				mNavTrans->setMatrix(offset * currentNav);
+
+				mInput->centerModels(false);	// Only do it once per button click
+			}
+
 			// Update the navigation matrix
 			if(mInput->applyNavigation()){
 				mNavTrans->setMatrix(convertMatrix(mInput->navigationMatrix()));
@@ -122,7 +133,7 @@ namespace alice {
 			}
 			
 			// Intersection check
-			if( mInput->applySelectionTest() ){
+			if( mInput->applySelectionTest()){
 				osg::Vec3d start = convertVector(mInput->getRayStart());
 				osg::Vec3d end = convertVector(mInput->getRayEnd());
 				osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector = new osgUtil::LineSegmentIntersector(start, end);

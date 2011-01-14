@@ -3,7 +3,7 @@
 #include "ui_UserInterface.h"
 
 #include <QMainWindow>
-#include <alice/App.h>
+#include "../App.h"
 
 /** @class UserInterface UserInterface.h
   * @brief Provides the connection between the Qt UI layer and our application.
@@ -22,7 +22,7 @@ public:
 public Q_SLOTS:
 
 	/** @brief Stores a pointer to the application object. */
-	void setApp(alice::App* app);
+	void setApp(alice::poly::App* app);
 
 	/** @brief Tells the app to exit. */
 	void on_exitButton_clicked();
@@ -36,8 +36,11 @@ public Q_SLOTS:
 	/** @brief Upon clicking on a listed item from the camera list, changes the nav matrix to it. */
 	void on_cameraListWidget_itemClicked();
 
+	/** @brief Tells the App to center the scene */
+	void on_centerButton_clicked();
+
 private:
 
-	alice::App* mApp;	/**< Pointer to the application object. */
-	int camN;			/**< Number of next cam. Used to vary the name of the next cam on the list. */
+	alice::poly::App* mApp;		/**< Pointer to the application object. */
+	int camN;					/**< Number of next cam. Used to vary the name of the next cam on the list. */
 };
