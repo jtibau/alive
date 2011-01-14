@@ -6,6 +6,7 @@
 #include <osgUtil/LineSegmentIntersector>
 
 #include <osg/MatrixTransform>
+#include <osg/BoundingSphere>
 
 #include <iostream>
 #include <sstream>
@@ -70,6 +71,9 @@ namespace alice {
 				scale->setMatrix(osg::Matrix::scale(s[0],s[1],s[2]));
 				std::getline(file,line); // fetch one more time to reach the end of line.
 			}
+			osg::BoundingSphere bs = mRootNode->getBound();
+			osg::Vec3 center = bs.center();
+			std::cout << "BoundingSphere Radius: " << bs.radius() <<" Center: X(" << center[0] << ") Y(" << center[1] << ") Z(" << center[2] <<")\n";
 		}
 
 		void SceneRenderer::contextInit(){
