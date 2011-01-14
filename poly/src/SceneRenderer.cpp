@@ -34,22 +34,24 @@ namespace alice {
 			std::string line;
 			std::ifstream file(mSceneConfigurationFile.c_str());
 			while(std::getline(file,line,',') && !line.empty()){
-				osg::MatrixTransform* model = new osg::MatrixTransform();
 				osg::MatrixTransform* scale = new osg::MatrixTransform();
-				osg::MatrixTransform* rotation = new osg::MatrixTransform();
+				// this next matrix will actually hold both translation and rotation (one operation must be applied from the left, the other from the right of the identity.
 				osg::MatrixTransform* translation = new osg::MatrixTransform();
-				// navigation -> model -> scale -> rotation -> translation -> mesh
+				osg::MatrixTransform* model = new osg::MatrixTransform();
+				// navigation -> scale -> rotation/translation -> model -> mesh
 				mNavTrans->addChild(scale);
-				scale->addChild(rotation);
-				rotation->addChild(translation);
+				scale->addChild(translation);
 				translation->addChild(model);
-				std::cout << "Opening: " << line << std::endl;
 				model->addChild(osgDB::readNodeFile(line));
 
 				// Conf file reading... probably must be done elsewhere now :(
 				std::getline(file,line,','); //first item is the filename, second one is the model type
-				if(line == "Model")         model->setName("Model Transformation");
-				else if(line == "World")    model->setName("World Transformation");
+				if(line == "Model"){
+					model->setName("Model Transformation");
+				}
+				else if(line == "World"){
+					model->setName("World Transformation");
+				}
 
 				float t[3]; // the rest is the translation vector
 				for(int i=0; i<3; i++){
@@ -115,35 +117,37 @@ namespace alice {
 				mRootNode->getBound();
 			}
 			
-			/*
 			// Intersection check
 			if( mInput->applySelectionTest() ){
 				osg::Vec3d start = convertVector(mInput->getRayStart());
 				osg::Vec3d end = convertVector(mInput->getRayEnd());
-				osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector =
-				new osgUtil::LineSegmentIntersector(start, end);
+				osg::ref_ptr<osgUtil::LineSegmentIntersector> intersector = new osgUtil::LineSegmentIntersector(start, end);
 				osgUtil::IntersectionVisitor intersectVisitor( intersector.get() );
 				mRootNode->accept(intersectVisitor);
 
 				// What to do with the selected object
 				if( intersector->containsIntersections() ){
 					osgUtil::LineSegmentIntersector::Intersection intersection = intersector->getFirstIntersection();
-					// mRootNode -- mNavTrans -- mModel -- scaleTrans -- rotationTrans -- translationTrans -- mModel
-					if(intersection.nodePath[2]->asTransform()->asMatrixTransform()->getName() == "Model Transformation"){
-						mSelectedObjectTransformation = intersection.nodePath[2]->asTransform()->asMatrixTransform();
+					// mRootNode -- mNavTrans -- scale -- rotation/translation -- mModel
+					if(intersection.nodePath[4]->asTransform()->asMatrixTransform()->getName() == "Model Transformation"){
+						mSelectedObjectTransformation = intersection.nodePath[3]->asTransform()->asMatrixTransform();
 						mInput->selectedObjectTransformation(convertMatrix(mSelectedObjectTransformation->getMatrix()));
+
+						mSelectedObjectScaling = intersection.nodePath[2]->asTransform()->asMatrixTransform();
+						mInput->selectedObjectScalingMatrix(convertMatrix(mSelectedObjectScaling->getMatrix()));
+						
 						mInput->objectSelected(true);						//we intersected something manipulable
-					} else mInput->objectSelected(false);			//intersecting a non-manipulable object
+					} else {
+						mInput->objectSelected(false);			//intersecting a non-manipulable object
+					}
 				} else mInput->objectSelected(false);				//not intersecting anything
 			}
 
 			// The manipulation method needs to let us know if there is any manipulation to do
 			if(mInput->applyManipulation()){
-				//std::cout << "Manipulating\n";
 				mSelectedObjectTransformation->setMatrix(convertMatrix( mInput->selectedObjectTransformation() ));
 				mRootNode->getBound();
 			}
-			*/
 		}
 
 		void SceneRenderer::draw() {

@@ -136,11 +136,11 @@ namespace alice {
 		/** A transformation node that affects the position/orientation of the whole scene */
 		osg::ref_ptr<osg::MatrixTransform>								mNavTrans;
 
-		/** A pointer to the selected objects transformation, only to be used internally */
+		/** A pointer to the selected object's transformation, only to be used internally */
 		osg::ref_ptr<osg::MatrixTransform>								mSelectedObjectTransformation;
 
-		/** A pointer to the selected objects transformation, used for interactions */
-		osg::ref_ptr<osg::Node>											mSelectedObject;
+		/** A pointer to the selected object's scaling matrix */
+		osg::ref_ptr<osg::MatrixTransform>								mSelectedObjectScaling;
 
 		std::string														mSceneConfigurationFile;
 		};

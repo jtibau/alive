@@ -127,6 +127,20 @@ namespace alice {
 		  */
 		virtual gmtl::Vec3f getWandDirection(Time t = CURRENT);
 
+		/** @brief Returns a 4x4 matrix with the head data
+		  *
+		  * The two possible time values are CURRENT and PREVIOUS. These are stored
+		  * and provided in case some interaction methods need them.
+		  */
+		virtual gmtl::Matrix44f getHeadMatrix(Time t = CURRENT);
+
+		/** @brief Returns a 4x4 matrix with the wand data
+		  *
+		  * The two possible time values are CURRENT and PREVIOUS. These are stored
+		  * and provided in case some interaction methods need them.
+		  */
+		virtual gmtl::Matrix44f getWandMatrix(Time t = CURRENT);
+
 		/** @brief Returns the starting point of the casted ray */
 		virtual gmtl::Vec3f getRayStart();
 		
@@ -197,6 +211,12 @@ namespace alice {
 		gmtl::Vec3f			mPreviousWandPosition;			/**< Previous Wand Position */
 		gmtl::Vec3f			mPreviousWandDirection;			/**< Previuos Wand Direction */
 
+		gmtl::Matrix44f 	mWandMatrix;					/**< Unprocessed wand matrix */
+		gmtl::Matrix44f 	mHeadMatrix;					/**< Unprocessed head matrix */
+		
+		gmtl::Matrix44f 	mPreviousWandMatrix;			/**< Previous wand matrix */
+		gmtl::Matrix44f 	mPreviousHeadMatrix;			/**< Previous head matrix */
+
 		bool				mButtonState[MAX_BUTTONS];		/**< State of the buttons */
 		bool				mButtonChanged[MAX_BUTTONS];	/**< Buttons' state change flag */
 
@@ -219,7 +239,6 @@ namespace alice {
 		gmtl::Vec3f			mRayEnd;						/**< End point for the casted ray, set by a manipulation method */
 
 		gmtl::Matrix44f		mNavigationMatrix;				/**< The user's navigation matrix */
-		gmtl::Matrix44f		mSelectedObjectMatrix;			/**< Transformation matrix of the interesected/selected object, does not contain the navigation matrix */
 		gmtl::Matrix44f		mSelectedTransformation;		/**< The transformation that will be applied to the selected object */
 		gmtl::Matrix44f		mSelectedScale;					/**< The scaling that will be applied to the selected object */
 	};

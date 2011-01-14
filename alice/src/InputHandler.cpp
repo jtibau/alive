@@ -44,6 +44,16 @@ namespace alice {
 		if(t == PREVIOUS) return mPreviousWandDirection;
 		return mWandDirection;
 	}
+	
+	gmtl::Matrix44f InputHandler::getHeadMatrix(Time t){
+		if(t == PREVIOUS) return mPreviousHeadMatrix;
+		return mHeadMatrix;
+	}
+	
+	gmtl::Matrix44f InputHandler::getWandMatrix(Time t){
+		if(t == PREVIOUS) return mPreviousWandMatrix;
+		return mWandMatrix;
+	}
 
 	gmtl::Vec3f InputHandler::getRayStart(){ return mRayStart; }
 	void InputHandler::setRayStart(gmtl::Vec3f rayStart){ mRayStart = rayStart; }

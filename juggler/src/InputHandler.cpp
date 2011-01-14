@@ -24,25 +24,26 @@ namespace alice {
 			mCurrentTime = mHead->getTimeStamp().secd();
 			mTimeDelta = (float)(mCurrentTime - mPreviousTime);
 
-
 			// store previous head and wand data
 			mPreviousWandPosition = mWandPosition;
 			mPreviousWandDirection = mWandDirection;
 			mPreviousHeadPosition = mHeadPosition;
 			mPreviousHeadDirection = mHeadDirection;
+			mPreviousWandMatrix = mWandMatrix;
+			mPreviousHeadMatrix = mHeadMatrix;
 
 			// forward vector
 			gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -1.0f);
 
 			// update wand data
-			gmtl::Matrix44f wandMatrix = mWand->getData(gadget::PositionUnitConversion::ConvertToMeters);
-			gmtl::xform(mWandDirection, wandMatrix, Zdir);
-			mWandPosition = gmtl::makeTrans<gmtl::Point3f>(wandMatrix);
+			mWandMatrix = mWand->getData(gadget::PositionUnitConversion::ConvertToMeters);
+			gmtl::xform(mWandDirection, mWandMatrix, Zdir);
+			mWandPosition = gmtl::makeTrans<gmtl::Point3f>(mWandMatrix);
 
 			// update head data
-			gmtl::Matrix44f headMatrix = mHead->getData(gadget::PositionUnitConversion::ConvertToMeters);
-			gmtl::xform(mHeadDirection, headMatrix, Zdir);
-			mHeadPosition = gmtl::makeTrans<gmtl::Point3f>(headMatrix);
+			mHeadMatrix = mHead->getData(gadget::PositionUnitConversion::ConvertToMeters);
+			gmtl::xform(mHeadDirection, mHeadMatrix, Zdir);
+			mHeadPosition = gmtl::makeTrans<gmtl::Point3f>(mHeadMatrix);
 
 			// update button data only if the digital interface reports a toggle
 			for(int i=0; i<MAX_BUTTONS; i++){
